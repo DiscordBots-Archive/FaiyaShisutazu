@@ -28,7 +28,6 @@ class Dog extends Social {
       } = await snek.get(url);
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nè!",
           "url": body.message,
           "color": 0x9575cd,
           "image": {

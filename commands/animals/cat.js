@@ -27,7 +27,6 @@ class Cat extends Social {
       } = await snek.get("http://random.cat/meow");
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nha!",
           "url": body.file,
           "color": 0x9575cd,
           "image": {

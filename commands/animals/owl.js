@@ -25,7 +25,6 @@ class Owl extends Social {
       const owl = await snek.get("http://pics.floofybot.moe/owl").then(r => r.body.image);
       await msg.edit({
         embed: {
-          "title": "Xem hình gốc ở đây nha!",
           "url": owl,
           "color": 0x9575cd,
           "image": {

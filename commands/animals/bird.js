@@ -25,7 +25,6 @@ class Bird extends Social {
       } = await snek.get("http://random.birb.pw/tweet/");
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nè!",
           "url": `https://random.birb.pw/img/${body}`,
           "color": 0x9575cd,
           "image": {

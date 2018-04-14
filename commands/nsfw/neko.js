@@ -27,7 +27,6 @@ class Neko extends Social {
       const { body } = await snek.get(`https://nekos.life/api${Math.random() >= 0.5 ? "/lewd" : ""}/neko`);
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nè!",
           "url": body.neko,
           "color": 0x9575cd,
           "image": {

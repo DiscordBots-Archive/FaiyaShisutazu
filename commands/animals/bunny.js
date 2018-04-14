@@ -27,7 +27,6 @@ class Bunny extends Social {
       } = await snek.get("https://api.bunnies.io/v2/loop/random/?media=gif,png");
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nha!",
           "url": body.media.gif,
           "color": 0x9575cd,
           "image": {

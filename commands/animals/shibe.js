@@ -27,7 +27,6 @@ class Shibe extends Social {
       } = await snek.get("http://shibe.online/api/shibes");
       await msg.edit({
         embed: {
-          "title": "Hình gốc ở đây nè mọi người!",
           "url": body[0],
           "color": 0x9575cd,
           "image": {
