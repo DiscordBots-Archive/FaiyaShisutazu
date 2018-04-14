@@ -1,0 +1,18 @@
+# Logs & configs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+config.json
+config.js
+.vscode/
+
+# Data
+data/
+
+# Dependency directories
+node_modules/
+
+
+

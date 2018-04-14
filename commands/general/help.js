@@ -1,0 +1,88 @@
+const Command = require(`${process.cwd()}/base/Command.js`);
+
+class Help extends Command {
+  constructor(client) {
+    super(client, {
+      name: "help",
+      description: "Tìm hiểu về mọi commands của em nè!",
+      usage: "help [command]",
+      category: "1. General",
+      extended: "Hiện mọi commands mà senpai có thể dùng, nếu cần thêm nhiều chi tiết về 1 command nào đó thì senpai có thể dùng 'help <command name>'.",
+      aliases: ["h", "halp", "help"]
+    });
+  }
+
+  async run(message, args, level) {
+    const settings = message.settings;
+    if (!args[0]) {
+      const myCommands = message.guild ? this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true) : this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true && cmd.conf.guildOnly !== true);
+
+      let currentCategory = "";
+      let output = "{\"title\": \"**Cùng tìm hiểu về mọi commands của em nha**\",\"description\": \"_Dùng re help [command name] để có nhiều chi tiết hơn_\",\"color\": 4886754,\"fields\": [";
+
+      const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
+
+      sorted.forEach(c => {
+        const cat = c.help.category.toProperCase();
+        if (currentCategory !== cat) {
+          if (cat !== "1. General")
+            output += "\"},";
+          output += `{"name": "${cat}","value": "`;
+          currentCategory = cat;
+        }
+        output += ` \`${c.help.name}\` `;
+      });
+
+      output += "\"}],\"footer\": {\"text\": \"Hosted by @Jjeuweiii senpai\"}}";
+      message.channel.send({
+        "embed": JSON.parse(output)
+      });
+
+    } else {
+      let command = args[0];
+
+      if (this.client.commands.has(command)) command = this.client.commands.get(command);
+      else if (this.client.aliases.has(command)) command = this.client.commands.get(this.client.aliases.get(command));
+      else return;
+
+      if (!message.guild && command.conf.guildOnly === true) return;
+      if (level < this.client.levelCache[command.conf.permLevel]) return;
+
+      message.channel.send({
+        "embed": {
+          "title": `${command.help.name}`,
+          "description": `${command.help.description}`,
+          "color": 0x8000ff,
+          "footer": {
+            "text": "Hosted by @Jjeuweiii senpai"
+          },
+          "fields": [{
+              "name": "Category",
+              "value": `\`${command.help.category}\``,
+              "inline": true
+            },
+            {
+              "name": "Usage",
+              "value": `\`${settings.prefix}${command.help.usage}\``,
+              "inline": true
+            },
+            {
+              "name": "Cost",
+              "value": `\`💎${parseInt(command.help.cost)}\``,
+              "inline": true
+            },
+            {
+              "name": "Aliases",
+              "value": `\`${command.conf.aliases.join(", ")}\``
+            },
+            {
+              "name": "Details",
+              "value": `\`${command.help.extended}\``
+            }
+          ]
+        }
+      });
+    }
+  }
+}
+module.exports = Help;
