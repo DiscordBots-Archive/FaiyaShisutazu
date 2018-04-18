@@ -22,6 +22,8 @@ class Dota extends Social {
             const input = args[1];
             if (suffix == "stats")
                 await this.stats(message, input);
+            else if (suffix == "builds")
+                await this.builds(message, input);
         } catch (e) {
             console.log(e);
         }
@@ -146,7 +148,7 @@ class Dota extends Social {
             console.log(e);
             message.channel.send("An error occured! Please check your input and refer the command's help!");
         }
-    }    
+    }
 }
 
 

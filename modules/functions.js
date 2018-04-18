@@ -2,8 +2,36 @@ const moment = require("moment");
 require("moment-duration-format");
 module.exports = (client) => {
 
+  /*
+  GUILD SETTINGS FUNCTION
+  This function merges the default settings (from config.defaultSettings) with any
+  guild override you might have for particular guild. If no overrides are present,
+  the default settings are used.
+  */
+  client.getGuildSettings = (guild) => {
+    const def = client.config.defaultSettings;
+    if (!guild) return def;
+    const returns = {};
+    const overrides = client.settings.get(guild.id) || {};
+    for (const key in def) {
+      returns[key] = overrides[key] || def[key];
+    }
+    return returns;
+  };
+
+  client.arrDiff = function(a, b) {
+    if (a === b) return [];
+  
+    for (const item of a) {
+      const ind = b.indexOf(item);
+      if (ind !== -1) b.splice(ind, 1);
+    }
+  
+    return b;
+  };
+
   client.ratelimit = async (message, level, key, duration) => {
-    if (level > 2) return false;
+    if (level > 4) return false;
     
     duration = duration * 1000;
     const ratelimits = client.ratelimits.get(message.author.id) || {}; //get the ENMAP first.
@@ -18,14 +46,13 @@ module.exports = (client) => {
     }
   };
 
-  client.awaitReply = async (message, question, filter, limit = 60000, embed = {}) => {
-    await message.channel.send(question, { embed });
+  client.awaitReply = async (message, question, filter, limit = 60000, embed) => {
+    await message.channel.send(question, embed);
     try {
       const collected = await message.channel.awaitMessages(filter, { max: 1, time: limit, errors: ["time"] });
       return collected.first().content;
     } catch (error) {
-      console.log(error);
-      // client.logger.error(error);
+      client.logger.error(error);
       return false;
     }
   };

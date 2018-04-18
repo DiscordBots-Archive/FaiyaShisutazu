@@ -6,11 +6,11 @@ module.exports = class {
   }
 
   async run(message) {
-    if (message.author.bot) return;
-    if (!message.channel.permissionsFor(this.client.user).has("SEND_MESSAGES")) return;
-    const defaults = this.client.settings.get("default");
-    const settings = message.guild ? this.client.getSettings(message.guild.id) : defaults;
-    message.settings = settings;
+    if (message.author.bot || !message.guild) return;
+    if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
+    
+    // const defaults = this.client.settings.get("default");
+    const settings = message.settings = this.client.getGuildSettings(message.guild);    
     
     const level = this.client.permlevel(message);
 
