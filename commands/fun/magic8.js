@@ -9,7 +9,7 @@ class Magic8 extends Social {
       usage: "magic8 <question>?",
       category: "4. Fun",
       extended: "This Social will answer any question given to it in the style of a magic 8 ball.",
-      cost: 5,
+      cost: 2,
       aliases: ["8", "8ball"],
 
     });

@@ -9,7 +9,7 @@ class Neko extends Social {
       category: "6. NSFW?",
       usage: "neko",
       extended: "This command will return a Neko, a lewd Neko if used in a NSFW channel",
-      cost: 40,
+      cost: 2,
       cooldown: 10,
       aliases: []
     });

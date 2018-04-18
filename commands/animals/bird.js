@@ -1,5 +1,6 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 const snek = require("snekfetch");
+
 class Bird extends Social {
   constructor(client) {
     super(client, {
@@ -8,7 +9,7 @@ class Bird extends Social {
       category: "2. Animals",
       usage: "bird",
       extended: "Dùng lệnh này để nhận được 1 hình chim bất kỳ nè!",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["birb"]
     });

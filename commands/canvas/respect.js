@@ -13,7 +13,7 @@ class Respect extends Social {
       category: "3. Canvas",
       usage: "respect [@mention|user id]",
       extended: "Tag người ấy vào để mọi người tưởng nhớ, không tag thì em đăng hình của chính senpai đó!",
-      cost: 10,
+      cost: 2,
       cooldown: 30,
       aliases: ["pressf", "f", "rip", "ripme"]
     });

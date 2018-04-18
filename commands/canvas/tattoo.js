@@ -13,7 +13,7 @@ class Tattoo extends Social {
       category: "3. Canvas",
       usage: "tattoo [@mention|user id]",
       extended: "Nhắc đến người mà senpai muốn xăm lên tay nè, không thì em dùng ảnh của chính mình đó nha",
-      cost: 10,
+      cost: 2,
       cooldown: 10,
       aliases: ["ink"]
     });

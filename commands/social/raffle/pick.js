@@ -8,7 +8,7 @@ class Pick extends Social {
       category: "5. Raffles & votes",
       usage: "pick <option1>, <option2>, <option3>, <etc>",
       extended: "This command will help you select out of a list of supplied options.",
-      cost: 5,
+      cost: 2,
       aliases: ["choose"],
 
     });

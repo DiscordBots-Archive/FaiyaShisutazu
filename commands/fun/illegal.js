@@ -13,7 +13,7 @@ class IsNowIllegal extends Social {
       usage: "illegal <thing>",
       category: "4. Fun",
       extended: "Powered by IsNowIllegal.com, get US President Trump to make anything illegal.",
-      cost: 10,
+      cost: 2,
       cooldown: 10,
       aliases: ["trump", "sign"]
     });

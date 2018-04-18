@@ -12,8 +12,8 @@ class Beautiful extends Social {
       description: "Ngắm nhìn người khác trong 1 khung tranh thơ mộng~",
       category: "3. Canvas",
       usage: "beautiful [@mention|user id]",
-      extended: "Tag người ấy vào để nhìn ngắm người ấy trong 1 khung trang nha, không tag thì em đăng hình của chính senpai đó!",
-      cost: 10,
+      extended: "Tag người ấy vào để nhìn ngắm người ấy trong 1 khung tranh nha, không tag thì em đăng hình của chính senpai đó!",
+      cost: 2,
       cooldown: 10,
       aliases: ["painting"]
     });

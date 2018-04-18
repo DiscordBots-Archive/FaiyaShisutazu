@@ -17,7 +17,7 @@ class Manga extends Command {
       category: "4. Fun",
       usage: "manga attack on titan",
       extended: "",
-      cooldown: 10,
+      cooldown: 2,
       guildOnly: true,
       aliases: []
     });

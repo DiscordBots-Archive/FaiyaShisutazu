@@ -8,7 +8,7 @@ class Bunny extends Social {
       category: "2. Animals",
       usage: "bunny",
       extended: "Dùng lệnh này để nhận được 1 chú thỏ dễ thương.",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: []
     });

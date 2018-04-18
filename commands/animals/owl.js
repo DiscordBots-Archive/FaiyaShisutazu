@@ -8,7 +8,7 @@ class Owl extends Social {
       category: "2. Animals",
       usage: "owl",
       extended: "Dùng lệnh này để có 1 chú chim cú bé nhỏ <3",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["hoot"]
     });

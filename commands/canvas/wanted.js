@@ -13,7 +13,7 @@ class Wanted extends Social {
       category: "3. Canvas",
       usage: "wanted [@mention|user id]",
       extended: "Biến người ấy thành tội phạm với command này, không tag ai thì em làm cho senpai nhé",
-      cost: 10,
+      cost: 2,
       cooldown: 10
     });
   }

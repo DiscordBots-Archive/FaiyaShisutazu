@@ -13,7 +13,7 @@ class Valut extends Social {
       category: "3. Canvas",
       usage: "thumbs [@mention|user id]",
       extended: "Dùng để cho người bị tag 1 cái thumbs up, không tag ai để tự thumbs up cho chính mình!",
-      cost: 10,
+      cost: 2,
       cooldown: 10,
       aliases: ["vault"]
     });

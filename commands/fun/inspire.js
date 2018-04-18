@@ -8,7 +8,7 @@ class Inspire extends Social {
       description: "Get random inspirational quotes from an AI.",
       category: "4. Fun",
       usage: "inspire",
-      cost: 10,
+      cost: 2,
       aliases: []
     });
   }

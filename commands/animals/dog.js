@@ -8,7 +8,7 @@ class Dog extends Social {
       category: "2. Animals",
       usage: "dog",
       extended: "Dùng lệnh này để có 1 bé cún nha...",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["doggo", "pupper"]
     });

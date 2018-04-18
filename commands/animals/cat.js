@@ -8,7 +8,7 @@ class Cat extends Social {
       category: "2. Animals",
       usage: "cat",
       extended: "Dùng lệnh này để có 1 chú mèo nè.",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["kitten"]
     });

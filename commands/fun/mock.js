@@ -17,7 +17,7 @@ class Mock extends Social {
       usage: "mock",
       category: "4. Fun",
       extended: "Based on the popular Spongebob Squarepants mocking meme.",
-      cost: 10,
+      cost: 2,
       cooldown: 10
     });
   }

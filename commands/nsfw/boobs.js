@@ -9,7 +9,7 @@ class Boobs extends Social {
       category: "6. NSFW?",
       usage: "boobs",
       extended: "Dùng lệnh này để ngắm những cái dzú nha!",
-      cost: 40,
+      cost: 2,
       cooldown: 10,
       aliases: ["tits"]
     });

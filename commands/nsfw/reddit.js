@@ -8,8 +8,8 @@ class Reddit extends Social {
       description: "Posts a random subreddit entry.",
       usage: "reddit [-new|-random|-hot|-top] [subreddit]",
       category: "6. NSFW?",
-      cost: 10,
-      cooldown: 3
+      cost: 2,
+      cooldown: 4
     });
   }
 

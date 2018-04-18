@@ -7,7 +7,7 @@ class Gif extends Social {
       description: "Random gif time",
       category: "4. Fun",
       usage: "gif",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["giphy"]
     });

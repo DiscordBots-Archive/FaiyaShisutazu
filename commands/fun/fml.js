@@ -13,7 +13,7 @@ class FML extends Social {
       usage: "fml",
       category: "4. Fun",
       extended: "Dùng để kiếm 1 mẩu truyện về những người bị cuộc đời nắk!",
-      cost: 10,
+      cost: 2,
       cooldown: 10,
       aliases: ["fuckmylife", "fuckme"]
     });

@@ -19,7 +19,7 @@ class Achievement extends Social {
       category: "3. Canvas",
       usage: "achievement",
       extended: "Tạo 1 thành tích bất kỳ cho bạn bằng cách cung cấp nội dung cho em nè!",
-      cost: 10,
+      cost: 2,
       cooldown: 10,
       aliases: ["get", "achieveget", "achievementget"]
     });

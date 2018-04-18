@@ -7,7 +7,7 @@ class Ping extends Social {
       description: "Disrespect someone's mother with this.",
       category: "4. Fun",
       usage: "yomomma",
-      cost: 5,
+      cost: 2,
       cooldown: 5,
       aliases: ["yomama"]
     });

@@ -13,7 +13,7 @@ class Stepped extends Social {
       category: "3. Canvas",
       usage: "stepped [@mention|user id]",
       extended: "Tag người ấy vào để đạp vào mặt nè, không tag thì em đăng hình của chính senpai đó!",
-      cost: 10,
+      cost: 2,
       cooldown: 10
     });
   }

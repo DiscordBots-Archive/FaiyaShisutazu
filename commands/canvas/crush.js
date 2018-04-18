@@ -13,7 +13,7 @@ class Crush extends Social {
       extended: "Tag người ấy vào để nhìn ngắm người ấy nha, không tag thì em đăng hình của chính senpai đó!",
       category: "3. Canvas",
       usage: "crush [@mention|userid]",
-      cost: 10,
+      cost: 2,
       cooldown: 10
     });
   }

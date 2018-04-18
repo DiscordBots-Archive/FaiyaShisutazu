@@ -1,4 +1,5 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
+
 class Ping extends Command {
   constructor(client) {
     super(client, {

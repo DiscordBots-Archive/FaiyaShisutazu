@@ -14,7 +14,7 @@ class Triggered extends Social {
       usage: "triggered [@mention|userid]",
       category: "3. Canvas",
       extended: "Trigger người senpai muốn nè, dùng mà không mention ai thì em trigger senpai nha!",
-      cost: 10,
+      cost: 2,
       cooldown: 20,
       aliases: ["trigger"]
     });

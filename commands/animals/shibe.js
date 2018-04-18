@@ -8,7 +8,7 @@ class Shibe extends Social {
       category: "2. Animals",
       usage: "shibe",
       extended: "Dùng lệnh này để nhận ngay 1 chú Shiba Inu luônn~",
-      cost: 5,
+      cost: 2,
       cooldown: 10,
       aliases: ["doge", "shib"]
     });
