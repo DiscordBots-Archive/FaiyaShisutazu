@@ -34,13 +34,23 @@ let prompts = [
   },
   {
     type: "input",
-    name: "token",
-    message: "Please enter the bot token from the application page."
+    name: "discordKey",
+    message: "Please enter your bot token from the application page."
+  },
+  {
+    type: "input",
+    name: "steamKey",
+    message: "Please enter your Steam API key."
+  },
+  {
+    type: "input",
+    name: "googleKey",
+    message: "Please enter your Google API key."
   }
 ];
 
 (async function() {
-  console.log("Setting Up Misaki Configuration...");
+  console.log("Setting up your bot's configuration...");
   await settings.defer;
   if (!settings.has("default")) {
     prompts = prompts.slice(1);
@@ -55,10 +65,12 @@ let prompts = [
     await settings.setAsync("default", defaultSettings);
   }
 
-  baseConfig = baseConfig.replace("{{token}}", `"${answers.token}"`);
+  baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
+  baseConfig = baseConfig.replace("{{steamKey}}", `"${answers.steamKey}"`);
+  baseConfig = baseConfig.replace("{{googleKey}}", `"${answers.googleKey}"`);
   
   fs.writeFileSync("./config.js", baseConfig);
-  console.log("REMEMBER TO NEVER SHARE YOUR TOKEN WITH ANYONE!");
+  console.log("REMEMBER TO NEVER SHARE YOUR TOKEN & API KEYS WITH ANYONE!");
   console.log("Configuration has been written, enjoy!");
   await settings.close();
 }());
