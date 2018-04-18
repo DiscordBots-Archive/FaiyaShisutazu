@@ -1,15 +1,21 @@
 const config = {
-  // Bot Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
+  // Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
   // will pull this information directly from it's application page.
 
-  // Bot Admins, level 9 by default. Array of user ID strings.
+  // Admins, level 9 by default. Array of user ID strings.
   "admins": [],
 
-  // Bot Support, level 8 by default. Array of user ID strings
-  "support": [],
+  // Supports, level 8 by default. Array of user ID strings
+  "supports": [],
 
-  // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
-  "token":  {{token}},
+  // Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
+  "discordKey":  {{discordKey}},
+  
+  // Your Steam Developer's API key. Available @ https://steamcommunity.com/dev/apikey
+  "steamKey":  {{steamKey}},
+  
+   // Your Google Developer's API key. Available @ https://console.developers.google.com/
+  "googleKey":  {{googleKey}},
 
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.
