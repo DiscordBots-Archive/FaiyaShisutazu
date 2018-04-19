@@ -26,7 +26,7 @@ class Dice extends Social {
                 let number = Math.floor(Math.random() * sides) + 1;
                 total += number;
             }
-            const average = (total / rolls).toPrecision(1);
+            const average = (total / rolls).toPrecision(6);
             await message.channel.send(`You rolled a ${sides}-sided dice ${rolls} times! The total is **${total}** (Average: **${average}**)`);
         }
     } catch (error) {
