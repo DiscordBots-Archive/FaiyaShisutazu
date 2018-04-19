@@ -13,17 +13,16 @@ class Social extends Command {
   async verifySocialUser(message, user) {
     try {
       const check = await this.verifyUser(message, user);
+      if (!check) return;
       return [check.bot ? true : false, check];
     } catch (error) {
-      console.log(error);
-      // this.client.logger.error(error);
+      this.client.logger.error(error);
     }
   }
 
   async usrDay(message) {
-    const settings = this.client.getSettings(message.guild.id);
-    const dailyTime = parseInt(settings.dailyTime);
-    const pointsReward = parseInt(settings.pointsReward);
+    const dailyTime = parseInt(message.settings.dailyTime);
+    const pointsReward = parseInt(message.settings.pointsReward);
     const score = message.member.score;
     try {
       
@@ -112,9 +111,11 @@ class Social extends Command {
     }
   }
 
-  async cmdMoe(type, nsfw = false) {
-    const { body } = await snek.get(`https://rra.ram.moe/i/r?type=${type}&nsfw=${nsfw}`);
-    return body.path.replace("/i/", "");
+  async cmdWeeb(type, imgType, nsfw = false) {
+    const { body } = await get(`https://api.weeb.sh/images/random?type=${type}&filetype=${imgType}&nsfw=${nsfw}`)
+      .set("Authorization", `Wolke ${process.env.WEEBSH}`)
+      .set("User-Agent", `Misaki/${version}/${this.client.user.id === "396323622953680910" ? "Production" : "Development"}`);
+    return body.url;
   }
 }
 
