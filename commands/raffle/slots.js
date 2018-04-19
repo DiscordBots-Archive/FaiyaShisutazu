@@ -23,7 +23,7 @@ class Slots extends Social {
     super(client, {
       name: "slots",
       description: "Try your luck with the slots.",
-      category: "5. Raffles & votes",
+      category: "5. Random raffles & votes",
       usage: "slots",
       cost: 10,
       cooldown: 5,

@@ -6,7 +6,7 @@ class Coin extends Social {
     super(client, {
       name: "coin",
       description: "Flip a coin",
-      category: "5. Raffles & votes",
+      category: "5. Random raffles & votes",
       usage: "coin",
       extended: "This command will flip a coin for you.",
       cost: 2,

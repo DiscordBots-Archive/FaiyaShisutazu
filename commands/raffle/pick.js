@@ -5,11 +5,11 @@ class Pick extends Social {
     super(client, {
       name: "pick",
       description: "Pick out of a list",
-      category: "5. Raffles & votes",
+      category: "5. Random raffles & votes",
       usage: "pick <option1>, <option2>, <option3>, <etc>",
       extended: "This command will help you select out of a list of supplied options.",
       cost: 2,
-      aliases: ["choose"],
+      aliases: ["choose", "decide"],
 
     });
   }
@@ -23,9 +23,9 @@ class Pick extends Social {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
     try {
-      const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.guild.me.displayName}** is thinking...`);
+      const msg = await message.channel.send(`<a:typing:397490442469376001> I'm thinking...`);
       setTimeout(
-        () => msg.edit(`I think \`${list[Math.floor(Math.random()*list.length)].trim()}\``),
+        () => msg.edit(`I have decided upon **${list[Math.floor(Math.random()*list.length)].trim()}**!`),
         Math.random() * (1 - 5) + 1 * 5000
       );
     } catch (error) {
