@@ -16,18 +16,47 @@ class Stats extends Command {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const duration = moment.duration(this.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
-    message.buildEmbed()
-      .setDescription(`\`\`\`asciidoc\n= STATISTICS =
-• Mem Usage  :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
-• Uptime     :: ${duration}
-• Users      :: ${this.client.users.size.toLocaleString()}
-• Servers    :: ${this.client.guilds.size.toLocaleString()}
-• Channels   :: ${this.client.channels.size.toLocaleString()}
-• Discord.js :: v${version}
-• Node       :: ${process.version}\`\`\``)
-      .setColor(5198940)
-      .send();
 
+    const msg = await message.channel.send("Current REmibot's stats");
+    message.channel.send({
+      "embed": {
+        "title": `Estimated ping: ${msg.createdTimestamp - message.createdTimestamp}ms`,
+        "color": 0x8000ff,
+        "footer": {
+          "text": "Hosted by @Jjeuweiii senpai"
+        },
+        "fields": [{
+          "name": "NodeJS version",
+          "value": `${process.version}`,
+          "inline": true
+        },
+        {
+          "name": "Discord.js",
+          "value": `v${version}`,
+          "inline": true
+        },
+        {
+          "name": "Uptime",
+          "value": `${duration}`,
+          "inline": true
+        },
+        {
+          "name": "Memory usage",
+          "value": `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`,
+          "inline": true
+        },
+        {
+          "name": "Users",
+          "value": `${this.client.users.size.toLocaleString()}`,
+          "inline": true
+        },
+        {
+          "name": "Channels/Servers",
+          "value": `${this.client.channels.size.toLocaleString()}/${this.client.guilds.size.toLocaleString()}`,
+          "inline": true
+        }]
+      }
+    });
   }
 }
 
