@@ -22,7 +22,7 @@ class Dice extends Social {
             await message.channel.send("Those numbers are too high I don't want to do that much Math =3=");
         else {
             let total = 0;
-            for (let i = 0; i <= rolls; i++) {
+            for (let i = 1; i <= rolls; i++) {
                 let number = Math.floor(Math.random() * sides) + 1;
                 total += number;
             }

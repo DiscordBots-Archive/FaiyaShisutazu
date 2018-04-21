@@ -3,8 +3,8 @@
 
 
 "@types/node@*":
-  version "9.6.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.5.tgz#ee700810fdf49ac1c399fc5980b7559b3e5a381d"
+  version "9.6.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.6.tgz#439b91f9caf3983cad2eef1e11f6bedcbf9431d2"
 
 abab@^1.0.0:
   version "1.0.4"
@@ -205,12 +205,12 @@ brace-expansion@^1.1.7:
     concat-map "0.0.1"
 
 "canvas-constructor@github:kyranet/canvasConstructor":
-  version "0.4.0"
-  resolved "https://codeload.github.com/kyranet/canvasConstructor/tar.gz/92261efcc76b5806f9c347387074ca29274caf3d"
+  version "1.0.1"
+  resolved "https://codeload.github.com/kyranet/canvasConstructor/tar.gz/4b82cf6bad01c663f17995f2695d8da4b31090c5"
 
 "canvas@github:Automattic/node-canvas":
   version "2.0.0-alpha.12"
-  resolved "https://codeload.github.com/Automattic/node-canvas/tar.gz/645da355371d4d5301b9b557a818adf0239df07e"
+  resolved "https://codeload.github.com/Automattic/node-canvas/tar.gz/77140fdd34a50a2a48b82f54f7d7066e422f0642"
   dependencies:
     nan "^2.9.2"
     node-pre-gyp "^0.9.0"
@@ -417,7 +417,7 @@ detect-libc@^1.0.2, detect-libc@^1.0.3:
 
 "discord.js@github:hydrabolt/discord.js":
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/hydrabolt/discord.js/tar.gz/2dd7fd2739fb5c68832b7eafeab5a9daa2f5b331"
+  resolved "https://codeload.github.com/hydrabolt/discord.js/tar.gz/c9c2d6697119fcbe9b0f4e8285852f62a4dbccda"
   dependencies:
     pako "^1.0.0"
     prism-media "^0.2.0"
