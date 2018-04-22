@@ -54,11 +54,16 @@ class Leaderboard extends Social {
               leaderboard.push(`🌺❯ ${u.points.toLocaleString()} ${" ".repeat(20 - u.points.toLocaleString().length)} ::  ${this.client.users.get(u.user).tag}`);
           }
         });
-      leaderboard.push("-------------------------------------------------------");
       
-      const pos = lbServer.indexOf(message.author.id).toString().padStart(2, "0");
-      leaderboard.push(`🌺❯ ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()} ${" ".repeat(20 - this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString().length)} ::  ${message.author.tag}`);
-      await message.channel.send(`**__${message.guild.name}__**'s Leaderboard (Page **${page+1}** out of **${totalPages || 1}**)\n\`\`\`${leaderboard.join("\n")}\`\`\``);
+      if (!message.author.bot)
+      {
+        leaderboard.push("-------------------------------------------------------");
+        const pos = lbServer.indexOf(message.author.id).toString().padStart(2, "0");
+        leaderboard.push(`🌺❯ ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()} ${" ".repeat(20 - this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString().length)} ::  ${message.author.tag}`);
+        await message.channel.send(`**__${message.guild.name}__**'s Leaderboard (Page **${page+1}** out of **${totalPages || 1}**)\n\`\`\`${leaderboard.join("\n")}\`\`\``);
+      }
+      
+      await message.channel.send(`**__${message.guild.name}__**'s Leaderboard\n\`\`\`${leaderboard.join("\n")}\`\`\``);
     } catch (error) {
       console.log(error);
     }
