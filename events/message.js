@@ -6,7 +6,7 @@ module.exports = class {
   }
 
   async run(message) {
-    if (message.author.bot || !message.guild) return;
+    if ((message.author.bot && !message.content.endsWith("re")) || !message.guild) return;
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
     
     // const defaults = this.client.settings.get("default");
