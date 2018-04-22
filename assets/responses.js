@@ -98,11 +98,8 @@ exports.rebootMessages = [
 ];
 
 // Boot
-exports.bootOneMessages = [
-  "{{user}}-senpai! Minna-san! Em quay lại ùi nè!"
-];
-
-exports.bootTwoMessages = [
+exports.bootMessages = [
+  "{{user}}-senpai! Minna-san! Em quay lại ùi nè!",
   "{{user}}-san với mọi người nhớ em hơm?"
 ];
 
