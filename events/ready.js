@@ -1,4 +1,8 @@
+const { version } = require("discord.js");
 const fs = require("fs");
+const moment = require("moment");
+require("moment-duration-format");
+
 module.exports = class {
   constructor(client) {
     this.client = client;
@@ -10,8 +14,7 @@ module.exports = class {
       const { id: rebootMsgID , channel: rebootMsgChan, user: rebootMsgUserID} = JSON.parse(fs.readFileSync(`${process.cwd()}/assets/json/reboot.json`, "utf8"));
       const u = await this.client.users.fetch(rebootMsgUserID);
       const m = await this.client.channels.get(rebootMsgChan).messages.fetch(rebootMsgID);
-      await m.edit(`${this.client.responses.bootOneMessages.random().replaceAll("{{user}}", u.username).trim()}`);
-      await m.edit(`${this.client.responses.bootTwoMessages.random().replaceAll("{{user}}", u.username).replaceAll("{{ms}}",`${m.editedTimestamp - m.createdTimestamp}`).trim()}`);
+      await m.edit(`${this.client.responses.bootMessages.random().replaceAll("{{user}}", u.username).trim()}`);
       fs.unlink("./reboot.json", ()=>{});
     } catch (O_o) {
       this.client.logger.error(O_o);
@@ -28,9 +31,17 @@ module.exports = class {
       this.client.settings.set("default", this.client.config.defaultSettings);
     }
 
-    this.client.user.setActivity(`@re help | ${this.client.guilds.size} Server${this.client.guilds.size > 1 ? "s" : ""}`);
-  
+    this.client.user.setActivity(`@${this.client.config.defaultSettings.prefix}help | ${this.client.guilds.size} Server${this.client.guilds.size > 1 ? "s" : ""}`);
+    
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers.`, "ready");
+
+    setInterval(() => {
+      this.client.channels.get("420524471028547584").send(`${this.client.config.defaultSettings.prefix}stats re`);
+    }, 3600000); 
+      
+    setInterval(() => {
+      this.client.channels.get("420052489879158784").send(`${this.client.config.defaultSettings.prefix}leaderboard re`);
+    }, 3600000); 
 
     setInterval(() => {
       const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
