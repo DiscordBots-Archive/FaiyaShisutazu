@@ -1,6 +1,6 @@
 // Member Join
 exports.welcomeMessages = [
-  "O-ohayou gozaimasu **{{user}}-san**.",
+  "O-ohayou gozaimasu **{{user}}-san**",
   "Hmph, looks like **{{user}}**, another baka, has joined.",
   "It's not like I like you or anything... but welcome to the server **{{user}}**.",
   "O-oh, welcome **{{user}}-san**. I hope I haven't embarrased you...",
@@ -78,23 +78,21 @@ exports.myLevelMessages = [
 ];
 
 exports.dailySuccessMessages = [
-  "Yatta! You've got **{{amount}}**.",
-  "Well done, you've redeemed your daily **{{amount}}**!",
-  "Finally I thought you were never going to claim your **{{amount}}** today!",
-  "Your dad gave you **{{amount}}**? I get more than that every hour!",
-  "You have claimed your daily **{{amount}}**, ain't that dandy?",
-  "N-nani?! You got **{{amount}}**, woah...",
-  "You just got **{{amount}}**? Maybe buy me dinner some time **{{user}}-san**? :wink:",
-  "Oh goody, you finally got your **{{amount}}**. It's about time, now get me some Pocky."
+  "Yatta! You've got **{{amount}}** ヾ(❀╹◡╹)ﾉﾞ",
+  "Ehhhhhh, **{{user}}-san** redeemed **{{amount}}** ٩(ˊᗜˋ*)و",
+  "Finally I thought **{{user}}-san** was never going to claim your **{{amount}}** today (╯ರ ~ ರ）╯",
+  "**{{user}}-san** claimed **{{amount}}** (◕‿◕✿)",
+  "N-nani?! **{{user}}-san** got **{{amount}}** (ﾉ≧∇≦)ﾉ ﾐ ┸━┸",
+  "You just got **{{amount}}**? Maybe buy me dinner some time **{{user}}-san** (◡‿◡✿) ?",
+  "Oh you finally got your **{{amount}}**. Get me some Pocky ˭̡̞(◞⁎˃ᆺ˂)◞*✰"
 ];
 
 exports.dailyFailureMessages = [
   "You cannot claim your daily reward yet, please try again in **{{time}}**",
-  "Oh come on now, you know better than to ask ahead of time.. You can get your daily in **{{time}}**",
-  "**{{user}}-san**, you already got your allowance today. You can get it in **{{time}}**",
-  "This again? I told you to wait **{{time}}**",
-  "Hey! Money is already tight around here. Ask in **{{time}}**",
-  "You're gonna make m-me mad please wait **{{time}}** to claim again!"
+  "Oh come on now, you know better than to ask ahead of time.. (╯°□°）╯︵ ┻━┻",
+  "**{{user}}-san**, you already got yours ლ(ಠ益ಠლ You can get it in **{{time}}**",
+  "This again? I told you to wait **{{time}}** (ꐦ Ò ‸ Ó)",
+  "You're gonna make m-me mad please wait **{{time}}** to claim again (ノಠ益ಠ)ノ"
 ];
 
 exports.balanceMessages = [
