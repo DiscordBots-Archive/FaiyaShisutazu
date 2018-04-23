@@ -1,132 +1,175 @@
 // Member Join
 exports.welcomeMessages = [
-  "O-ohayou {{user}}-san.",
-  "Hmph, thay mặt cho ae LangSonFam, ohayou {{user}}-san.",
-  "Ai đây nhỉ? {{user}} joined the server.",
-  "{{user}}-san vô đúng channel không vậy!?",
-  "ERGH, sao có thêm đứa này nữaa, {{amount}} users chưa đủ à!"
+  "O-ohayou gozaimasu **{{user}}-san**.",
+  "Hmph, looks like **{{user}}**, another baka, has joined.",
+  "It's not like I like you or anything... but welcome to the server **{{user}}**.",
+  "O-oh, welcome **{{user}}-san**. I hope I haven't embarrased you...",
+  "OwO who's this? **{{user}}** has joined the server.",
+  "**{{user}}**, looks like you landed on the wrong side of Discord!",
+  "Hi **{{user}}**! Welcome to **{{guild}}**, I hope you enjoy your stay!",
+  "ERGH, why has **{{user}}** got to come, I already have to handle **{{amount}}** users!",
+  "Y-yay! More people to deal with! Welcome **{{user}}**!",
+  "Hi! Waifu/husbando **{{user}}** has joined the Academy!",
+  "**{{user}}-san**, welcome to **{{guild}}**!"
 ];
 
 // Member Leave
 exports.goodbyeMessages = [
-  "{{user}}-san đi luôn đừng về hộ nhé!",
-  "Awh, {{user}}-san has left... Đi đi cho rộng chỗ!",
-  "Hay lắm {{user}}-san! Bái baii..",
-  "{{user}}-san đã tự giải thoát cho chính mình...",
-  "Eeeee! Sao {{user}}-san bỏ em ở đây?!",
-  "Finally, {{user}}-san đi rồi @everyone!"
-];
-
-// Commands
-exports.pingMessages = [
-  "Ugh, nữa hả? {{user}}-san hỏi gì hoài vậy! {{ms}}ms.",
-  "Ping đến server của em là {{ms}}ms nha {{user}}.",
-  "{{ms}}ms để chạm tới cõi lòng em nhé {{user}}-san.",
-  "{{user}}-san thích lãng phí thời gian wá nhỉ? Tốn {{ms}}ms ùi..",
-  "Pong! Mất {{ms}}ms nè {{user}}-san.."
-];
-
-
-exports.goMessages = [
-  "Ehhhhh! {{user}}-san rủ mọi người chơi {{game}} nè.",
-  "Chơi {{game}} cùng {{user}}-san đi mọi người vì {{user}}-san cô đơn lắm!",
-  "{{user}} thọt quá nên tuyển người kéo rank {{game}} nè mọi người ơiii",
-  "Goooooo! Chơi {{game}} với {{user}}-san nè~"
-];
-
-exports.dailySuccessMessages = [
-  "Yatta! {{user}}-san được {{amount}} nè.",
-  "{{amount}} của {{user}}-san nè!",
-  "Tưởng {{user}}-san sẽ chả bao giờ đến lấy {{amount}} luôn í..",
-  "{{user}}-san được {{amount}}? Bao em ăn tối nha {{user}}-san?",
-  "Eeee cuối cùng {{user}}-san cũng nhận {{amount}} ùi."
+  "Awh, I-I have no words for t-this, b-but, I-I'll miss you **{{user}}-san**!",
+  "Awh, **{{user}}** has left... n-not that I care! Baka!",
+  "**{{user}}-san**.... N-no...",
+  "**{{user}}** left, not like we needed them or anything.",
+  "**{{user}}** why would you leave me here, alone!?",
+  "**{{user}}** discovered the leave button.",
+  "Eep! **{{user}}** left?! Th-they're always leaving me, that baka...",
+  "Finally, I thought **{{user}}** would never leave!",
+  "Woah! **{{user}}** left **{{guild}}**! B-baka, why did they even join?!",
+  "Woo, **{{user}}** left, now I only have to handle **{{amount}}** users!"
 ];
 
 // Level Up
 exports.levelUpMessages = [
-  "E-eh? {{user}}-san lên {{level}} rồi hả??",
-  "Hmph, lên {{level}} rồi kìa {{user}}-san, gke nkỉ !",
-  "Hyaa~! {{user}}-san tăng cấp lên {{level}} ùi.",
-  "Mới {{level}} mà ra gió hả {{user}}?"
+  "You've only become level **{{level}}**, peasant!",
+  "YATTA! You leveled up, **{{user}}-san**! You're now level **{{level}}**, n-not that it means a-anything!",
+  "E-eh? You leveled up? Well just because you're level **{{level}}** now, doesn't mean I'll like you more **{{user}}**... baka.",
+  "Hmph, you leveled up to **{{level}}**, **{{user}}-san**. W-well, it makes no difference to me!",
+  "Hyaa~! You've leveled up **{{user}}-san**, you're now level **{{level}}**.",
+  "**{{user}}**, you baka. Don't leave me behind now that you're level **{{level}}**.",
+  "**{{user}}-san**, don't forget me now just because you're level **{{level}}**",
+  "Pfft, you've only just become level **{{level}}**, hurry up **{{user}}**.",
+  "Ah nuts, **{{user}}** is getting smart, now with an I.Q. of **{{level}}**",
+  "N-nani? You've reached level **{{level}}** so quickly...",
+  "You're only level **{{level}}**? You disgust me!",
+  "How can you be level **{{level}}** y-you baka!",
+  "B-baka! You're at level **{{level}}**, now go be free! D-dummy...",
+  "You're definitely level **{{level}}** you baka!",
+];
+
+// Commands
+exports.pingMessages = [
+  "Ugh, again? You always ask, and I tell you that I responded in **{{ms}}ms**.",
+  "B-baka, I responded... just in **{{ms}}ms**.",
+  "H-here you go, I responded in **{{ms}}ms**.",
+  "Here you go, not that it was worth my time. It only took me **{{ms}}ms**.",
+  "Is this right? I've responded in **{{ms}}ms**.",
+  "**{{user}}**? I've responded in **{{ms}}ms**.",
+  "**{{user}}**! You wasted **{{ms}}ms** of my time, ERGH",
+  "D-did I do it right? I responded in **{{ms}}ms**.",
+  "**{{user}}**, yes I'm here, and it took me **{{ms}}ms** to respond!",
+  "**{{user}}** why are you pinging me man! You wasted **{{ms}}ms** of my time!!",
+  "**{{user}}** hey, it took me **{{ms}}ms** to send this message",
+  "You've made me **{{ms}}ms** older - just from asking.",
+  "**{{user}}** I've seen your message and it took me **{{ms}}ms** not to care.",
+  "Do you know how long it took me to read that message? You pretty much wasted **{{ms}}ms** of my day!",
+  "B-baka! My ping is **{{ms}}ms**! Are you happy now?"
+];
+
+exports.myLevelMessages = [
+  "You're only level **{{level}}**, that makes you a **{{friendly}}**.",
+  "Pfft, level **{{level}}**? I've seen people with a better role than **{{friendly}}**.",
+  "**{{user}}** your level? It's **{{level}}** silly, oh the name? **{{friendly}}**, sorry...",
+  "**{{user}}**, again with this? Whatever, it's level **{{level}}**, **{{friendly}}**.",
+  "**{{user}}-san** here you go, it's **{{friendly}}**, level **{{level}}**.",
+  "You're a **{{level}}**, maybe if you were a wee bit higher than a **{{friendly}}** you'd stop forgetting.",
+  "Only a level **{{level}}**? Even I'm better than a **{{friendly}}**.",
+  "Level **{{level}}**? What, where you hoping to be higher than **{{friendly}?",
+  "smh, a level **{{level}}**? I thought you weren't gonna be a **{{friendly}}**!",
+  "Only level **{{level}}**? Pfft! I've seen much better than a **{{friendly}}**."
+];
+
+exports.dailySuccessMessages = [
+  "Yatta! You've got **{{amount}}**.",
+  "Well done, you've redeemed your daily **{{amount}}**!",
+  "Finally I thought you were never going to claim your **{{amount}}** today!",
+  "Your dad gave you **{{amount}}**? I get more than that every hour!",
+  "You have claimed your daily **{{amount}}**, ain't that dandy?",
+  "N-nani?! You got **{{amount}}**, woah...",
+  "You just got **{{amount}}**? Maybe buy me dinner some time **{{user}}-san**? :wink:",
+  "Oh goody, you finally got your **{{amount}}**. It's about time, now get me some Pocky."
 ];
 
 exports.dailyFailureMessages = [
-  "Cái gì cũng phải từ từ nhé {{user}}-san, còn {{time}} lận!!",
-  "Còn {{time}} mới nhận nha {{user}}-san..",
-  "{{user}}-san hôm nay lấy rồi mà, phải chờ {{time}} nữa",
-  "{{user}}-san xin xỏ hoài vậy, còn tận {{time}} lận nha.",
-  "Cắt daily của {{user}}-san nhé? Chờ {{time}} nữa hộ em.."
+  "You cannot claim your daily reward yet, please try again in **{{time}}**",
+  "Oh come on now, you know better than to ask ahead of time.. You can get your daily in **{{time}}**",
+  "**{{user}}-san**, you already got your allowance today. You can get it in **{{time}}**",
+  "This again? I told you to wait **{{time}}**",
+  "Hey! Money is already tight around here. Ask in **{{time}}**",
+  "You're gonna make m-me mad please wait **{{time}}** to claim again!"
 ];
 
 exports.balanceMessages = [
-  "Pfft, {{amount}}? Nub quá nè {{user}}-san.",
-  "Only {{amount}}? Không có tiền thì cạp đất mà ăn nha {{user}}!",
-  "{{user}}-san có {{amount}} à.",
-  "{{user}}, again? Ugh, có {{amount}} mà cũng bày đặt... Jeez~"
+  "Pfft, a measly **{{amount}}**? My father gives me more as an allowance!",
+  "Only **{{amount}}**? That's nothing compared to my pocket money!",
+  "**{{user}}-san**, you have **{{amount}}**, but you don't need it to make me happy.",
+  "**{{user}}**, again? Ugh, you have **{{amount}}**... Jeez, maybe if you kept track of it you'd remember..."
 ];
 
 exports.otherBalanceMessages = [
-  "Sao lại muốn coi {{user}}-san có bao nhiêu? Có {{amount}} nè mặc dù em chả quan tâm lắm.",
-  "N-nani? {{user}}-san's balance? Có {{amount}} à..",
-  "Quan tâm đến {{user}} vậy? {{user}}-san có {{amount}}.",
-  "Cơn gió nào? {{user}} hả? {{user}}-san có {{amount}}.",
-  "Hm, chờ tẹo nè.. It's {{amount}}, hỏi của {{user}} chi dạ?"
+  "Why do you want to know **{{user}}**'s balance? Whatever, it's **{{amount}}** anyway.",
+  "N-nani? **{{user}}-san**'s balance? It's **{{amount}}**..",
+  "Why do you care so much about **{{user}}**'s balance? N-not that I care, it's **{{amount}}**.",
+  "Some particular reason you want to know **{{user}}**'s balance? It's **{{amount}}**.",
+  "Hm, one second... It's **{{amount}}**, but why do you want to know **{{user}}**'s balance?",
+  "You've aleady asked for **{{user}}**'s balance, gosh! Anyway, it's **{{amount}}**."
 ];
 
-exports.purgeMessages = [
-  "Hông biết đâu nha, senpai nào vừa kêu em purge {{amount}} messages...",
-  "Oops... Em vừa xóa {{amount}} messages mất ùi..."
+exports.levelMessages = [
+  "You're only level **{{level}}**, Not bad...",
+  "Pfft, level **{{level}}**?",
+  "**{{user}}** your level? It's **{{level}}**, baka",
+  "**{{user}}**, again with this? Whatever, you're level **{{level}}**.",
+  "**{{user}}-san** here you go, it's **{{level}}**.",
+  "You're level **{{level}}**, maybe if you were a wee bit more active it'd be higher.",
+  "Only a level **{{level}}**? Even I'm better than that.",
+  "Level **{{level}}**? What, where you hoping to be higher than **{{level}}**?",
+  "Only level **{{level}}**? Pfft! I've seen much better than that."
+];
+
+exports.otherLevelMessages = [
+  "Look just ask **{{user}}** next time, but I will forgive you. Here, this is their level: **{{level}}**.",
+  "Why do you want to view **{{user}}**'s level? Anyway they are level **{{level}}**."
 ];
 
 exports.aboutMessages = [
-  "Ohayō mina-san! Chúng mình cùng phấn đấu nhé!",
-  "Nãy em giới thiệu rồi mà hỏi hoài vậy? Con người chứ có phải c-con con , con gì ấy nhỉ, đâu mà nói hoài?",
-  "Ohayō, em là REmilia! Mọi người có thể gọi em là REm-chan!"
+  "You want to know about me? What don't you already know b-baka. I get my beautiful looks from `@VixtoriaGoober` (Follow her on Twitter) and I'm the entertainer for An Idiot's Guide, owned by my father York#2400... I can tell you anything about any anime or manga that I have, not that it m-matters to me. Look, I'm also asked to give you a daily allowance and keep a record of what everyone else has. Will you just go with it?",
+
+  "I'm Misaki! Your entertainment assistant for An Idiot's Guide, a fantastic place owned by my father. I have a wide range of manga and anime; if you ever have a question or just want to look at it, all you need to do is ask. I also help out with keeping the community up by providing allowances for everyone! I've even kept track of everyone's balance so you can see where you are, even though you're always at the top for me!\n\nP.S. I get my beautiful looks from `@VixtoriaGoober` (follow her on Twitter)"
 ];
 
-// Reboot
-
-exports.rebootMessages = [
-  "Minna-san chờ emm… Senpai kêu em reboot~",
-  "Minna-san! Em cần reboot, chờ em tí..."
+// Go Messages
+exports.goMessages = [
+  "Ehhhhh! **{{user}}-san** invites everyone to play **{{game}}**!",
+  "Play **{{game}}** with **{{user}}-san** because **{{user}}-san** is so lonely!",
+  "**{{user}}** is too scared to ask people to play **{{game}}** with them",
+  "Goooooo! Play **{{game}}** with **{{user}}-san** please"
 ];
 
-// Poweroff
-exports.rebootMessages = [
-  "Minna-san bái bai, em phải đi rồi~",
-  "Minna-san ơi! Em đi ngủ một tí, ~ngápppp~..."
-];
-
-// Boot
-exports.bootMessages = [
-  "{{user}}-senpai! Minna-san! Em quay lại ùi nè!",
-  "{{user}}-san với mọi người nhớ em hơm?"
-];
+// System
 
 // Reload
 exports.reloadMissingArg = [
-  "N-nani?! điền command đàng hoàng vô hộ em với, không biết thì hỏi nha..",
-  "Baka!? Phải nói rõ command em mới reload dc chớ owo"
+  "N-nani?! I don't know what to do, you didn't give me anything!",
+  "Baka! You are supposed to provide a command to reload!"
 ];
 
 exports.reloadNotFound = [
-  "Eeeh?! {{user}}-san, làm gì có `{{command}}` (╯°□°）╯︵ ┻━┻",
-  "Gi vậy má {[user}}? `{{command}}` doesn't exist! Baka!"
+  "Eeeh?! **{{user}}-san**, why would you ask me to find a command that doesn't exist, it wasn't even an alias.",
+  "What are you doing? **{{command}}** doesn't exist! Baka!"
 ];
 
 exports.reloadErrUnload = [
-  "{{user}}-san, lỗi mất rồi nè: {{response}}",
-  "Èoooo, lỗi nữa rồi: ({response})"
+  "**{{user}}-san**, I think I broke it... This happened: **{{response}}**",
+  "There was an error, probably your fault! Baka! **{{response}}**"
 ];
 
 exports.reloadErrLoad = [
-  "Ugh, can't you do one thing right? {{user}}-san làm hỏng mất command `{{command}}` của em bây giờ?",
-  "`{{command}}` hỏng rồi .. Tại {{user}}-san nhé!"
+  "Ugh, can't you do one thing right? You ended up breaking **{{command}}**.",
+  "**{{command}}** is broken... Not my fault or problem though! (**{{response}}**)"
 ];
 
 exports.reloadSuccess = [
-  "Yatta! `{{command}}` reloaded rồi nè...",
-  "Em reloaded `{{command}}` rồi, xài commands gì mà reload hoài vậy owo"
+  "Yatta! **{{command}}** reloaded, now we can get back to what we were doing, or whatever you want to do...",
+  "I've reloaded **{{command}}**, not that I could see any point in it..."
 ];
 
 // Errors
@@ -138,9 +181,3 @@ exports.notNSFWChannel = [
 exports.guildOnlyCommand = [
 
 ];
-
-
-
-
-
-
