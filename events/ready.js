@@ -37,11 +37,11 @@ module.exports = class {
 
     setInterval(() => {
       this.client.channels.get("420524471028547584").send(`${this.client.config.defaultSettings.prefix}stats re`);
-    }, 3600000); 
+    }, 21600000); 
       
     setInterval(() => {
       this.client.channels.get("420052489879158784").send(`${this.client.config.defaultSettings.prefix}leaderboard re`);
-    }, 3600000); 
+    }, 21600000); 
 
     setInterval(() => {
       const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
