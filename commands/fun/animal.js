@@ -28,10 +28,8 @@ class Animal extends Social {
       let suffix;
       if (animalArray.includes(args[0])) {
         suffix = args[0];
-        const msg1 = await message.channel.send(`**${message.author.tag}** ❯ ${message.content}`)
       } else {
         suffix = animalArray[Math.floor(Math.random() * animalArray.length)];
-        const msg1 = await message.channel.send(`**${message.author.tag}** ❯ ${message.content} || **${message.author.tag}** didn't specify an animal that I support so I randomed one ヾ(❀╹◡╹)ﾉﾞ`)
       }
 
       const msg2 = await message.channel.send(`<a:typing:397490442469376001> Getting an animal pic for**${message.member.displayName}-san**`);

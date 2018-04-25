@@ -67,8 +67,8 @@ module.exports = class {
     }
     
     this.client.logger.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "cmd");
+    message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`)
     cmd.run(message, args, level);
-
     message.delete();
   }
 };
