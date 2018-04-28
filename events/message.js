@@ -66,9 +66,17 @@ module.exports = class {
       message.flags.push(args.shift().slice(1));
     }
     
+    // Log commands used (e.g.: "User REmilia (413891473528848384) ran command leaderboard")
     this.client.logger.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "cmd");
-    message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+
+    // Only report to channel who runs what commands if not bot
+    if (!message.author.bot)
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+
+    // Run the requested command
     cmd.run(message, args, level);
+
+    // Delete the user's command request
     message.delete();
   }
 };
