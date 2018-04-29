@@ -16,8 +16,8 @@ const defaultSettings = `{
   "socialSystem": "true",
   "socialInventory": "true",
   "scoreTime": "5",
-  "dailyTime": "12",
-  "pointsReward": "100",
+  "dailyTime": "24",
+  "pointsReward": "200",
   "minPoints": "1",
   "maxPoints": "50",
   "costMulti": "2"
