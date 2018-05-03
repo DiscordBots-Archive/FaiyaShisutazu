@@ -3,8 +3,8 @@
 
 
 "@types/node@*":
-  version "10.0.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
+  version "6.0.108"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.108.tgz#852e8496bcfc5e74cae83a5eb3b30e5661e9b7b9"
 
 abab@^1.0.0:
   version "1.0.4"
@@ -490,7 +490,7 @@ detect-libc@^1.0.2, detect-libc@^1.0.3:
 
 "discord.js@github:hydrabolt/discord.js":
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/hydrabolt/discord.js/tar.gz/62605c4470bc78b4f302b7d40f2492f066b3e5b8"
+  resolved "https://codeload.github.com/hydrabolt/discord.js/tar.gz/ddab8096cffa8719694896ee3fba69e5f1b71f7b"
   dependencies:
     pako "^1.0.0"
     prism-media "^0.2.0"

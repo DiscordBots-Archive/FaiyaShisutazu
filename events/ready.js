@@ -31,7 +31,7 @@ module.exports = class {
       this.client.settings.set("default", this.client.config.defaultSettings);
     }
 
-    this.client.user.setActivity(`@${this.client.config.defaultSettings.prefix}help | ${this.client.guilds.size} Server${this.client.guilds.size > 1 ? "s" : ""}`);
+    this.client.user.setActivity(`${this.client.config.defaultSettings.prefix}help | ${this.client.guilds.size} Server${this.client.guilds.size > 1 ? "s" : ""}`);
     
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers.`, "ready");
 
