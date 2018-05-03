@@ -57,7 +57,9 @@ let prompts = [
     console.log("First Start! Inserting default guild settings in the database...");
     await settings.setAsync("default", defaultSettings);
   }
-
+  
+  // Start to comment out this section and edit setup_base.txt 
+  // directly if hosting on Heroku
   const answers = await inquirer.prompt(prompts);
 
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
@@ -68,6 +70,7 @@ let prompts = [
   baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
   baseConfig = baseConfig.replace("{{steamKey}}", `"${answers.steamKey}"`);
   baseConfig = baseConfig.replace("{{googleKey}}", `"${answers.googleKey}"`);
+  // End
   
   fs.writeFileSync("./config.js", baseConfig);
   console.log("REMEMBER TO NEVER SHARE YOUR TOKEN & API KEYS WITH ANYONE!");

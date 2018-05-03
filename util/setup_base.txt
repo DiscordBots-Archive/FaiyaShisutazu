@@ -8,6 +8,7 @@ const config = {
   // Supports, level 8 by default. Array of user ID strings
   "supports": [],
 
+  // Enter your keys directly before hosting on Heroku
   // Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
   "discordKey":  {{discordKey}},
   

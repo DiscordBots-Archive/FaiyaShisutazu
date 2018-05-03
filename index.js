@@ -8,7 +8,8 @@ const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const klaw = require("klaw");
 const path = require("path");
-
+const express = require("express");
+const PORT = process.env.PORT || 3000;
 class REmibot extends Client {
   constructor(options) {
     super(options);
@@ -164,6 +165,7 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
+  express().listen(PORT, () => this.logger.log(`Listening on ${ PORT }`, "ready"))
   client.login(client.config.discordKey);
 };
 
