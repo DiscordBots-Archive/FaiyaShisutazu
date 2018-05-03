@@ -143,6 +143,11 @@ exports.goMessages = [
 ];
 
 // System
+exports.purgeMessages = [
+  "Now that {{amount}} messages have been deleted we can finally be alone",
+  "Those {{amount}} message's weren't important... I think...",
+  "I-I think I deleted {{amount}} messages..."
+];
 
 // Reload
 exports.reloadMissingArg = [
