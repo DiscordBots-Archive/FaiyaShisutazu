@@ -75,5 +75,4 @@ let prompts = [
   fs.writeFileSync("./config.js", baseConfig);
   console.log("REMEMBER TO NEVER SHARE YOUR TOKEN & API KEYS WITH ANYONE!");
   console.log("Configuration has been written, enjoy!");
-  await settings.close();
 }());
