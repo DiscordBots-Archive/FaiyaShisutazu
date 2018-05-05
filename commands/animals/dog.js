@@ -28,8 +28,8 @@ class Dog extends Social {
     const { body } = await get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : "https://dog.ceo/api/breeds/image/random");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.message,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.message,
         "color": 0x9575cd,
         "image": {
           "url": body.message

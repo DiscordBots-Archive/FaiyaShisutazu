@@ -28,8 +28,8 @@ class Bunny extends Social {
     const { body } = await get("https://api.bunnies.io/v2/loop/random/?media=gif,png");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.media.gif,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.media.gif,
         "color": 0x9575cd,
         "image": {
           "url": body.media.gif

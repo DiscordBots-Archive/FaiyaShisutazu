@@ -28,8 +28,8 @@ class Lizard extends Social {
     const { body } = await get("https://nekos.life/api/v2/img/lizard");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.url,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.url,
         "color": 0x9575cd,
         "image": {
           "url": body.url

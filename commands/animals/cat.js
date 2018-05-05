@@ -28,8 +28,8 @@ class Cat extends Social {
     const {	body } = await snek.get("http://random.cat/meow");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.file,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.file,
         "color": 0x9575cd,
         "image": {
           "url": body.file

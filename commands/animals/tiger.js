@@ -28,8 +28,8 @@ class Tiger extends Social {
     const { body } = await get("https://animals.anidiots.guide/tiger");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.link,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.link,
         "color": 0x9575cd,
         "image": {
           "url": body.link

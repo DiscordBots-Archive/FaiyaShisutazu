@@ -28,8 +28,8 @@ class Shibe extends Social {
     const { body } = await get("http://shibe.online/api/shibes");
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body[0],
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body[0],
         "color": 0x9575cd,
         "image": {
           "url": body[0]

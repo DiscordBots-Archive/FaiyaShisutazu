@@ -28,8 +28,8 @@ class Bird extends Social {
     const { body } = await get("http://random.birb.pw/tweet/");
     return loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": `https://random.birb.pw/img/${body}`,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": `https://random.birb.pw/img/${body}`,
         "color": 0x9575cd,
         "image": {
           "url": `https://random.birb.pw/img/${body}`

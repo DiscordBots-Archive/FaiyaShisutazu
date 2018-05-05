@@ -69,10 +69,6 @@ module.exports = class {
     // Log commands used (e.g.: "User REmilia (413891473528848384) ran command leaderboard")
     this.client.logger.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "cmd");
 
-    // Only report to channel who runs what commands if not bot
-    if (!message.author.bot)
-      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`)
-
     // Run the requested command
     cmd.run(message, args, level);
 

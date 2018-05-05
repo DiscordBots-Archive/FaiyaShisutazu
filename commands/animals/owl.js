@@ -28,8 +28,8 @@ class Owl extends Social {
     const owl = await get("http://pics.floofybot.moe/owl").then(r => r.body.image); // API Provided by Lewdcario
     await loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": owl,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": owl,
         "color": 0x9575cd,
         "image": {
           "url": owl

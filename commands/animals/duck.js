@@ -28,8 +28,8 @@ class Duck extends Social {
     const { body } = await get("https://random-d.uk/api/v1/random?type=gif");
     return loadingMessage.edit({
       embed: {
-        "title": "Click vào đây nếu không load được ảnh!",
-        "url": body.url,
+        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
+        "description": body.url,
         "color": 0x9575cd,
         "image": {
           "url": body.url
