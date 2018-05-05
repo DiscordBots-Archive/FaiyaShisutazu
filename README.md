@@ -1,6 +1,6 @@
 # REmibot
 
-A multipurpose Discord bot based on the discord.js library.
+A multipurpose Discord bot based on a clone of [Misaki](https://github.com/NotAWeebDev/Misaki) at commit [2e44f9e](https://github.com/NotAWeebDev/Misaki/commit/2e44f9efb467028dcbae5a2c9f836d2e99860b85)
 
 ## Requirements
 
@@ -31,10 +31,11 @@ To start the bot, in the command prompt, run the following command:
 
 ## Feature Requests
 
-Have a feature in mind? I'd love to hear about it. Feel free to [open an issue](https://github.com/jwchen1259/REmibot/issues/new) and let us know.
+Have a feature in mind? I'd love to hear about it. Feel free to [open an issue](https://github.com/jwchen1259/REmibot/issues/new) and let me know.
 
 ## Contributors
 
+- York *(Creator of the original bot)* [@York](https://github.com/YorkAARGH)
 - Junwei Chen  *(Maintainer)* - [@Junwei](https://github.com/jwchen1259)
 
 ## [License](LICENSE)
