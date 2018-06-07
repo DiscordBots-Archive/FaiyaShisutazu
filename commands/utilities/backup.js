@@ -11,13 +11,13 @@ class Backup extends Command {
       description: "Returns a backup of the bot's leaderboard data.",
       category: "8. Utilities",
       usage: "backup",
-      extended: "Returns a backup of the server's leaderboard data in a compressed zip file.",
+      extended: "Returns a backup of the server's leaderboard data in a zip file.",
       cost: 0,
       cooldown: 0,
       hidden: true,
       guildOnly: true,
       aliases: [],
-      permLevel: "Moderator"
+      permLevel: "User"
     });
   }
 

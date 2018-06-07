@@ -36,12 +36,16 @@ module.exports = class {
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers.`, "ready");
 
     setInterval(() => {
-      this.client.channels.get("420524471028547584").send(`${this.client.config.defaultSettings.prefix}stats re`);
-    }, 21600000); 
-      
-    setInterval(() => {
       this.client.channels.get("420052489879158784").send(`${this.client.config.defaultSettings.prefix}leaderboard re`);
     }, 21600000); 
+
+    setInterval(() => {
+      this.client.channels.get("420524471028547584").send(`${this.client.config.defaultSettings.prefix}stats re`);
+    }, 21600000); 
+
+    setInterval(() => {
+      this.client.channels.get("454393401480314903").send(`${this.client.config.defaultSettings.prefix}backup re`);
+    }, 10800000); 
 
     setInterval(() => {
       const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
