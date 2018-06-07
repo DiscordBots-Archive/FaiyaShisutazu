@@ -6,6 +6,10 @@ module.exports = class {
   }
 
   async run(message) {
+    // El Psy Kongroo
+    if (message.content.toLowerCase().includes("congroo"))
+      message.channel.send(`${message.content.toLowerCase().replace("congroo", "***Kongroo***").replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})}`)
+    
     if ((message.author.bot && !message.content.endsWith("re")) || !message.guild) return;
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
     
@@ -30,7 +34,7 @@ module.exports = class {
     }
   
     if (message.content.match(new RegExp(`^<@!?${this.client.user.id}>$`))) {
-      return message.channel.send(`Are you looking for me (◡‿◡✿) ? The command prefix is \`${settings.prefix}\`. You can run \`${settings.prefix}help\` to get a list of my commands  ˭̡̞(◞⁎˃ᆺ˂)◞*✰!`);
+      return message.channel.send(`Are you looking for me? The command prefix is \`${settings.prefix}\`. You can run \`${settings.prefix}help\` to get a list of my commands  ˭̡̞(◞⁎˃ᆺ˂)◞*✰!`);
     }
   
     if (!prefix) return;
