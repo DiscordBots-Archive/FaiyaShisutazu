@@ -123,6 +123,12 @@ exports.levelMessages = [
   "Only level **{{level}}**? Pfft! I've seen much better than that."
 ];
 
+exports.kongrooMessages = [
+  "Congroo là sai rùi nha! \"{{kongroo}}\" mới đúng!",
+  "?? :smile: ?? It's \"{{kongroo}}\"",
+  "\"{{kongroo}}\" nha! Bro do you you even tuturu? https://i.imgur.com/N8n0ZC5.jpg"
+];
+
 exports.otherLevelMessages = [
   "Look just ask **{{user}}** next time, but I will forgive you. Here, this is their level: **{{level}}**.",
   "Why do you want to view **{{user}}**'s level? Anyway they are level **{{level}}**."
