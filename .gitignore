@@ -12,6 +12,7 @@ api.js
 
 # Data
 data/
+*.zip
 
 # Dependency directories
 node_modules/
