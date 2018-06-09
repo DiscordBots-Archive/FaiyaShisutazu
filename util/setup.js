@@ -35,17 +35,37 @@ let prompts = [
   {
     type: "input",
     name: "discordKey",
-    message: "Please enter your bot token from the application page."
+    message: "[Required] Please enter your bot token from the application page."
   },
   {
     type: "input",
     name: "steamKey",
-    message: "Please enter your Steam API key."
+    message: "[Optional] Please enter your Steam API key."
   },
   {
     type: "input",
     name: "googleKey",
-    message: "Please enter your Google API key."
+    message: "[Optional] Please enter your Google API key."
+  },
+  {
+    type: "input",
+    name: "githubUser",
+    message: "[Optional] Please enter your Github's username."
+  },
+  {
+    type: "input",
+    name: "githubPass",
+    message: "[Optional] Please enter your Github's password."
+  },
+  {
+    type: "input",
+    name: "githubRepo",
+    message: "[Optional] Please enter a Github's repo URL to push to."
+  },
+  {
+    type: "input",
+    name: "githubCommitAuthor",
+    message: "[Optional] Please enter the author you want your commits to be commited as, i.e: Some Author <some@author.com>."
   }
 ];
 
@@ -70,6 +90,10 @@ let prompts = [
   baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
   baseConfig = baseConfig.replace("{{steamKey}}", `"${answers.steamKey}"`);
   baseConfig = baseConfig.replace("{{googleKey}}", `"${answers.googleKey}"`);
+  baseConfig = baseConfig.replace("{{githubUser}}", `"${answers.githubUser}"`);
+  baseConfig = baseConfig.replace("{{githubPass}}", `"${answers.githubPass}"`);
+  baseConfig = baseConfig.replace("{{githubRepo}}", `"${answers.githubRepo}"`);
+  baseConfig = baseConfig.replace("{{githubCommitAuthor}}", `"${answers.githubCommitAuthor}"`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);

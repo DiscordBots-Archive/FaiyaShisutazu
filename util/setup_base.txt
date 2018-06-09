@@ -9,14 +9,20 @@ const config = {
   "supports": [],
 
   // Enter your keys directly before hosting on Heroku
-  // Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
+  // [Required] Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
   "discordKey":  {{discordKey}},
   
-  // Your Steam Developer's API key. Available @ https://steamcommunity.com/dev/apikey
+  // [Optional - Steam games commands] Your Steam Developer's API key. Available @ https://steamcommunity.com/dev/apikey
   "steamKey":  {{steamKey}},
   
-   // Your Google Developer's API key. Available @ https://console.developers.google.com/
+  // [Optional - Music commands] Your Google Developer's API key. Available @ https://console.developers.google.com/
   "googleKey":  {{googleKey}},
+
+  // [Optional - Push bot's data to private github repo command] Your Github's account & information
+  "githubUser": {{githubUser}},
+  "githubPass": {{githubPass}},
+  "githubRepo": {{githubRepo}},
+  "githubCommitAuthor": {{githubCommitAuthor}},
 
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.

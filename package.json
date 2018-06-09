@@ -51,6 +51,7 @@
     "prism-media": "^0.2.1",
     "ramda": "^0.25.0",
     "request": "^2.87.0",
+    "simple-git": "^1.96.0",
     "slot-machine": "^2.1.0",
     "snekfetch": "^4.0.2",
     "sodium": "^2.0.3",
