@@ -45,7 +45,7 @@ module.exports = class {
 
     setInterval(() => {
       this.client.channels.get("454393401480314903").send(`${this.client.config.defaultSettings.prefix}backup re`);
-    }, 10800000); 
+    }, 21600000); 
 
     setInterval(() => {
       const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
