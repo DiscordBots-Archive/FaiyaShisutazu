@@ -6,7 +6,7 @@ const fs = require("fs");
 let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
 
 const defaultSettings = `{
-  "prefix": ".",
+  "prefix": "!",
   "modRole": "Moderator",
   "adminRole": "Administrator",
   "systemNotice": "true",
@@ -53,7 +53,7 @@ let prompts = [
     message: "[Optional] Please enter your Github's username."
   },
   {
-    type: "input",
+    type: "password",
     name: "githubPass",
     message: "[Optional] Please enter your Github's password."
   },
@@ -66,6 +66,16 @@ let prompts = [
     type: "input",
     name: "githubCommitAuthor",
     message: "[Optional] Please enter the author you want your commits to be commited as, i.e: Some Author <some@author.com>."
+  },
+  {
+    type: "input",
+    name: "statsChannel",
+    message: "[Optional] Please enter the channel you want the bot to post stats to."
+  },
+  {
+    type: "input",
+    name: "leaderboardChannel",
+    message: "[Optional] Please enter the channel you want the bot to post the server's leaderboard rankings to."
   }
 ];
 
@@ -94,9 +104,12 @@ let prompts = [
   baseConfig = baseConfig.replace("{{githubPass}}", `"${answers.githubPass}"`);
   baseConfig = baseConfig.replace("{{githubRepo}}", `"${answers.githubRepo}"`);
   baseConfig = baseConfig.replace("{{githubCommitAuthor}}", `"${answers.githubCommitAuthor}"`);
+  baseConfig = baseConfig.replace("{{statsChannel}}", `"${answers.statsChannel}"`);
+  baseConfig = baseConfig.replace("{{leaderboardChannel}}", `"${answers.leaderboardChannel}"`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);
   console.log("REMEMBER TO NEVER SHARE YOUR TOKEN & API KEYS WITH ANYONE!");
   console.log("Configuration has been written, enjoy!");
+  await settings.close();
 }());

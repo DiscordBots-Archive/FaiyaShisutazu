@@ -24,12 +24,18 @@ const config = {
   "githubRepo": {{githubRepo}},
   "githubCommitAuthor": {{githubCommitAuthor}},
 
+  // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post its stats
+  "statsChannel": {{statsChannel}},
+  
+  // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post the server's leaderboard rankings
+  "leaderboardChannel": {{leaderboardChannel}},
+
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.
   // DO NOT REMOVE THIS BEFORE YOUR BOT IS LOADED AND FUNCTIONAL.
   
   "defaultSettings" : {
-    "prefix": ".",
+    "prefix": "!",
     "modRole": "Moderator",
     "adminRole": "Administrator",
     "systemNotice": "true",
