@@ -48,7 +48,7 @@ exports.otherBalanceMessages = [
 ];
 
 exports.kongrooMessages = [
-  "Congroo là sai rùi nha! \"{{kongroo}}\" mới đúng!",
+  "Sai rùi nha! \"{{kongroo}}\" mới đúng!",
   "?? :smile: ?? It's \"{{kongroo}}\"",
   "\"{{kongroo}}\" nha! Bro do you you even tuturu? https://i.imgur.com/N8n0ZC5.jpg"
 ];

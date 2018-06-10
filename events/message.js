@@ -7,8 +7,8 @@ module.exports = class {
 
   async run(message) {
     // El Psy Kongroo
-    if (message.content.toLowerCase().includes("congroo"))
-      message.channel.send(`${this.client.responses.kongrooMessages.random().replace("{{kongroo}}", message.content.toLowerCase().replace("congroo", "***Kongroo***").replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))}`)
+    if (message.content.toLowerCase().includes("congroo") || message.content.toLowerCase().includes("tuturu") || message.content.toLowerCase().includes("tootooroo"))
+      message.channel.send(`${this.client.responses.kongrooMessages.random().replace("{{kongroo}}", message.content.toLowerCase().replace("congroo", "***Kongroo***").replace("tuturu", "***Tutturu***").replace("tootooroo", "***Tutturu***").replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))}`)
     
     if ((message.author.bot && !message.content.endsWith("re")) || !message.guild) return;
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
