@@ -17,8 +17,8 @@ class Stats extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const duration = moment.duration(this.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
-    const msg = await message.channel.send("**Current REmibot's stats**");
-    message.channel.send({
+    const msg = await message.channel.send(`**Current bot's status**`);
+    await message.channel.send({
       "embed": {
         "title": `Estimated ping: ${msg.createdTimestamp - message.createdTimestamp}ms`,
         "color": 0x8000ff,

@@ -27,13 +27,13 @@ class Social extends Command {
     try {
       
       if (Date.now() > score.daily) {
-        const msg = await message.channel.send(`${this.client.responses.dailySuccessMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{amount}}", `💎${pointsReward.toLocaleString()}`)}`);
+        const msg = await message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | ${this.client.responses.dailySuccessMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{amount}}", `💎${pointsReward.toLocaleString()}`)}`);
         score.daily = msg.createdTimestamp + (dailyTime * 60 * 60 * 1000);
         message.member.givePoints(pointsReward);
         return msg;
       } else {
         const fromNow = moment(score.daily).fromNow(true);
-        message.channel.send(`${this.client.responses.dailyFailureMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{time}}", fromNow)}.`);
+        message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | ${this.client.responses.dailyFailureMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{time}}", fromNow)}.`);
       }
     } catch (error) {
       this.client.logger.error(error);

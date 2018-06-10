@@ -10,7 +10,7 @@ module.exports = class {
     if (message.content.toLowerCase().includes("congroo") || message.content.toLowerCase().includes("tuturu") || message.content.toLowerCase().includes("tootooroo"))
       message.channel.send(`${this.client.responses.kongrooMessages.random().replace("{{kongroo}}", message.content.toLowerCase().replace("congroo", "***Kongroo***").replace("tuturu", "***Tutturu***").replace("tootooroo", "***Tutturu***").replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))}`)
     
-    if ((message.author.bot && !message.content.endsWith("re")) || !message.guild) return;
+    if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
     
     // const defaults = this.client.settings.get("default");

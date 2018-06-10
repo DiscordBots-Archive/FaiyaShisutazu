@@ -43,17 +43,13 @@ class Leaderboard extends Social {
           }
         });
 
-      if (!message.author.bot) {  
+      if (message.author.bot) {  
         await message.channel.send({
           "embed": {
-            "title": `**${message.guild.name}'s Leaderboard**`,
+            "title": `🌺 **${message.author.tag}** ❯ ${message.content} | **${message.guild.name}'s Leaderboard**`,
             "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
             "color": 0x9575CD,
             "fields": [
-              {
-                "name": `🌺 ${message.author.tag}'s current point: 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`,
-                "value": `\u200b`
-              },
               {
                 "name": `**${message.guild.name}'s Top 3**`,
                 "value": `\u200b`
@@ -83,6 +79,10 @@ class Leaderboard extends Social {
             "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
             "color": 0x9575CD,
             "fields": [
+              {
+                "name": `🌺 ${message.author.tag}'s current point: 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`,
+                "value": `\u200b`
+              },
               {
                 "name": `**${message.guild.name}'s Top 3**`,
                 "value": `\u200b`
