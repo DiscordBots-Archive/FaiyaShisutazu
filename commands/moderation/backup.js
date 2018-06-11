@@ -1,6 +1,6 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
 const config = require(`${process.cwd()}/config.js`);
-const git = require("simple-git")(`${process.cwd()}`);
+const git = require("simple-git")(`${process.cwd()}/data`);
 const moment = require("moment");
 
 class Backup extends Command {
@@ -23,26 +23,22 @@ class Backup extends Command {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const remote = `https://${config.githubUser}:${config.githubPass}@${config.githubRepo}`;
-    const timestamp = `**[${moment().format("YYYY-MM-DD HH:mm:ss")}]**`;
-    git.add(['data'], (err, result) => {
+    const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]`;
+    git.add(['inventory', 'points', 'reminders', 'settings', 'shop'], (err, result) => {
       if (err)
         console.log(err);
-      else
-        console.log(result);
     });
-    git.commit(`Push ${timestamp} data`, {'--author': `${config.githubCommitAuthor}`}, (err, result) => {
+    git.commit(`${timestamp}`, {'--author': `${config.githubCommitAuthor}`}, (err, result) => {
       if (err)
         console.log(err);
-      else
-        console.log(result);
     });
     git.push(remote, 'master', (err, result) => {
       if (err)
         console.log(err);
       else
-        console.log(result);
+	message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | **${timestamp}**`);
     });
-    message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | ${timestamp}`);
+    
   }
 }
 
