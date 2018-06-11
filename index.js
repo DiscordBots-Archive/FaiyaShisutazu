@@ -107,7 +107,6 @@ class REmibot extends Client {
 const client = new REmibot({
   fetchAllMembers: false,
   disableEveryone: true,
-  disabledEvents:["CHANNEL_PINS_UPDATE", "GUILD_BAN_ADD", "GUILD_BAN_REMOVE", "GUILD_SYNC", "RELATIONSHIP_ADD", "RELATIONSHIP_REMOVE", "TYPING_START", "USER_NOTE_UPDATE", "USER_SETTINGS_UPDATE", "VOICE_SERVER_UPDATE", "VOICE_STATE_UPDATE"],
   messageCacheSize: 100,
   messageCacheLifetime: 300,
   messageSweepInterval: 150
