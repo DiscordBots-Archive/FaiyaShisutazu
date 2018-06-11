@@ -6,13 +6,10 @@ yarn-debug.log*
 yarn-error.log*
 config.json
 config.js
-api.js
 .vscode/
-.jsbeautifyrc
 
 # Data
 data/
-*.zip
 
 # Dependency directories
 node_modules/
