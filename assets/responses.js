@@ -47,10 +47,11 @@ exports.otherBalanceMessages = [
   "Hm, chờ tẹo nè.. It's {{amount}}, hỏi của **{{user}}** chi dạ?"
 ];
 
-exports.kongrooMessages = [
-  "Sai rùi nha! \"{{kongroo}}\" mới đúng!",
-  "?? :smile: ?? It's \"{{kongroo}}\"",
-  "\"{{kongroo}}\" nha! Bro do you you even tuturu? https://i.imgur.com/N8n0ZC5.jpg"
+exports.steinerMessages = [
+  "Ý **{{user}}-san** là {{steiner}}???",
+  "Sai rùi nha **{{user}}-san**! \"{{steiner}}\" mới đúng!",
+  "?? :smile: ?? It's \"{{steiner}}\"",
+  "\"{{steiner}}\" nha! **{{user}}-san**, do you you even Tutturu? https://i.imgur.com/N8n0ZC5.jpg"
 ];
 
 exports.aboutMessages = [

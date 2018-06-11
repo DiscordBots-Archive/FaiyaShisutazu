@@ -6,11 +6,18 @@ module.exports = class {
   }
 
   async run(message) {
-    // El Psy Kongroo
-    if (message.content.toLowerCase().includes("congroo") || message.content.toLowerCase().includes("tuturu") || message.content.toLowerCase().includes("tootooroo"))
-      message.channel.send(`${this.client.responses.kongrooMessages.random().replace("{{kongroo}}", message.content.toLowerCase().replace("congroo", "***Kongroo***").replace("tuturu", "***Tutturu***").replace("tootooroo", "***Tutturu***").replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}))}`)
-    
+    // Autocorrect Steins;Gate references
+    if (!message.author.bot && (message.content.search(/El[\s\W]+Psy[\s\W]+[a-z]on([a-z]*)/i) 
+    || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i)
+    || message.content.search(/Ho(u)?oin Kyo(u)?ma/i)))
+      message.channel.send(`***${message.author.tag}*** *said "${message.content}"*\n\n${this.client.responses.steinerMessages.random()
+        .replace("{{user}}", `${message.author.tag}`)
+        .replace("{{steiner}}", message.content.replace(/[a-z]on([a-z]*)/i, "**Kongroo**")
+        .replace(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
+        .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`)
+
     if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
+    
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
     
     // const defaults = this.client.settings.get("default");
@@ -21,7 +28,6 @@ module.exports = class {
     if (message.settings.socialSystem === "true") {
       monitor.run(this.client, message, level);
     }
-
   
     const mentionPrefix = new RegExp(`^<@!?${this.client.user.id}> `);
     const prefixMention = mentionPrefix.exec(message.content);
