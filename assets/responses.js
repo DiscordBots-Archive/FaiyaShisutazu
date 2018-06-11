@@ -51,13 +51,18 @@ exports.steinerMessages = [
   "Ý **{{user}}-san** là {{steiner}}???",
   "Sai rùi nha **{{user}}-san**! \"{{steiner}}\" mới đúng!",
   "?? :smile: ?? It's \"{{steiner}}\"",
-  "\"{{steiner}}\" nha! **{{user}}-san**, do you you even Tutturu? https://i.imgur.com/N8n0ZC5.jpg"
+  "\"{{steiner}}\" nha! **{{user}}-san**, do you you even Tutturu? https://i.imgur.com/N8n0ZC5.jpg",
+  "B-baka!! Là \"{{steiner}}\"!"
 ];
 
 exports.aboutMessages = [
-  "**Ohayō mina-san! Chúng mình cùng phấn đấu nhé!**",
-  "**Nãy em giới thiệu rồi mà hỏi hoài vậy? Con người chứ có phải c-con con , con gì ấy nhỉ, đâu mà nói hoài?**",
-  "**Ohayō, em là Üc207Pr4f57t9, Ex-Machina! Mọi người có thể gọi em là Schwi-chan**!"
+  "Ohayō **{{user}}-san**! Chúng mình cùng phấn đấu nhé!",
+  "Mệt ùi hông muốn trả lời **{{user}}-san** nữa! Phí sức lắm...",
+  "Gì đây **{{user}}-san**?! Đánh nhau hông?",
+  "Command prefix của em là **{{prefix}}** nha! Mất công **{{user}}-san** lại quên...",
+  "Gì hoài vậy **{{user}}-san**? Con người chứ có phải c-con con , con gì ấy nhỉ, đâu mà nói hoài?",
+  "Ohayō, em là Üc207Pr4f57t9, Ex-Machina! Mọi người có thể gọi em là Schwi-chan! Dùng prefix **{{prefix}}** của em để chạy các commands nha!.",
+  "**{{user}}-san** tìm em hả? Command prefix của em là **{{prefix}}**. Chạy **{{prefix}}**help để biết thêm về các commands của em nha ˭̡̞(◞⁎˃ᆺ˂)◞*✰!"
 ];
 
 // System

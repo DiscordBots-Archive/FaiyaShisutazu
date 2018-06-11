@@ -40,7 +40,9 @@ module.exports = class {
     }
   
     if (message.content.match(new RegExp(`^<@!?${this.client.user.id}>$`))) {
-      return message.channel.send(`Are you looking for me? The command prefix is \`${settings.prefix}\`. You can run \`${settings.prefix}help\` to get a list of my commands  ˭̡̞(◞⁎˃ᆺ˂)◞*✰!`);
+      return message.channel.send(`${this.client.responses.aboutMessages.random()
+        .replace("{{user}}", `${message.author.tag}`)
+        .replace("{{prefix}}", `${settings.prefix}`)}`);
     }
   
     if (!prefix) return;
