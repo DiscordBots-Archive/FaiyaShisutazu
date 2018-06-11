@@ -7,14 +7,14 @@ module.exports = class {
 
   async run(message) {
     // Autocorrect Steins;Gate references
-    if (!message.author.bot && (message.content.search(/El[\s\W]+Psy[\s\W]+[a-z]on([a-z]*)/i) 
-    || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i)
-    || message.content.search(/Ho(u)?oin Kyo(u)?ma/i)))
+    if (!message.author.bot && (message.content.search(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i) !== -1
+    || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i) !== -1
+    || message.content.search(/Ho(u)?oin Kyo(u)?ma/i) !== -1))
       message.channel.send(`***${message.author.tag}*** *said "${message.content}"*\n\n${this.client.responses.steinerMessages.random()
         .replace("{{user}}", `${message.author.tag}`)
-        .replace("{{steiner}}", message.content.replace(/[a-z]on([a-z]*)/i, "**Kongroo**")
+        .replace("{{steiner}}", message.content.replace(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i, "**El Psy Kongroo**")
         .replace(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
-        .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`)
+        .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`);
 
     if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
     
