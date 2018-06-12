@@ -2,6 +2,12 @@ const config = {
   // Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
   // will pull this information directly from it's application page.
 
+  // Admins, level 9 by default. Array of user ID strings.
+  "admins": [],
+
+  // Supports, level 8 by default. Array of user ID strings
+  "supports": [],
+
   // Enter your keys directly or use and .env file instead before hosting on Heroku
   // [Required] Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
   "discordKey":  {{discordKey}},

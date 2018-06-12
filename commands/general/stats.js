@@ -4,13 +4,20 @@ const moment = require("moment");
 require("moment-duration-format");
 
 class Stats extends Command {
+
   constructor(client) {
     super(client, {
       name: "stats",
-      description: "Gives some useful bot statistics.",
+      description: "Trả về các ping của bot kèm theo một số thông số hữu ích.",
+      category: "1. General",
       usage: "stats",
+      extended: "Trả về ping, thông tin cơ bản của bot cũng như server mà bot đang được host.",
+      cost: 2,
+      cooldown: 5,
+      hidden: false,
+      guildOnly: false,
       aliases: ["ping"],
-      category: "1. General"
+      permLevel: "User"
     });
   }
 
