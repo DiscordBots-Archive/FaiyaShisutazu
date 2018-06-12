@@ -9,7 +9,7 @@ class Stats extends Command {
       name: "stats",
       description: "Gives some useful bot statistics.",
       usage: "stats",
-      aliases: ["invite"],
+      aliases: ["ping"],
       category: "1. General"
     });
   }
@@ -17,7 +17,7 @@ class Stats extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const duration = moment.duration(this.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
-    const msg = await message.channel.send(`**Current bot's status**`);
+    const msg = await message.channel.send(`${message.content.includes("ping") ? "**Pong!**" : "**Current bot's status**"}`);
     await message.channel.send({
       "embed": {
         "title": `Estimated ping: ${msg.createdTimestamp - message.createdTimestamp}ms`,
