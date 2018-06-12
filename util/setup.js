@@ -36,55 +36,15 @@ let prompts = [
     type: "input",
     name: "discordKey",
     message: "[Required] Please enter your bot token from the application page."
-  },
-  {
-    type: "input",
-    name: "steamKey",
-    message: "[Optional] Please enter your Steam API key."
-  },
-  {
-    type: "input",
-    name: "googleKey",
-    message: "[Optional] Please enter your Google API key."
-  },
-  {
-    type: "input",
-    name: "githubUser",
-    message: "[Optional] Please enter your Github's username."
-  },
-  {
-    type: "password",
-    name: "githubPass",
-    message: "[Optional] Please enter your Github's password."
-  },
-  {
-    type: "input",
-    name: "githubRepo",
-    message: "[Optional] Please enter a Github's repo URL to push to."
-  },
-  {
-    type: "input",
-    name: "githubCommitAuthor",
-    message: "[Optional] Please enter the author you want your commits to be commited as, i.e: Some Author <some@author.com>."
-  },
-  {
-    type: "input",
-    name: "statsChannel",
-    message: "[Optional] Please enter the channel you want the bot to post stats to."
-  },
-  {
-    type: "input",
-    name: "leaderboardChannel",
-    message: "[Optional] Please enter the channel you want the bot to post the server's leaderboard rankings to."
   }
 ];
 
 (async function() {
-  console.log("Setting up your bot's configuration...");
+  console.log(" Setting up your bot's configuration...");
   await settings.defer;
   if (!settings.has("default")) {
     prompts = prompts.slice(1);
-    console.log("First Start! Inserting default guild settings in the database...");
+    console.log(" First Start! Inserting default guild settings in the database...");
     await settings.setAsync("default", defaultSettings);
   }
   
@@ -93,23 +53,23 @@ let prompts = [
   const answers = await inquirer.prompt(prompts);
 
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
-    console.log("Resetting default guild settings...");
+    console.log(" Resetting default guild settings...");
     await settings.setAsync("default", defaultSettings);
   }
 
   baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
-  baseConfig = baseConfig.replace("{{steamKey}}", `"${answers.steamKey}"`);
-  baseConfig = baseConfig.replace("{{googleKey}}", `"${answers.googleKey}"`);
-  baseConfig = baseConfig.replace("{{githubUser}}", `"${answers.githubUser}"`);
-  baseConfig = baseConfig.replace("{{githubPass}}", `"${answers.githubPass}"`);
-  baseConfig = baseConfig.replace("{{githubRepo}}", `"${answers.githubRepo}"`);
-  baseConfig = baseConfig.replace("{{githubCommitAuthor}}", `"${answers.githubCommitAuthor}"`);
-  baseConfig = baseConfig.replace("{{statsChannel}}", `"${answers.statsChannel}"`);
-  baseConfig = baseConfig.replace("{{leaderboardChannel}}", `"${answers.leaderboardChannel}"`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);
-  console.log("REMEMBER TO NEVER SHARE YOUR TOKEN & API KEYS WITH ANYONE!");
-  console.log("Configuration has been written, enjoy!");
+  console.log("*********************************************************");
+  console.log("*  Never share your bot token and API keys with anyone! *");
+  console.log("*  Configuration has been written, enjoy!               *");
+  console.log("*                                                       *");
+  console.log("*  This setup only prompt for the required bot token!   *")
+  console.log("*  Please manually enter other optional keys in the     *")
+  console.log("*  config.js file to enable additional features!        *")
+  console.log("*********************************************************");
   await settings.close();
 }());
+
+

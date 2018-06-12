@@ -2,33 +2,27 @@ const config = {
   // Owner, level 10 by default. You no longer need to supply the owner ID, as the bot
   // will pull this information directly from it's application page.
 
-  // Admins, level 9 by default. Array of user ID strings.
-  "admins": [],
-
-  // Supports, level 8 by default. Array of user ID strings
-  "supports": [],
-
-  // Enter your keys directly before hosting on Heroku
+  // Enter your keys directly or use and .env file instead before hosting on Heroku
   // [Required] Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
   "discordKey":  {{discordKey}},
   
   // [Optional - Steam games commands] Your Steam Developer's API key. Available @ https://steamcommunity.com/dev/apikey
-  "steamKey":  {{steamKey}},
+  "steamKey":  "steamKey",
   
   // [Optional - Music commands] Your Google Developer's API key. Available @ https://console.developers.google.com/
-  "googleKey":  {{googleKey}},
+  "googleKey":  "googleKey",
 
   // [Optional - Push bot's data to private github repo command] Your Github's account & information
-  "githubUser": {{githubUser}},
-  "githubPass": {{githubPass}},
-  "githubRepo": {{githubRepo}},
-  "githubCommitAuthor": {{githubCommitAuthor}},
+  "githubUser": "githubUser",
+  "githubPass": "githubPass",
+  "githubRepo": "githubRepo",
+  "githubCommitAuthor": "githubCommitAuthor",
 
   // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post its stats
-  "statsChannel": {{statsChannel}},
+  "statsChannel": "statsChannel",
   
   // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post the server's leaderboard rankings
-  "leaderboardChannel": {{leaderboardChannel}},
+  "leaderboardChannel": "leaderboardChannel",
 
   // Default per-server settings. These settings are entered in a database on first load, 
   // And are then completely ignored from this file. To modify default settings, use the `conf` command.
