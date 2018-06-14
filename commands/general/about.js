@@ -12,7 +12,9 @@ class About extends Command {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      message.channel.send(this.client.responses.aboutMessages.random());
+      message.channel.send(this.client.responses.aboutMessages.random()
+        .replace("{{user}}", `${message.author.tag}`)
+        .replace("{{prefix}}", `${message.settings.prefix}`));
     } catch (e) {
       console.log(e);
     }
