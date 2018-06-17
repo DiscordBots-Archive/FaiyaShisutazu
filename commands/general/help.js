@@ -1,14 +1,20 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
 
 class Help extends Command {
+
   constructor(client) {
     super(client, {
       name: "help",
-      description: "Tìm hiểu về mọi commands của em nè!",
-      usage: "help [command]",
+      description: "Trả về thông tin về mọi commands của em!",
       category: "1. General",
-      extended: "Hiện mọi commands mà senpai có thể dùng, nếu cần thêm nhiều chi tiết về 1 command nào đó thì senpai có thể dùng 'help <command name>'.",
-      aliases: ["h", "halp", "help"]
+      usage: "help [command]",
+      extended: "Trả về mọi commands mà senpai có thể dùng, nếu cần thêm nhiều chi tiết về 1 command nào đó thì senpai có thể dùng 'help <command name>'.",
+      cost: 0,
+      cooldown: 5,
+      hidden: false,
+      guildOnly: false,
+      aliases: ["h", "halp", "help"],
+      permLevel: "User"
     });
   }
 

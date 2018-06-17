@@ -1,12 +1,20 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
 
 class About extends Command {
+
   constructor(client) {
     super(client, {
       name: "about",
       description: "Tìm hiểu về em tí nha!",
+      category: "1. General",
       usage: "about",
-      category: "1. General"
+      extended: "Chỉ là command để giới thiệu thui mà...",
+      cost: 0,
+      cooldown: 5,
+      hidden: false,
+      guildOnly: false,
+      aliases: [],
+      permLevel: "User"
     });
   }
 
