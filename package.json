@@ -31,7 +31,7 @@
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js",
     "dotenv": "^6.0.0",
-    "enmap": "^2.6.1",
+    "enmap": "^2.6.3",
     "enmap-level": "^2.1.0",
     "erlpack": "github:discordapp/erlpack",
     "express": "^4.16.3",
