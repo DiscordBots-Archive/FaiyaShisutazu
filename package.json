@@ -39,7 +39,7 @@
     "fs-nextra": "^0.3.5",
     "gifencoder": "^1.1.0",
     "inquirer": "^6.0.0",
-    "kitsu": "^5.1.1",
+    "kitsu": "^5.2.0",
     "klaw": "^2.1.1",
     "libsodium-wrappers": "^0.7.3",
     "moment": "^2.22.2",
@@ -52,11 +52,11 @@
     "request": "^2.87.0",
     "simple-git": "^1.96.0",
     "slot-machine": "^2.1.0",
-    "snekfetch": "^4.0.2",
+    "snekfetch": "^4.0.4",
     "sodium": "^2.0.3",
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
-    "uws": "^10.148.0",
+    "uws": "^10.148.1",
     "zlib-sync": "^0.1.4"
   }
 }
