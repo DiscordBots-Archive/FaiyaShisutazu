@@ -1312,11 +1312,7 @@ prebuild-install@^4.0.0:
     tunnel-agent "^0.6.0"
     which-pm-runs "^1.0.0"
 
-prism-media@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.3.1.tgz#5331522d1194b544c65db4a66ea3854e6916a258"
-
-prism-media@hydrabolt/prism-media:
+prism-media@^0.3.1, prism-media@hydrabolt/prism-media:
   version "0.3.1"
   resolved "https://codeload.github.com/hydrabolt/prism-media/tar.gz/ead016c69b1f341898cb264746c355b982502c62"
 
