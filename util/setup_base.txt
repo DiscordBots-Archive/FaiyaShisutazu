@@ -35,337 +35,337 @@ const config = {
     "rank0": {
       "title": "Ascendant Immortal",
       "id": "457896092827254808",
-      "points": ""
+      "points": "100000"
     },
     "rank1": {
       "title": "Legacy Immortal",
       "id": "457896331327832065",
-      "points": ""
+      "points": "75000"
     },
     "rank2": {
       "title": "Elder Immortal",
       "id": "457896408482185227",
-      "points": ""
+      "points": "50000"
     },
     "rank3": {
       "title": "Exalted Immortal",
       "id": "457896441302482974",
-      "points": ""
+      "points": "48000"
     },
     "rank4": {
       "title": "Infused Immortal",
       "id": "457896576417792002",
-      "points": ""
+      "points": "47250"
     },
     "rank5": {
       "title": "Corrupted Immortal",
       "id": "457896621120815119",
-      "points": ""
+      "points": "46500"
     },
     "rank6": {
       "title": "Cursed Immortal",
       "id": "457896844152799232",
-      "points": ""
+      "points": "45750"
     },
     "rank7": {
       "title": "Genuine Immortal",
       "id": "457896900939612167",
-      "points": ""
+      "points": "45000"
     },
     "rank8": {
       "title": "Heroic Immortal",
       "id": "457896970426515479",
-      "points": ""
+      "points": "44250"
     },
     "rank9": {
       "title": "Auspicious Immortal",
       "id": "457897042866470912",
-      "points": ""
+      "points": "43500"
     },
     "rank10": {
       "title": "Inscribed Immortal",
       "id": "457897143709990912",
-      "points": ""
+      "points": "42750"
     },
     "rank11": {
       "title": "Exalted Divine",
       "id": "457897212626731008",
-      "points": ""
+      "points": "42000"
     },
     "rank12": {
       "title": "Infused Divine",
       "id": "457897260643123200",
-      "points": ""
+      "points": "41250"
     },
     "rank13": {
       "title": "Corrupted Divine",
       "id": "457897319149600779",
-      "points": ""
+      "points": "40500"
     },
     "rank14": {
       "title": "Cursed Divine",
       "id": "457897523026198528",
-      "points": ""
+      "points": "39750"
     },
     "rank15": {
       "title": "Genuine Divine",
       "id": "457897612960333834",
-      "points": ""
+      "points": "39000"
     },
     "rank16": {
       "title": "Heroic Divine",
       "id": "457897849989103617",
-      "points": ""
+      "points": "38250"
     },
     "rank16": {
       "title": "Auspicious Divine",
       "id": "457897953777025039",
-      "points": ""
+      "points": "37500"
     },
     "rank17": {
       "title": "Inscribed Divine",
       "id": "457898020462395422",
-      "points": ""
+      "points": "36750"
     },
     "rank17": {
       "title": "Exalted Ancient",
       "id": "457898202880933891",
-      "points": ""
+      "points": "36000"
     },
     "rank18": {
       "title": "Infused Ancient",
       "id": "457898453964554241",
-      "points": ""
+      "points": "35250"
     },
     "rank19": {
       "title": "Corrupted Ancient",
       "id": "457898614614917124",
-      "points": ""
+      "points": "34500"
     },
     "rank20": {
       "title": "Cursed Ancient",
       "id": "457898692590960650",
-      "points": ""
+      "points": "33750"
     },
     "rank21": {
       "title": "Genuine Ancient",
       "id": "457898924699811852",
-      "points": ""
+      "points": "33000"
     },
     "rank22": {
       "title": "Heroic Ancient",
       "id": "457899014478888971",
-      "points": ""
+      "points": "32250"
     },
     "rank23": {
       "title": "Auspicious Ancient",
       "id": "457899092144816128",
-      "points": ""
+      "points": "31500"
     },
     "rank24": {
       "title": "Inscribed Ancient",
       "id": "457899266384592907",
-      "points": ""
+      "points": "30750"
     },
     "rank25": {
       "title": "Exalted Legend",
       "id": "457899830996369409",
-      "points": ""
+      "points": "30000"
     },
     "rank26": {
       "title": "Infused Legend",
       "id": "457898453964554241",
-      "points": ""
+      "points": "29250"
     },
     "rank27": {
       "title": "Corrupted Legend",
       "id": "467939207986413570",
-      "points": ""
+      "points": "28500"
     },
     "rank28": {
       "title": "Cursed Legend",
       "id": "457900025461211137",
-      "points": ""
+      "points": "27750"
     },
     "rank29": {
       "title": "Genuine Legend",
       "id": "457900077583826945",
-      "points": ""
+      "points": "27000"
     },
     "rank30": {
       "title": "Heroic Legend",
       "id": "457900166360465408",
-      "points": ""
+      "points": "26250"
     },
     "rank31": {
       "title": "Auspicious Legend",
       "id": "457900270379335681",
-      "points": ""
+      "points": "25500"
     },
     "rank32": {
       "title": "Inscribed Legend",
       "id": "457900350402330625",
-      "points": ""
+      "points": "24750"
     },
     "rank33": {
       "title": "Exalted Archon",
       "id": "457900483756163073",
-      "points": ""
+      "points": "24000"
     },
     "rank34": {
       "title": "Infused Archon",
       "id": "457900682016456717",
-      "points": ""
+      "points": "23250"
     },
     "rank35": {
       "title": "Corrupted Archon",
       "id": "457900747292672002",
-      "points": ""
+      "points": "22500"
     },
     "rank36": {
       "title": "Cursed Archon",
       "id": "457900803881959437",
-      "points": ""
+      "points": "21750"
     },
     "rank37": {
       "title": "Genuine Archon",
       "id": "457900884257538059",
-      "points": ""
+      "points": "21000"
     },
     "rank38": {
       "title": "Heroic Archon",
       "id": "457901287409844225",
-      "points": ""
+      "points": "20250"
     },
     "rank39": {
       "title": "Auspicious Archon",
       "id": "457901420926992385",
-      "points": ""
+      "points": "19500"
     },
     "rank40": {
       "title": "Inscribed Archon",
       "id": "457901509481594892",
-      "points": ""
+      "points": "18750"
     },
     "rank41": {
       "title": "Exalted Crusader",
       "id": "457901942379773962",
-      "points": ""
+      "points": "18000"
     },
     "rank42": {
       "title": "Infused Crusader",
       "id": "457902046755028994",
-      "points": ""
+      "points": "17250"
     },
     "rank43": {
       "title": "Corrupted Crusader",
       "id": "457902096960847883",
-      "points": ""
+      "points": "16500"
     },
     "rank44": {
       "title": "Cursed Crusader",
       "id": "457902324887584769",
-      "points": ""
+      "points": "15750"
     },
     "rank45": {
       "title": "Genuine Crusader",
       "id": "457902531839000596",
-      "points": ""
+      "points": "15000"
     },
     "rank46": {
       "title": "Heroic Crusader",
       "id": "457902595390963712",
-      "points": ""
+      "points": "14250"
     },
     "rank47": {
       "title": "Auspicious Crusader",
       "id": "457902728652390402",
-      "points": ""
+      "points": "13500"
     },
     "rank48": {
       "title": "Inscribed Crusader",
       "id": "457902840094916614",
-      "points": ""
+      "points": "12750"
     },
     "rank49": {
       "title": "Exalted Guardian",
       "id": "457903068109996034",
-      "points": ""
+      "points": "12000"
     },
     "rank50": {
       "title": "Infused Guardian",
       "id": "457903161160630302",
-      "points": ""
+      "points": "11250"
     },
     "rank51": {
       "title": "Corrupted Guardian",
       "id": "457903198443798528",
-      "points": ""
+      "points": "10500"
     },
     "rank52": {
       "title": "Cursed Guardian",
       "id": "457903247626076180",
-      "points": ""
+      "points": "9750"
     },
     "rank53": {
       "title": "Genuine Guardian",
       "id": "457902531839000596",
-      "points": ""
+      "points": "9000"
     },
     "rank54": {
       "title": "Heroic Guardian",
       "id": "457903496205959178",
-      "points": ""
+      "points": "8250"
     },
     "rank55": {
       "title": "Auspicious Guardian",
       "id": "457903558528991232",
-      "points": ""
+      "points": "7500"
     },
     "rank56": {
       "title": "Inscribed Guardian",
       "id": "457903609011765260",
-      "points": ""
+      "points": "6750"
     },
     "rank57": {
       "title": "Exalted Herald",
       "id": "457903705094881300",
-      "points": ""
+      "points": "6000"
     },
     "rank58": {
       "title": "Infused Herald",
       "id": "457903889090478081",
-      "points": ""
+      "points": "5250"
     },
     "rank59": {
       "title": "Corrupted Herald",
       "id": "457903988512260096",
-      "points": ""
+      "points": "4500"
     },
     "rank60": {
       "title": "Cursed Herald",
       "id": "457904138701897742",
-      "points": ""
+      "points": "3750"
     },
     "rank61": {
       "title": "Genuine Herald",
       "id": "457904248756371466",
-      "points": ""
+      "points": "3000"
     },
     "rank62": {
       "title": "Heroic Herald",
       "id": "457904332206112769",
-      "points": ""
+      "points": "2250"
     },
     "rank63": {
       "title": "Auspicious Herald",
       "id": "457904386945974284",
-      "points": ""
+      "points": "1500"
     },
     "rank64": {
       "title": "Inscribed Herald",
       "id": "457904483373154305",
-      "points": ""
+      "points": "750"
     }
   },
 
