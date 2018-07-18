@@ -55,6 +55,15 @@ exports.steinerMessages = [
   "B-baka!! Là \"{{steiner}}\"!"
 ];
 
+exports.rankupMessages = [
+  "**{{user}}-san** lên **{{rank}}** rồi nè!",
+  "**{{user}}-san**? **{{rank}}**?? Cái gì đang xảy ra thế này?",
+  "**{{user}}-san** lên **{{rank}}** rồi á!?",
+  "Lên **{{rank}}** rổi đó nhưng còn lâu mới đuổi kịp em nhé **{{user}}-san**!",
+  "**{{user}}-san** mãi mới lên **{{rank}}** lêu lêu!",
+  "**{{user}}-san** cuối cùng cũng đc **{{rank}}** ?? R-rank rác rưởi!!!"
+];
+
 exports.aboutMessages = [
   "Ohayō **{{user}}-san**! Chúng mình cùng phấn đấu nhé!",
   "Mệt ùi hông muốn trả lời **{{user}}-san** nữa! Phí sức lắm...",

@@ -6,6 +6,59 @@ module.exports = class {
   }
 
   async run(message) {
+    // const defaults = this.client.settings.get("default");
+    const settings = message.settings = this.client.getGuildSettings(message.guild);
+
+    if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
+
+    if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
+
+    // Check if user has the rank matched with his/her's points yet
+    if (!message.author.bot) {
+      const ranking = this.client.config.ranking;
+      const totalRoles = this.client.config.total;
+
+      const member = message.member;
+      const score = member.score.points;
+      const hasRoles = member.roles;
+
+      loop: {
+        for (var i = 0; i < totalRoles; i++) {
+          if (score >= (ranking[i].points)) {
+            if (!hasRoles.has(`${ranking[i].id}`)) {
+              member.roles.add(`${ranking[i].id}`)
+              message.channel.send({
+                "embed": {
+                  "description": `${this.client.responses.rankupMessages.random()
+                    .replace("{{user}}", `${message.author.tag}`)
+                    .replace("{{rank}}", `${ranking[i].title}`)}`,
+                  "color": 0x9575CD,
+                  "fields": [
+                    {
+                      "name": "Current rank:",
+                      "value": `${ranking[i].title}`,
+                      "inline": true
+                    },
+                    {
+                      "name": "Next rank:",
+                      "value": `${ranking[i - 1].title}`,
+                      "inline": true
+                    },
+                    {
+                      "name": "Points to next rank:",
+                      "value": `💎 ${ranking[(i - 1)].points - score} (${Math.floor(score / ranking[(i - 1)].points * 100)}%)`,
+                      "inline": true
+                    }
+                  ]
+                }
+              });
+              break loop;
+            }
+          }
+        }
+      }
+    }
+
     // Autocorrect Steins;Gate references
     if (!message.author.bot && (message.content.search(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i) !== -1
     || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i) !== -1
@@ -15,13 +68,6 @@ module.exports = class {
         .replace("{{steiner}}", message.content.replace(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i, "**El Psy Kongroo**")
         .replace(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
         .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`);
-
-    if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
-    
-    if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
-    
-    // const defaults = this.client.settings.get("default");
-    const settings = message.settings = this.client.getGuildSettings(message.guild);    
     
     const level = this.client.permlevel(message);
 

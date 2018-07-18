@@ -105,11 +105,10 @@ class REmibot extends Client {
 }
 
 const client = new REmibot({
-  fetchAllMembers: false,
   disableEveryone: true,
-  messageCacheSize: 100,
-  messageCacheLifetime: 300,
-  messageSweepInterval: 150
+  messageCacheMaxSize: 100,
+  messageCacheLifetime: 240,
+  messageSweepInterval: 300,
 });
 
 require(`${process.cwd()}/modules/functions.js`)(client);
