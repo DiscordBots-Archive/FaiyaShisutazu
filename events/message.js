@@ -23,9 +23,10 @@ module.exports = class {
       const hasRoles = member.roles;
 
       loop: {
-        for (var i = 0; i < totalRoles; i++) {
+        for (let i = 0; i < totalRoles; i++) {
           if (score >= (ranking[i].points)) {
-            if (!hasRoles.has(`${ranking[i].id}`)) {
+            if (hasRoles.has(`${ranking[i].id}`)) break loop;
+            else {
               member.roles.add(`${ranking[i].id}`)
               message.channel.send({
                 "embed": {
