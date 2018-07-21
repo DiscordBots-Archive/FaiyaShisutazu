@@ -28,27 +28,39 @@ module.exports = class {
             if (hasRoles.has(`${ranking[i].id}`)) break loop;
             else {
               member.roles.add(`${ranking[i].id}`)
+
+              // Set medal thumbnail url for embed
+              let medal = "https://imgur.com/EfJrTH5";
+              if (i <= 10) medal = "https://imgur.com/VU3RpCR";
+              else if (i <= 18) medal = "https://imgur.com/uZtovvk";
+              else if (i <= 26) medal = "https://imgur.com/Cpj0jYl";
+              else if (i <= 34) medal = "https://imgur.com/8hJYVK4";
+              else if (i <= 42) medal = "https://imgur.com/hwroS4H";
+              else if (i <= 50) medal = "https://imgur.com/evyjdcj";
+              else if (i <= 58) medal = "https://imgur.com/UyWDigo";
+              else if (i <= 66) medal = "https://imgur.com/jtvrZH6";
+
               message.channel.send({
                 "embed": {
                   "description": `${this.client.responses.rankupMessages.random()
                     .replace("{{user}}", `${message.author.tag}`)
                     .replace("{{rank}}", `${ranking[i].title}`)}`,
                   "color": 0x9575CD,
+                  "thumbnail": {
+                    "url": `${medal}`
+                  },
                   "fields": [
                     {
                       "name": "Current rank:",
-                      "value": `${ranking[i].title}`,
-                      "inline": true
+                      "value": `${ranking[i].title}`
                     },
                     {
                       "name": "Next rank:",
-                      "value": `${ranking[i - 1].title}`,
-                      "inline": true
+                      "value": `${ranking[i - 1].title}`
                     },
                     {
                       "name": "Points to next rank:",
-                      "value": `💎 ${ranking[(i - 1)].points - score} (${Math.floor((ranking[(i - 1)].points - score) / (ranking[(i - 1)].points - ranking[i].points) * 100)}%)`,
-                      "inline": true
+                      "value": `💎 ${ranking[(i - 1)].points - score} (${Math.floor((ranking[(i - 1)].points - score) / (ranking[(i - 1)].points - ranking[i].points) * 100)}%)`
                     }
                   ]
                 }
