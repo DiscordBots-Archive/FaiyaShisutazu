@@ -40,11 +40,10 @@ module.exports = class {
               else if (i <= 58) medal = "https://i.imgur.com/UyWDigo.png";
               else if (i <= 66) medal = "https://i.imgur.com/jtvrZH6.png";
 
-              message.channel.send({
+              message.channel.send(`${this.client.responses.rankupMessages.random()
+                .replace("{{user}}", `${message.author.tag}`)
+                .replace("{{rank}}", `${ranking[i].title}`)}`, {
                 "embed": {
-                  "description": `${this.client.responses.rankupMessages.random()
-                    .replace("{{user}}", `${message.author.tag}`)
-                    .replace("{{rank}}", `${ranking[i].title}`)}`,
                   "color": 0x9575CD,
                   "thumbnail": {
                     "url": `${medal}`
