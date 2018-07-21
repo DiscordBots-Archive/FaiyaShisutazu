@@ -130,8 +130,5 @@ module.exports = class {
 
     // Run the requested command
     cmd.run(message, args, level);
-
-    // Delete the user's command request
-    message.delete();
   }
 };
