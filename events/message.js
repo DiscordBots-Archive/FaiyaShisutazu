@@ -30,15 +30,15 @@ module.exports = class {
               member.roles.add(`${ranking[i].id}`)
 
               // Set medal thumbnail url for embed
-              let medal = "https://imgur.com/EfJrTH5";
-              if (i <= 10) medal = "https://imgur.com/VU3RpCR";
-              else if (i <= 18) medal = "https://imgur.com/uZtovvk";
-              else if (i <= 26) medal = "https://imgur.com/Cpj0jYl";
-              else if (i <= 34) medal = "https://imgur.com/8hJYVK4";
-              else if (i <= 42) medal = "https://imgur.com/hwroS4H";
-              else if (i <= 50) medal = "https://imgur.com/evyjdcj";
-              else if (i <= 58) medal = "https://imgur.com/UyWDigo";
-              else if (i <= 66) medal = "https://imgur.com/jtvrZH6";
+              let medal = "https://i.imgur.com/EfJrTH5.png";
+              if (i <= 10) medal = "https://i.imgur.com/VU3RpCR.png";
+              else if (i <= 18) medal = "https://i.imgur.com/uZtovvk.png";
+              else if (i <= 26) medal = "https://i.imgur.com/Cpj0jYl.png";
+              else if (i <= 34) medal = "https://i.imgur.com/8hJYVK4.png";
+              else if (i <= 42) medal = "https://i.imgur.com/hwroS4H.png";
+              else if (i <= 50) medal = "https://i.imgur.com/evyjdcj.png";
+              else if (i <= 58) medal = "https://i.imgur.com/UyWDigo.png";
+              else if (i <= 66) medal = "https://i.imgur.com/jtvrZH6.png";
 
               message.channel.send({
                 "embed": {
