@@ -22,10 +22,10 @@ class Social extends Command {
 
   async usrDay(message) {
     const dailyTime = parseInt(message.settings.dailyTime);
-    const pointsReward = parseInt(message.settings.pointsReward);
+    const baseReward = Math.ceil(parseInt(message.settings.pointsReward));
+    const pointsReward = Math.floor(Math.random() * (Math.floor(parseInt(message.settings.pointsReward) + 50) - baseReward)) + baseReward;
     const score = message.member.score;
     try {
-      
       if (Date.now() > score.daily) {
         const msg = await message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | ${this.client.responses.dailySuccessMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{amount}}", `💎${pointsReward.toLocaleString()}`)}`);
         score.daily = msg.createdTimestamp + (dailyTime * 60 * 60 * 1000);
