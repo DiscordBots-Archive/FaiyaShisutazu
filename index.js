@@ -18,6 +18,7 @@ class REmibot extends Client {
 
     this.aliases = new Collection();
     this.commands = new Collection();
+    this.playlists = new Collection();
     this.ratelimits = new Collection();
 
     this.settings = new Enmap({ provider: new EnmapLevel({ name: "settings" }) });
