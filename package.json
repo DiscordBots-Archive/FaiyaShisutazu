@@ -25,7 +25,7 @@
     "archiver": "^2.1.1",
     "bluebird": "^3.5.1",
     "bufferutil": "^4.0.0",
-    "canvas": "^2.0.0-alpha.12",
+    "canvas": "github:Automattic/node-canvas",
     "canvas-constructor": "^1.0.1",
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
@@ -33,7 +33,7 @@
     "dotenv": "^6.0.0",
     "enmap": "^2.6.3",
     "enmap-level": "^2.1.0",
-    "erlpack": "github:discordapp/erlpack",
+    "erlpack": "discordapp/erlpack",
     "express": "^4.16.3",
     "fast-html-parser": "^1.0.1",
     "fs-nextra": "^0.3.5",
@@ -51,12 +51,14 @@
     "ramda": "^0.25.0",
     "request": "^2.87.0",
     "simple-git": "^1.96.0",
+    "simple-youtube-api": "^5.0.2",
     "slot-machine": "^2.1.0",
     "snekfetch": "^4.0.4",
     "sodium": "^2.0.3",
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
     "uws": "^10.148.1",
+    "ytdl-core": "^0.21.1",
     "zlib-sync": "^0.1.4"
   }
 }

@@ -8,6 +8,10 @@ config.json
 config.js
 .vscode/
 
+# Exclusive music commands
+commands/music
+functions/
+
 # Data
 data/
 
