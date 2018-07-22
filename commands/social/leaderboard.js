@@ -39,73 +39,44 @@ class Leaderboard extends Social {
             top3.push(`${this.client.users.get(u.user).tag}`);
             top3.push(`${u.points.toLocaleString()}`);
           } else {
-            leaderboard.push(`${(page*20 + (i + 1)).toString().padStart(2, "0")}❯ 💎 ${u.points.toLocaleString()} ${" ".repeat(23 - u.points.toLocaleString().length)} ::  ${this.client.users.get(u.user).tag}`);
+            leaderboard.push(`${(page*20 + (i + 1)).toString().padStart(2, "0")}❯ 💎 ${u.points.toLocaleString()} ${" ".repeat(10 - u.points.toLocaleString().length)} ::  ${this.client.users.get(u.user).tag}`);
           }
         });
 
-      if (message.author.bot) {  
-        await message.channel.send({
-          "embed": {
-            "title": `🌺 **${message.author.tag}** ❯ ${message.content} | **${message.guild.name}'s Leaderboard**`,
-            "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
-            "color": 0x9575CD,
-            "fields": [
-              {
-                "name": `**${message.guild.name}'s Top 3**`,
-                "value": `\u200b`
-              },
-              {
-                "name": `🥇 ${top3[0]}`,
-                "value": `💎 ${top3[1]}`,
-                "inline": true
-              },
-              {
-                "name": `🥈 ${top3[2]}`,
-                "value": `💎 ${top3[3]}`,
-                "inline": true
-              },
-              {
-                "name": `🥉 ${top3[4]}`,
-                "value": `💎 ${top3[5]}`,
-                "inline": true
-              }
-            ]
-          }
-        });
-      } else {
-        await message.channel.send({
-          "embed": {
-            "title": `**${message.guild.name}'s Leaderboard**`,
-            "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
-            "color": 0x9575CD,
-            "fields": [
-              {
-                "name": `🌺 ${message.author.tag}'s current point: 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`,
-                "value": `\u200b`
-              },
-              {
-                "name": `**${message.guild.name}'s Top 3**`,
-                "value": `\u200b`
-              },
-              {
-                "name": `🥇 ${top3[0]}`,
-                "value": `💎 ${top3[1]}`,
-                "inline": true
-              },
-              {
-                "name": `🥈 ${top3[2]}`,
-                "value": `💎 ${top3[3]}`,
-                "inline": true
-              },
-              {
-                "name": `🥉 ${top3[4]}`,
-                "value": `💎 ${top3[5]}`,
-                "inline": true
-              }
-            ]
-          }
-        });
-      }
+      // Get the message author's position on leaderboard
+      const authorPosition = lbServer.indexOf(message.author.id).toString().padStart(2, "0") == -1 ? "??" : (lbServer.indexOf(message.author.id) + 1).toString();
+
+      await message.channel.send(`${message.author.bot ? `🌺 **${message.author.tag}** ❯ ${message.content} | ` : ""}**${message.guild.name}'s Leaderboard**`, {
+        "embed": {
+          "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
+          "color": 0x9575CD,
+          "footer": {
+            "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
+            "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
+          },
+          "fields": [
+            {
+              "name": `${message.author.bot ? "\u200b" : `${message.author.tag}'s current position: #${authorPosition} with 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`}`,
+              "value": "\u200b"
+            },
+            {
+              "name": `🥇 ${top3[0]}`,
+              "value": `💎 ${top3[1]}`,
+              "inline": true
+            },
+            {
+              "name": `🥈 ${top3[2]}`,
+              "value": `💎 ${top3[3]}`,
+              "inline": true
+            },
+            {
+              "name": `🥉 ${top3[4]}`,
+              "value": `💎 ${top3[5]}`,
+              "inline": true
+            }
+          ]
+        }
+      });
 
     } catch (error) {
       console.log(error);

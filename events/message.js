@@ -48,6 +48,10 @@ module.exports = class {
                   "thumbnail": {
                     "url": `${medal}`
                   },
+                  "footer": {
+                    "icon_url": this.client.user.displayAvatarURL({ format: "png", size: 32 }),
+                    "text": `REmibot by @Jjeuweiii`
+                  },
                   "fields": [
                     {
                       "name": "Current rank:",

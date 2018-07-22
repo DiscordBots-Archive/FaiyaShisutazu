@@ -24,7 +24,7 @@ class Help extends Command {
       const myCommands = message.guild ? this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true) : this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true && cmd.conf.guildOnly !== true);
 
       let currentCategory = "";
-      let output = "{\"title\": \"**Cùng tìm hiểu về mọi commands của em nha**\",\"description\": \"_Dùng re help [command name] để có nhiều chi tiết hơn_\",\"color\": 4886754,\"fields\": [";
+      let output = `{"color": 4886754, "fields": [`;
 
       const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
 
@@ -32,15 +32,15 @@ class Help extends Command {
         const cat = c.help.category.toProperCase();
         if (currentCategory !== cat) {
           if (cat !== "1. General")
-            output += "\"},";
+            output += `"},`;
           output += `{"name": "${cat}","value": "`;
           currentCategory = cat;
         }
-        output += ` \`${c.help.name}\` `;
+        output += ` ${c.help.name} `;
       });
 
-      output += "\"}],\"footer\": {\"text\": \"Hosted by @Jjeuweiii senpai\"}}";
-      message.channel.send({
+      output += `"}],"footer": {"icon_url": "${message.author.displayAvatarURL({ format: "png", size: 32 })}", "text": "Requested by ${message.author.tag} | REmibot by @Jjeuweiii"}}`;
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | Cùng tìm hiểu về mọi commands của em nha **${message.author.tag}-san**! `, {
         "embed": JSON.parse(output)
       });
 
@@ -54,36 +54,37 @@ class Help extends Command {
       if (!message.guild && command.conf.guildOnly === true) return;
       if (level < this.client.levelCache[command.conf.permLevel]) return;
 
-      message.channel.send({
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {
         "embed": {
           "title": `${command.help.name}`,
           "description": `${command.help.description}`,
           "color": 0x8000ff,
           "footer": {
-            "text": "Hosted by @Jjeuweiii senpai"
+            "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
+            "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
           },
           "fields": [{
               "name": "Category",
-              "value": `\`${command.help.category}\``,
+              "value": `${command.help.category}`,
               "inline": true
             },
             {
               "name": "Usage",
-              "value": `\`${settings.prefix}${command.help.usage}\``,
+              "value": `${settings.prefix}${command.help.usage}`,
               "inline": true
             },
             {
               "name": "Cost",
-              "value": `\`💎${parseInt(command.help.cost)}\``,
+              "value": `💎 ${parseInt(command.help.cost)}`,
               "inline": true
             },
             {
               "name": "Aliases",
-              "value": `\`${command.conf.aliases.join(", ")}\``
+              "value": `${command.conf.aliases.join(", ") ? command.conf.aliases.join(", ") : "None!"}`
             },
             {
               "name": "Details",
-              "value": `\`${command.help.extended}\``
+              "value": `${command.help.extended}`
             }
           ]
         }
