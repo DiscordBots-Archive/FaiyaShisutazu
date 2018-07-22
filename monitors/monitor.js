@@ -13,7 +13,7 @@ module.exports = class {
   static givePoints(client, message, level) { // eslint-disable-line no-unused-vars
     if (!message.guild || !message.member) return;
     const settings = message.settings;
-    if (message.content.startsWith(settings.prefix)) return;
+    if (message.content.startsWith(settings.prefix) || message.author.bot) return;
     const score = message.member.score;
     const points = giveRandomPoints(parseInt(settings.minPoints), parseInt(settings.maxPoints));
     message.member.givePoints(points);
