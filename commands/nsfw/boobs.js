@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const snek = require("snekfetch");
 
 class Boobs extends Social {
@@ -23,18 +24,19 @@ class Boobs extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** muốn ngắm dzú...`);
+      const msg = await message.channel.send(`<a:typing:397490442469376001>...`);
       const { body } = await snek.get("http://api.oboobs.ru/boobs/0/1/random");
-      await msg.edit({
-        embed: {
-          "title": "Hình gốc ở đây nè!",
-          "url": `http://media.oboobs.ru/${body[0].preview}`,
-          "color": 0x9575cd,
-          "image": {
-            "url": `http://media.oboobs.ru/${body[0].preview}`
-          }
-        }
-      });
+      
+      const embed = new Discord.MessageEmbed();
+      embed
+        .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+        .setDescription(`http://media.oboobs.ru/${body[0].preview}`)
+        .setColor(0x9575cd)
+        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setImage(`http://media.oboobs.ru/${body[0].preview}`)
+        .setTimestamp()
+
+      await msg.edit({embed});
     } catch (e) {
       console.log(e);
     }

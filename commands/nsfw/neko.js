@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const snek = require("snekfetch");
 
 class Neko extends Social {
@@ -23,17 +24,19 @@ class Neko extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** ....`);
+      const msg = await message.channel.send(`<a:typing:397490442469376001>...`);
       const { body } = await snek.get(`https://nekos.life/api${Math.random() >= 0.5 ? "/lewd" : ""}/neko`);
-      await msg.edit({
-        embed: {
-          "url": body.neko,
-          "color": 0x9575cd,
-          "image": {
-            "url": body.neko
-          }
-        }
-      });
+      
+      const embed = new Discord.MessageEmbed();
+      embed
+        .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+        .setDescription(body.neko)
+        .setColor(0x9575cd)
+        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setImage(body.neko)
+        .setTimestamp()
+        
+      await msg.edit({embed});
     } catch (e) {
       console.log(e);
     }

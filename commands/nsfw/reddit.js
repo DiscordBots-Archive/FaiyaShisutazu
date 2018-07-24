@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const snek = require("snekfetch");
 
 class Reddit extends Social {
@@ -17,9 +18,7 @@ class Reddit extends Social {
     const subreddit = args.join(" ") || "random";
     const subRedCat = message.flags[0] || "random";
     try {
-      const {
-        body
-      } = await snek.get(`https://www.reddit.com/r/${subreddit}/${subRedCat}.json`);
+      const { body } = await snek.get(`https://www.reddit.com/r/${subreddit}/${subRedCat}.json`);
       let meme;
       if (body[0]) {
         meme = body[0].data.children[Math.floor(Math.random() * body[0].data.children.length)].data;
@@ -34,9 +33,20 @@ class Reddit extends Social {
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
-      const msg = await message.channel.send(`'Fetching from ${meme.subreddit_name_prefixed}...'`);
-      await message.channel.send(`${meme.title} submitted by ${meme.author} in ${meme.subreddit_name_prefixed}\nUpvote Ratio ${meme.upvote_ratio}\n${meme.url}`);
-      msg.delete();
+      const msg = await message.channel.send(`Fetching from **${meme.subreddit_name_prefixed}...**`);
+      
+      const embed = new Discord.MessageEmbed();
+      embed
+        .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+        .setDescription(`${meme.title} submitted by ${meme.author}\n\nPermalink: https://www.reddit.com${meme.permalink}`)
+        .setColor(0x9575cd)
+        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setImage(`${meme.url}`)
+        .setTimestamp()
+        .addField("Subreddit:", `${meme.subreddit_name_prefixed}`, true)
+        .addField("Reddit score:", `${meme.score}`, true);
+      
+      await msg.edit({embed});
     } catch (error) {
       console.log(error);
       this.client.logger.error(error);
