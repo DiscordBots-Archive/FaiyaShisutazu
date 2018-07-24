@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { get } = require("snekfetch");
 
 class Bird extends Social {
@@ -24,23 +25,19 @@ class Bird extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang ngắm nhìn 1 chú chim nè...`);
+    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001>...`);
     const { body } = await get("http://random.birb.pw/tweet/");
-    return loadingMessage.edit({
-      embed: {
-        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
-        "description": `https://random.birb.pw/img/${body}`,
-        "color": 0x9575cd,
-        "image": {
-          "url": `https://random.birb.pw/img/${body}`
-        },
-        "footer": {
-          "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
-          "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
-        }
-      }
-    });
+    
+    const embed = new Discord.MessageEmbed();
+    embed
+      .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+      .setDescription(`https://random.birb.pw/img/${body}`)
+      .setColor(0x9575cd)
+      .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+      .setImage(`https://random.birb.pw/img/${body}`)
+      .setTimestamp()
 
+    await loadingMessage.edit({embed});
   }
 }
 

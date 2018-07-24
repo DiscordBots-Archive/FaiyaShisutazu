@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { get } = require("snekfetch");
 
 class Lion extends Social {
@@ -24,23 +25,19 @@ class Lion extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang ngắm nhìn 1 chú sư tử nè...`);
+    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001>...`);
     const { body } = await get("https://animals.anidiots.guide/lion");
-    await loadingMessage.edit({
-      embed: {
-        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
-        "description": body.link,
-        "color": 0x9575cd,
-        "image": {
-          "url": body.link
-        },
-        "footer": {
-          "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
-          "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
-        }
-      }
-    });
-    
+
+    const embed = new Discord.MessageEmbed();
+    embed
+      .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+      .setDescription(body.link)
+      .setColor(0x9575cd)
+      .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+      .setImage(body.link)
+      .setTimestamp()
+
+    await loadingMessage.edit({embed});    
   }
 }
 

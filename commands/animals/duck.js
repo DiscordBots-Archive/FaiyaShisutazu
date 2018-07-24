@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");s
 const { get } = require("snekfetch");
 
 class Duck extends Social {
@@ -24,23 +25,19 @@ class Duck extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang ngắm nhìn 1 chú vịt nè...`);
+    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001>...`);
     const { body } = await get("https://random-d.uk/api/v1/random?type=gif");
-    return loadingMessage.edit({
-      embed: {
-        "title": `🌺 **${message.author.tag}** ❯ ${message.content}`,
-        "description": body.url,
-        "color": 0x9575cd,
-        "image": {
-          "url": body.url
-        },
-        "footer": {
-          "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
-          "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
-        }
-      }
-    });
-    
+
+    const embed = new Discord.MessageEmbed();
+    embed
+      .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+      .setDescription(body.url)
+      .setColor(0x9575cd)
+      .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+      .setImage(body.url)
+      .setTimestamp()
+
+    await loadingMessage.edit({embed});
   }
 }
 
