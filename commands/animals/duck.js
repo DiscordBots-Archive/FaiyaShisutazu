@@ -1,5 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");s
+const Discord = require("discord.js");
 const { get } = require("snekfetch");
 
 class Duck extends Social {
