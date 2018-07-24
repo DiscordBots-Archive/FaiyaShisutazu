@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 
 class Leaderboard extends Social {
   constructor(client) {
@@ -46,38 +47,22 @@ class Leaderboard extends Social {
       // Get the message author's position on leaderboard
       const authorPosition = lbServer.indexOf(message.author.id).toString().padStart(2, "0") == -1 ? "??" : (lbServer.indexOf(message.author.id) + 1).toString();
 
-      await message.channel.send(`${message.author.bot ? `🌺 **${message.author.tag}** ❯ ${message.content} | ` : ""}**${message.guild.name}'s Leaderboard**`, {
-        "embed": {
-          "description": `**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``,
-          "color": 0x9575CD,
-          "footer": {
-            "icon_url": message.author.displayAvatarURL({ format: "png", size: 32 }),
-            "text": `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`
-          },
-          "fields": [
-            {
-              "name": `${message.author.bot ? "\u200b" : `${message.author.tag}'s current position: #${authorPosition} with 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`}`,
-              "value": "\u200b"
-            },
-            {
-              "name": `🥇 ${top3[0]}`,
-              "value": `💎 ${top3[1]}`,
-              "inline": true
-            },
-            {
-              "name": `🥈 ${top3[2]}`,
-              "value": `💎 ${top3[3]}`,
-              "inline": true
-            },
-            {
-              "name": `🥉 ${top3[4]}`,
-              "value": `💎 ${top3[5]}`,
-              "inline": true
-            }
-          ]
-        }
-      });
+      const embed = new Discord.MessageEmbed();
+      if (message.author.bot) 
+        embed.addBlankField();
+      else
+        embed.addField(`${message.author.tag}'s current position: #${authorPosition} with 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`, "\u200b");
 
+      embed
+        .setDescription(`**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``)
+        .setColor(0x9575CD)
+        .setFooter(`${message.author.bot ? "REmibot by @Jjeuweiii" : `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setTimestamp()
+        .addField(`🥇 ${top3[0]}`, `💎 ${top3[1]}`, true)
+        .addField(`🥈 ${top3[2]}`, `💎 ${top3[3]}`, true)
+        .addField(`🥉 ${top3[4]}`, `💎 ${top3[5]}`, true);  
+
+      await message.channel.send(`${message.author.bot ? `🌺 **${message.author.tag}** ❯ ${message.content} | ` : ""}**${message.guild.name}'s Leaderboard**`, {embed});
     } catch (error) {
       console.log(error);
     }
