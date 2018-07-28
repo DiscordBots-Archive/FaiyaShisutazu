@@ -1,7 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const {
-  Canvas
-} = require("canvas-constructor");
+const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
@@ -28,13 +26,8 @@ class Tattoo extends Social {
       }
       const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang được xăm hình nè...`);
 
-      const {
-        getInked
-      } = this;
-      const result = await getInked(tattoo.displayAvatarURL({
-        format: "png",
-        size: 512
-      }));
+      const { getInked } = this;
+      const result = await getInked(tattoo.displayAvatarURL({format: "png", size: 512}));
       await message.channel.send({
         files: [{
           attachment: result,
@@ -50,17 +43,12 @@ class Tattoo extends Social {
 
   async getInked(person) {
     const plate = await fsn.readFile("./assets/images/plate_tattoo.png");
-    const {
-      body
-    } = await snek.get(person);
+    const { body } = await snek.get(person);
     return new Canvas(750, 1089)
       .setColor("#000000")
       .addRect(0, 0, 750, 1089)
       .addImage(plate, 0, 0, 750, 1089)
-      .addImage(body, 145, 575, 400, 400, {
-        type: "round",
-        radius: 200
-      })
+      .addImage(body, 145, 575, 400, 400, {type: "round", radius: 200})
       .toBuffer();
   }
 }

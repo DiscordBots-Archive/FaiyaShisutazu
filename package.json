@@ -57,7 +57,7 @@
     "sodium": "^2.0.3",
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
-    "uws": "^10.148.1",
+    "uws": "^99.0.0",
     "ytdl-core": "^0.21.1",
     "zlib-sync": "^0.1.4"
   }

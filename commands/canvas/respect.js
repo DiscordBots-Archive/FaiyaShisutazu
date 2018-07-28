@@ -1,7 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const {
-  Canvas
-} = require("canvas-constructor");
+const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
@@ -29,13 +27,8 @@ class Respect extends Social {
 
       const msg = await message.channel.send("Thật là đáng buồn mà~");
 
-      const {
-        giveRespect
-      } = this;
-      const result = await giveRespect(target.displayAvatarURL({
-        format: "png",
-        size: 128
-      }));
+      const { giveRespect } = this;
+      const result = await giveRespect(target.displayAvatarURL({format: "png", size: 128}));
       const m = await message.channel.send("Press 🇫 to pay respects.", {
         files: [{
           attachment: result,
@@ -51,9 +44,7 @@ class Respect extends Social {
 
   async giveRespect(person) {
     const plate = await fsn.readFile("./assets/images/image_respects.png");
-    const {
-      body
-    } = await snek.get(person);
+    const { body } = await snek.get(person);
     return new Canvas(720, 405)
       .addRect(0, 0, 720, 405)
       .setColor("#000000")

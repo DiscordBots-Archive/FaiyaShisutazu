@@ -1,7 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const {
-  Canvas
-} = require("canvas-constructor");
+const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
@@ -27,16 +25,8 @@ class Crush extends Social {
       }
       const msg = await message.channel.send(`<a:typing:397490442469376001> **${crush.username}** đang bị ${message.member.displayName} ngắm nè~`);
 
-      const {
-        getCrushed
-      } = this;
-      const result = await getCrushed(crusher.displayAvatarURL({
-        format: "png",
-        size: 128
-      }), crush.displayAvatarURL({
-        format: "png",
-        size: 512
-      }));
+      const { getCrushed } = this;
+      const result = await getCrushed(crusher.displayAvatarURL({format: "png", size: 128}), crush.displayAvatarURL({format: "png", size: 512}));
       await message.channel.send({
         files: [{
           attachment: result,
@@ -60,10 +50,7 @@ class Crush extends Social {
       .addImage(Crush.body, 109, 454, 417, 417)
       .resetTransformation()
       .addImage(plate, 0, 0, 600, 873)
-      .addImage(Crusher.body, 407, 44, 131, 131, {
-        type: "round",
-        radius: 66
-      })
+      .addImage(Crusher.body, 407, 44, 131, 131, {type: "round", radius: 66})
       .restore()
       .toBuffer();
   }

@@ -1,9 +1,7 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 const Canvas = require("canvas");
 const snek = require("snekfetch");
-const {
-  readFile
-} = require("fs-nextra");
+const { readFile } = require("fs-nextra");
 const GIFEncoder = require("gifencoder");
 
 class Triggered extends Social {
@@ -30,10 +28,7 @@ class Triggered extends Social {
 
       const msg = await message.channel.send(`Đang làm cho ${target.tag} dỗi~`);
 
-      const attachment = await this.getTriggered(target.displayAvatarURL({
-        format: "png",
-        size: 512
-      }));
+      const attachment = await this.getTriggered(target.displayAvatarURL({format: "png", size: 512}));
       await message.channel.send({
         files: [{
           attachment,

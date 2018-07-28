@@ -1,12 +1,7 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const {
-  Canvas
-} = require("canvas-constructor");
+const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
-const {
-  resolve,
-  join
-} = require("path");
+const { resolve, join } = require("path");
 const fsn = require("fs-nextra");
 Canvas.registerFont(resolve(join(__dirname, "../../assets/fonts/Minecraftia.ttf")), "Minecraftia");
 Canvas.registerFont(resolve(join(__dirname, "../../assets/fonts/NotoEmoji-Regular.ttf")), "Minecraftia");
@@ -35,10 +30,7 @@ class Achievement extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
       const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}**-san đang nhận được 1 thành tích nè...`);
-      const person = (message.mentions.users.first() || message.author).displayAvatarURL({
-        format: "png",
-        size: 32
-      });
+      const person = (message.mentions.users.first() || message.author).displayAvatarURL({format: "png", size: 32});
       if (message.mentions.users.first()) text = text.replace(/<@!?\d+>/, "").replace(/\n/g, " ").trim();
       const result = await getAchievement(text, person);
       await message.channel.send({
@@ -56,15 +48,10 @@ class Achievement extends Social {
 
   async getAchievement(text, person) {
     const plate = await fsn.readFile("./assets/images/plate_achievement.png");
-    const {
-      body
-    } = await snek.get(person);
+    const { body } = await snek.get(person);
     return new Canvas(320, 64)
       .addImage(plate, 0, 0, 320, 64)
-      .addImage(body, 16, 16, 32, 32, {
-        type: "round",
-        radius: 16
-      })
+      .addImage(body, 16, 16, 32, 32, {type: "round", radius: 16})
       .restore()
       .setTextFont("11pt Minecraftia")
       .setColor("#FFFFFF")
