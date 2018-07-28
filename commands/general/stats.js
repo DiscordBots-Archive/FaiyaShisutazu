@@ -38,7 +38,7 @@ class Stats extends Command {
       .addField("Memory usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
       .addField("Users", `${this.client.users.size.toLocaleString()}`, true)
       .addField("Channels/Servers", `${this.client.channels.size.toLocaleString()}/${this.client.guilds.size.toLocaleString()}`, true)
-      .addField("Bot's host system infomation", `${os.platform} ${os.release()}, ${os.cpus().length} cores @ ${os.cpus()[0].speed}MHz, ${os.totalmem / 1024 / 1024}MB RAM`);
+      .addField("Bot's host system infomation", `${os.platform} ${os.release()}, ${os.cpus().length} cores @ ${os.cpus()[0].speed}MHz, ${Math.floor(os.totalmem / 1024 / 1024)}MB RAM`);
 
     await message.channel.send({embed});
   }
