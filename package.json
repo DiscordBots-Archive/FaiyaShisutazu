@@ -5,22 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "preinstall": "npm install pm2 -g",
+    "start": "pm2-runtime app.js",
     "prepare": "node util/setup.js"
   },
   "engines": {
-    "node": ">=8"
+    "node": "10.7.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jwchen1259/REmibot-private.git"
+    "url": "git+https://github.com/Jjeuweiii/REmibot.git"
   },
   "author": "Junwei Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jwchen1259/REmibot-private/issues"
+    "url": "https://github.com/Jjeuweiii/REmibot/issues"
   },
-  "homepage": "https://github.com/jwchen1259/REmibot-private",
+  "homepage": "https://github.com/Jjeuweiii/REmibot",
   "dependencies": {
     "archiver": "^2.1.1",
     "bluebird": "^3.5.1",
