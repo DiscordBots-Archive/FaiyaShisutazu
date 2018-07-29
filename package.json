@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "npm install pm2 -g",
     "start": "pm2 start index.js",
     "prepare": "node util/setup.js"
   },
@@ -48,6 +47,7 @@
     "ms": "^2.1.1",
     "node-opus": "^0.3.0",
     "opusscript": "^0.0.6",
+    "pm2": "^3.0.3",
     "prism-media": "^0.3.1",
     "ramda": "^0.25.0",
     "request": "^2.87.0",
