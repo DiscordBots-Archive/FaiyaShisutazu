@@ -5,7 +5,7 @@ const fs = require("fs");
 
 let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
 
-const defaultSettings = `{
+let defaultSettings = `{
   "prefix": "{{prefix}}",
   "modRole": "Moderator",
   "adminRole": "Administrator",
