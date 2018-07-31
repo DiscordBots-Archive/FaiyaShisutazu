@@ -5,7 +5,7 @@
 
 */
 const Command = require(`${process.cwd()}/base/Command.js`);
-const { Collection } = require("discord.js");
+const Discord = require("discord.js");
 const Kitsu = require("kitsu");
 const kitsu = new Kitsu();
 
@@ -36,10 +36,25 @@ class Anime extends Command {
       const collected = await message.channel.awaitMessages(filter, { max: 20, maxProcessed: 1, time: 60000, errors: ["time"] });
       const returnMessage = collected.first();
       const index = Number(returnMessage.content) - 1;
-      if (message.channel.permissionsFor(this.client.user).has("MANAGE_MESSAGES")) await returnMessage.delete(); 
-      await msg.edit(`**Title JP:** ${data[index].titles.en_jp}\n**Title English:** ${data[index].titles.en}\n**Type:** ${data[index].subtype}\n**Start Date:** ${data[index].startDate}\n**End Date:** ${data[index].endDate || "in Progress"}\n**PopularityRank:** ${data[index].popularityRank}\n**Link:** <https://kitsu.io/anime/${data[index].id}>\n**Synopsis:** ${data[index].synopsis}`);
+      await returnMessage.delete(); 
+
+      const embed = new Discord.MessageEmbed();
+      embed
+        .setTitle(`${data[index].titles.en_jp} (${data[index].titles.en})`)
+        .setColor(0x9575cd)
+        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setTimestamp()
+        .setDescription(`**Synopsis:** ${data[index].synopsis}`)
+        .addField("Start & end date:", `${data[index].startDate} > ${data[index].endDate || "In progress..."}`, true)
+        .addField("Type:", `${data[index].subtype}`, true)
+        .addField("Popularity rank:", `${data[index].popularityRank}`, true)
+        .addField("Link:", `https://kitsu.io/anime/${data[index].id}`);
+
+      await msg.delete();
+      await message.channel.send(embed);
+      
     } catch (error) {
-      if (error instanceof Collection) return message.reply("command canceled due timer");
+      if (error instanceof Discord.Collection()) return message.reply("command canceled due timer");
       await msg.edit("I had a error while trying to fetch the data from Kitsu Sorry! did you spell the Anime name right?");
       await message.react("❓");
     }
