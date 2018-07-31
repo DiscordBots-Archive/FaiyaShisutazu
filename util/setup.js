@@ -6,6 +6,7 @@ const fs = require("fs");
 let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
 
 const defaultSettings = `{
+  "prefix": "{{prefix}}",
   "modRole": "Moderator",
   "adminRole": "Administrator",
   "systemNotice": "true",
@@ -38,9 +39,15 @@ let prompts = [
     message: "[Required] Please enter your bot token from the application page!"
   },
   {
+    type: "list", 
+    name: "changePrefix", 
+    message: "Do you want to change your prefix?", 
+    choices: ["Yes", "No"]
+  },
+  {
     type: "input",
     name: "prefix",
-    message: "[Required] Please enter your bot prefix!"
+    message: "[Required] Please enter your bot prefix! Enter ! to keep default."
   }
 ];
 
@@ -50,6 +57,7 @@ let prompts = [
   if (!settings.has("default")) {
     prompts = prompts.slice(1);
     console.log(" First Start! Inserting default guild settings in the database...");
+    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
     await settings.setAsync("default", defaultSettings);
   }
   
@@ -59,11 +67,18 @@ let prompts = [
 
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
     console.log(" Resetting default guild settings...");
+    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
     await settings.setAsync("default", defaultSettings);
   }
 
-  baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
-  baseConfig = baseConfig.replace("{{prefix}}", `"${answers.prefix || "!"}"`);
+  if (answers.changePrefix && answers.changePrefix === "Yes") {
+    console.log(" Changing default guide prefix...");
+    defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
+    await settings.setAsync("default", defaultSettings);
+  }
+
+  baseConfig = baseConfig.replace("{{discordKey}}", `${answers.discordKey}`);
+  baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);
