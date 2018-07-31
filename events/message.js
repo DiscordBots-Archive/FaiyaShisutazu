@@ -143,7 +143,11 @@ module.exports = class {
     // Log commands used (e.g.: "User REmilia (413891473528848384) ran command leaderboard")
     this.client.logger.log(`${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "cmd");
 
-    // Run the requested command
+    // Runs the requested command
     cmd.run(message, args, level);
+
+    // Deletes the command request if user is bot
+    if (message.author.bot)
+      message.delete();
   }
 };
