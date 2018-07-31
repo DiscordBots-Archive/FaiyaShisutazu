@@ -6,7 +6,6 @@ const fs = require("fs");
 let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
 
 const defaultSettings = `{
-  "prefix": "!",
   "modRole": "Moderator",
   "adminRole": "Administrator",
   "systemNotice": "true",
@@ -35,7 +34,12 @@ let prompts = [
   {
     type: "input",
     name: "discordKey",
-    message: "[Required] Please enter your bot token from the application page."
+    message: "[Required] Please enter your bot token from the application page!"
+  },
+  {
+    type: "input",
+    name: "prefix",
+    message: "[Required] Please enter your bot prefix!"
   }
 ];
 
@@ -58,6 +62,7 @@ let prompts = [
   }
 
   baseConfig = baseConfig.replace("{{discordKey}}", `"${answers.discordKey}"`);
+  baseConfig = baseConfig.replace("{{prefix}}", `"${answers.prefix || "!"}"`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);
