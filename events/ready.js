@@ -37,14 +37,6 @@ module.exports = class {
     this.client.logger.log(`${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers.`, "ready");
 
     setInterval(() => {
-      this.client.channels.get(`${this.client.config.leaderboardChannel}`).send(`${this.client.config.defaultSettings.prefix}leaderboard`);
-    }, 86400000);
-
-    setInterval(() => {
-      this.client.channels.get(`${this.client.config.statsChannel}`).send(`${this.client.config.defaultSettings.prefix}stats`);
-    }, 43200000);
-
-    setInterval(() => {
       const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
       toRemind.forEach(reminder => {
         this.client.users.get(reminder.id).send(`You asked me to remind you about: \`${reminder.reminder}\``);

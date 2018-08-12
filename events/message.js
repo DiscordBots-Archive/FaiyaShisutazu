@@ -10,62 +10,60 @@ module.exports = class {
     // const defaults = this.client.settings.get("default");
     const settings = message.settings = this.client.getGuildSettings(message.guild);
 
-    if ((message.author.bot && message.author.id !== "454009482138353664") || !message.guild) return;
+    if (message.author.bot || !message.guild) return;
 
     if (!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
 
     // Check if user has the rank matched with his/her's points yet
-    if (!message.author.bot) {
-      const ranking = this.client.config.ranking;
-      const totalRoles = this.client.config.total;
+    const ranking = this.client.config.ranking;
+    const totalRoles = this.client.config.total;
 
-      const member = message.member;
-      const score = member.score.points;
-      const hasRoles = member.roles;
+    const member = message.member;
+    const score = member.score.points;
+    const hasRoles = member.roles;
 
-      loop: {
-        for (let i = 0; i < totalRoles; i++) {
-          if (score >= (ranking[i].points)) {
-            if (hasRoles.has(`${ranking[i].id}`)) break loop;
-            else {
-              member.roles.add(`${ranking[i].id}`)
+    loop: {
+      for (let i = 0; i < totalRoles; i++) {
+        if (score >= (ranking[i].points)) {
+          if (hasRoles.has(`${ranking[i].id}`)) break loop;
+          else {
+            member.roles.add(`${ranking[i].id}`)
 
-              // Set medal thumbnail url for embed
-              let medal = "https://i.imgur.com/EfJrTH5.png";
-              if (i <= 10) medal = "https://i.imgur.com/VU3RpCR.png";
-              else if (i <= 18) medal = "https://i.imgur.com/uZtovvk.png";
-              else if (i <= 26) medal = "https://i.imgur.com/Cpj0jYl.png";
-              else if (i <= 34) medal = "https://i.imgur.com/8hJYVK4.png";
-              else if (i <= 42) medal = "https://i.imgur.com/hwroS4H.png";
-              else if (i <= 50) medal = "https://i.imgur.com/evyjdcj.png";
-              else if (i <= 58) medal = "https://i.imgur.com/UyWDigo.png";
-              else if (i <= 66) medal = "https://i.imgur.com/jtvrZH6.png";
+            // Set medal thumbnail url for embed
+            let medal = "https://i.imgur.com/EfJrTH5.png";
+            if (i <= 10) medal = "https://i.imgur.com/VU3RpCR.png";
+            else if (i <= 18) medal = "https://i.imgur.com/uZtovvk.png";
+            else if (i <= 26) medal = "https://i.imgur.com/Cpj0jYl.png";
+            else if (i <= 34) medal = "https://i.imgur.com/8hJYVK4.png";
+            else if (i <= 42) medal = "https://i.imgur.com/hwroS4H.png";
+            else if (i <= 50) medal = "https://i.imgur.com/evyjdcj.png";
+            else if (i <= 58) medal = "https://i.imgur.com/UyWDigo.png";
+            else if (i <= 66) medal = "https://i.imgur.com/jtvrZH6.png";
 
-              const embed = new Discord.MessageEmbed();
-              embed
-                .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
-                .setThumbnail(`${medal}`)
-                .setColor(0x9575cd)
-                .setFooter(`REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
-                .setTimestamp()
-                .addField("Current rank:", `${ranking[i].title}`)
-                .addField("Next rank:", `${ranking[i - 1].title}`)
-                .addField("Points to next rank:", `💎 ${ranking[(i - 1)].points - score} (${((score / ranking[(i - 1)].points) * 100).toFixed(2)}%)`);
+            const embed = new Discord.MessageEmbed();
+            embed
+              .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+              .setThumbnail(`${medal}`)
+              .setColor(0x9575cd)
+              .setFooter(`REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+              .setTimestamp()
+              .addField("Current rank:", `${ranking[i].title}`)
+              .addField("Next rank:", `${ranking[i - 1].title}`)
+              .addField("Points to next rank:", `💎 ${ranking[(i - 1)].points - score} (${((score / ranking[(i - 1)].points) * 100).toFixed(2)}%)`);
 
-              message.channel.send(`${this.client.responses.rankupMessages.random()
-                .replace("{{user}}", `${message.author.tag}`)
-                .replace("{{rank}}", `${ranking[i].title}`)}`, {embed});
-              break loop;
-            }
+            message.channel.send(`${this.client.responses.rankupMessages.random()
+              .replace("{{user}}", `${message.author.tag}`)
+              .replace("{{rank}}", `${ranking[i].title}`)}`, {embed});
+            break loop;
           }
         }
       }
     }
 
     // Autocorrect Steins;Gate references
-    if (!message.author.bot && (message.content.search(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i) !== -1
+    if (message.content.search(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i) !== -1
     || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i) !== -1
-    || message.content.search(/Ho(u)?oin Kyo(u)?ma/i) !== -1))
+    || message.content.search(/Ho(u)?oin Kyo(u)?ma/i) !== -1)
       message.channel.send(`***${message.author.tag}*** *said "${message.content}"*\n\n${this.client.responses.steinerMessages.random()
         .replace("{{user}}", `${message.author.tag}`)
         .replace("{{steiner}}", message.content.replace(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i, "**El Psy Kongroo**")
