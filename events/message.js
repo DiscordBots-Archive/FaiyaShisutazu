@@ -1,4 +1,5 @@
 const monitor = require(`${process.cwd()}/monitors/monitor.js`);
+const Discord = require("discord.js");
 
 module.exports = class {
   constructor(client) {
@@ -40,34 +41,20 @@ module.exports = class {
               else if (i <= 58) medal = "https://i.imgur.com/UyWDigo.png";
               else if (i <= 66) medal = "https://i.imgur.com/jtvrZH6.png";
 
+              const embed = new Discord.MessageEmbed();
+              embed
+                .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
+                .setThumbnail(`${medal}`)
+                .setColor(0x9575cd)
+                .setFooter(`REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+                .setTimestamp()
+                .addField("Current rank:", `${ranking[i].title}`)
+                .addField("Next rank:", `${ranking[i - 1].title}`)
+                .addField("Points to next rank:", `💎 ${ranking[(i - 1)].points - score} (${((score / ranking[(i - 1)].points) * 100).toFixed(2)}%)`);
+
               message.channel.send(`${this.client.responses.rankupMessages.random()
                 .replace("{{user}}", `${message.author.tag}`)
-                .replace("{{rank}}", `${ranking[i].title}`)}`, {
-                "embed": {
-                  "color": 0x9575CD,
-                  "thumbnail": {
-                    "url": `${medal}`
-                  },
-                  "footer": {
-                    "icon_url": this.client.user.displayAvatarURL({ format: "png", size: 32 }),
-                    "text": `REmibot by @Jjeuweiii`
-                  },
-                  "fields": [
-                    {
-                      "name": "Current rank:",
-                      "value": `${ranking[i].title}`
-                    },
-                    {
-                      "name": "Next rank:",
-                      "value": `${ranking[i - 1].title}`
-                    },
-                    {
-                      "name": "Points to next rank:",
-                      "value": `💎 ${ranking[(i - 1)].points - score} (${((score / ranking[(i - 1)].points) * 100).toFixed(2)}%)`
-                    }
-                  ]
-                }
-              });
+                .replace("{{rank}}", `${ranking[i].title}`)}`, {embed});
               break loop;
             }
           }
