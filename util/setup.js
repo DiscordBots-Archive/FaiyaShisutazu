@@ -58,7 +58,7 @@ let prompts = [
     prompts = prompts.slice(1);
     console.log(" First Start! Inserting default guild settings in the database...");
     defaultSettings = defaultSettings.replace("{{prefix}}", "!")
-    await settings.setAsync("default", defaultSettings);
+    await settings.set("default", defaultSettings);
   }
   
   // Start to comment out this section and edit setup_base.txt 
@@ -68,13 +68,13 @@ let prompts = [
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
     console.log(" Resetting default guild settings...");
     defaultSettings = defaultSettings.replace("{{prefix}}", "!")
-    await settings.setAsync("default", defaultSettings);
+    await settings.set("default", defaultSettings);
   }
 
   if (answers.changePrefix && answers.changePrefix === "Yes") {
     console.log(" Changing default guide prefix...");
     defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
-    await settings.setAsync("default", defaultSettings);
+    await settings.set("default", defaultSettings);
   }
 
   baseConfig = baseConfig.replace("{{discordKey}}", `${answers.discordKey}`);
@@ -90,7 +90,6 @@ let prompts = [
   console.log("*  Please manually enter other optional keys in the     *")
   console.log("*  config.js file to enable additional features!        *")
   console.log("*********************************************************");
-  await settings.close();
 }());
 
 
