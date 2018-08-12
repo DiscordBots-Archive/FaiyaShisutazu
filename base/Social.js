@@ -23,7 +23,8 @@ class Social extends Command {
   async usrDay(message) {
     const dailyTime = parseInt(message.settings.dailyTime);
     const baseReward = Math.ceil(parseInt(message.settings.minRewards));
-    const pointsReward = Math.floor(Math.random() * (Math.floor(parseInt(message.settings.minRewards) + parseInt(message.settings.maxRewards)) - baseReward)) + baseReward;
+    const maxReward = Math.floor(parseInt(message.settings.maxRewards));
+    const pointsReward = Math.floor(Math.random() * (maxReward - baseReward + 1)) + baseReward;
     const score = message.member.score;
     try {
       if (Date.now() > score.daily) {
