@@ -63,7 +63,7 @@ module.exports = class {
                     },
                     {
                       "name": "Points to next rank:",
-                      "value": `💎 ${ranking[(i - 1)].points - score} (${Math.floor((ranking[(i - 1)].points - score) / (ranking[(i - 1)].points - ranking[i].points) * 100)}%)`
+                      "value": `💎 ${ranking[(i - 1)].points - score} (${((score / ranking[(i - 1)].points) * 100).toFixed(2)}%)`
                     }
                   ]
                 }
