@@ -44,7 +44,7 @@ module.exports = class {
             embed
               .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
               .setThumbnail(`${medal}`)
-              .setColor(0x9575cd)
+              .setColor(this.client.config.colors.random())
               .setFooter(`REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
               .setTimestamp()
               .addField("Current rank:", `${ranking[i].title}`)

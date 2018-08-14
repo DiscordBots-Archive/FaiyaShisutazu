@@ -55,7 +55,7 @@ class Leaderboard extends Social {
 
       embed
         .setDescription(`**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``)
-        .setColor(0x9575CD)
+        .setColor(this.client.config.colors.random())
         .setFooter(`${message.author.bot ? "REmibot by @Jjeuweiii" : `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
         .addField(`🥇 ${top3[0]}`, `💎 ${top3[1]}`, true)

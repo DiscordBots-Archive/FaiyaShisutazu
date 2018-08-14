@@ -29,7 +29,7 @@ class Stats extends Command {
     const embed = new Discord.MessageEmbed();
     embed
       .setTitle(`Estimated ping: ${msg.createdTimestamp - message.createdTimestamp}ms`)
-      .setColor(0x9575cd)
+      .setColor(this.client.config.colors.random())
       .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setTimestamp()
       .addField("NodeJS version", `${process.version}`, true)

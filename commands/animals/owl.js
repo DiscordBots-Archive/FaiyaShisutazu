@@ -32,7 +32,7 @@ class Owl extends Social {
     embed
       .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
       .setDescription(owl)
-      .setColor(0x9575cd)
+      .setColor(this.client.config.colors.random())
       .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(owl)
       .setTimestamp()

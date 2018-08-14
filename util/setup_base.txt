@@ -24,11 +24,8 @@ const config = {
   "githubRepo": "githubRepo",
   "githubCommitAuthor": "githubCommitAuthor",
 
-  // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post its stats
-  "statsChannel": "statsChannel",
-  
-  // [Optional - Interval bot stats] Your default channel's ID, or your preferred channel for the bot the post the server's leaderboard rankings
-  "leaderboardChannel": "leaderboardChannel",
+  // [Optional - Embed colors] Replace with your our color codes for embeds
+  "colors": [16747146, 16746211, 16746178, 16681968, 15371774, 14518525, 11373566],
 
   // [Optional - DOTA2-themed server rankings] Replace with our own server ranks/roles' IDs. WIP at the moment!
   "total" : 68, // Total number of ranks

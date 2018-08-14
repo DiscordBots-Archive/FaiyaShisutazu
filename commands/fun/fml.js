@@ -1,9 +1,7 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 const request = require("snekfetch");
 const HTMLParser = require("fast-html-parser");
-const {
-  MessageEmbed
-} = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 class FML extends Social {
   constructor(client) {
@@ -25,16 +23,14 @@ class FML extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
       const reply = await message.channel.send("<a:typing:397490442469376001> **Đang tìm** chờ em một tẹo~");
-      const {
-        text
-      } = await request.get("http://www.fmylife.com/random");
+      const { text } = await request.get("http://www.fmylife.com/random");
       const root = HTMLParser.parse(text);
       const article = root.querySelector(".block a");
       const downdoot = root.querySelector(".vote-down");
       const updoot = root.querySelector(".vote-up");
       const embed = new MessageEmbed()
         .setTitle("Chỉ là một mẩu truyện về một người bị cuộc đời nắk")
-        .setColor(0x9575cd)
+        .setColor(this.client.config.colors.random())
         .setThumbnail("http://i.imgur.com/5cMj0fw.png")
         .setFooter(`Requested by: ${message.member.displayName}`)
         .setDescription(`_${article.childNodes[0].text}\n\n_`)
@@ -43,9 +39,8 @@ class FML extends Social {
       if (article.childNodes[0].text.length < 5) {
         return message.response(undefined, "Hình như lỗi rồi huhu.... Chán wá nkỉ :<");
       }
-      reply.edit({
-        embed
-      });
+      reply.edit({embed});
+
     } catch (error) {
       if (error.message === "Cannot send an empty message") {
         message.response(undefined, "Today, something went wrong, so you'll have to try again in a few moments. FML");

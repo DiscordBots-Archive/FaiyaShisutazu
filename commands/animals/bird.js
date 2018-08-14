@@ -32,7 +32,7 @@ class Bird extends Social {
     embed
       .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
       .setDescription(`https://random.birb.pw/img/${body}`)
-      .setColor(0x9575cd)
+      .setColor(this.client.config.colors.random())
       .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(`https://random.birb.pw/img/${body}`)
       .setTimestamp()

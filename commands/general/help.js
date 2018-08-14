@@ -24,7 +24,7 @@ class Help extends Command {
       const myCommands = message.guild ? this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true) : this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true && cmd.conf.guildOnly !== true);
 
       let currentCategory = "";
-      let output = `{"color": 4886754, "fields": [`;
+      let output = `{"color": ${this.client.config.colors.random()}, "fields": [`;
 
       const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
 

@@ -94,7 +94,7 @@ class Dota extends Social {
                                     message.channel.send({
                                         "embed": {
                                             "title": `${output.name}'s Dota 2 Stats @ OpenDota`,
-                                            "color": 0x8000ff,
+                                            "color": this.client.config.colors.random(),
                                             "footer": {
                                                 "text": "Hosted by @Jjeuweiii senpai"
                                             },

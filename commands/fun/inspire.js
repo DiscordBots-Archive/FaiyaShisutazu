@@ -22,9 +22,7 @@ class Inspire extends Social {
 
       const xmas = message.flags[0] === "xmas" ? "&season=xmas" : "";
 
-      const {
-        text
-      } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
+      const { text } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
 
       await message.channel.send({
         files: [{

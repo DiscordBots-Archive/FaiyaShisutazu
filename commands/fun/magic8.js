@@ -23,10 +23,7 @@ class Magic8 extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
       const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.guild.me.displayName}** is thinking...`);
-      setTimeout(
-        () => msg.edit(`${answers[Math.floor(Math.random() * answers.length)]}`),
-        Math.random() * (1 - 5) + 1 * 2000
-      );
+      setTimeout(() => msg.edit(`${answers[Math.floor(Math.random() * answers.length)]}`), Math.random() * (1 - 5) + 1 * 2000);
     } catch (error) {
       this.client.logger.error(error);
     }

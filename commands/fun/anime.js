@@ -41,7 +41,7 @@ class Anime extends Command {
       const embed = new Discord.MessageEmbed();
       embed
         .setTitle(`${data[index].titles.en_jp} (${data[index].titles.en})`)
-        .setColor(0x9575cd)
+        .setColor(this.client.config.colors.random())
         .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
         .setDescription(`**Synopsis:** ${data[index].synopsis}`)

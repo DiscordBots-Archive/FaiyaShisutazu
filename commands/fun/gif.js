@@ -24,7 +24,7 @@ class Gif extends Social {
         "image": {
           "url": giflist.body.random().file
         },
-        "color": 0x9575cd
+        "color": this.client.config.colors.random()
       }
     });
   }
