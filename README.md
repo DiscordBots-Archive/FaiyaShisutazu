@@ -8,18 +8,17 @@ A multipurpose Discord bot based on a clone of [Misaki](https://github.com/NotAW
 - `node` [Version 8.0.0 or higher](https://nodejs.org)
 
 You also need your bot's token. This is obtained by creating an application in
-the Developer section of discordapp.com. Check the [An Idiot's Guide](https://anidiots.guide/getting-started/the-long-version.html)
-for more info.
+the Developer section of discordapp.com.
 
 ## Downloading
 
 In a command prompt in your projects folder (wherever that may be) run the following:
 
-`git clone https://github.com/jwchen1259/REmibot.git`
+`git clone https://github.com/jjeuweiii/REmibot.git`
 
 Once finished:
 
-In the folder from where you ran the git command, run `cd REmibot` and then run `npm install` (or `yarn install` if that's your thing), which will install the required packages,
+In the folder from where you ran the git command, run `cd REmibot` and then run `yarn install` (or `npm install` if that's your thing), which will install the required packages,
 and it will then run the installer, make sure you have your token at hand to paste into the console.
 
 The installer will create the `config.js` file for you.
@@ -27,15 +26,15 @@ The installer will create the `config.js` file for you.
 ## Starting the bot
 
 To start the bot, in the command prompt, run the following command:
-`node index.js`
+`yarn start`
 
 ## Feature Requests
 
-Have a feature in mind? I'd love to hear about it. Feel free to [open an issue](https://github.com/jwchen1259/REmibot/issues/new) and let me know.
+Have a feature in mind? I'd love to hear about it. Feel free to [open an issue](https://github.com/jjeuweiii/REmibot/issues/new) and let me know.
 
 ## Contributors
 
 - York *(Creator of the original bot)* [@York](https://github.com/YorkAARGH)
-- Junwei Chen  *(Maintainer)* - [@Junwei](https://github.com/jwchen1259)
+His incredibly detailed guide: [An Idiot's Guide](https://anidiots.guide/getting-started/the-long-version.html)
 
 ## [License](LICENSE)
