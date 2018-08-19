@@ -18,12 +18,6 @@ const config = {
   // [Optional - Music commands] Your Google Developer's API key. Available @ https://console.developers.google.com/
   "googleKey":  "googleKey",
 
-  // [Optional - Push bot's data to private github repo command] Your Github's account & information
-  "githubUser": "githubUser",
-  "githubPass": "githubPass",
-  "githubRepo": "githubRepo",
-  "githubCommitAuthor": "githubCommitAuthor",
-
   // [Optional - Embed colors] Replace with your our color codes for embeds
   "colors": [16747146, 16746211, 16746178, 16681968, 15371774, 14518525, 11373566],
 
