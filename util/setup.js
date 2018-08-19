@@ -74,8 +74,6 @@ let prompts = [
 
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
     console.log(" Resetting default guild settings...");
-    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
-    baseConfig = baseConfig.replace("{{prefix}}", "!");
     await settings.set("default", defaultSettings);
   }
 
@@ -92,6 +90,11 @@ let prompts = [
     console.log(" Changing default guide prefix...");
     defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
     baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
+    await settings.set("default", defaultSettings);
+  } else {
+    console.log(" Changing default guide prefix...");
+    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
+    baseConfig = baseConfig.replace("{{prefix}}", "!");
     await settings.set("default", defaultSettings);
   }
 

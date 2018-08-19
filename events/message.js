@@ -86,12 +86,6 @@ module.exports = class {
       if (message.content.toLowerCase().indexOf(thisPrefix) == 0) prefix = thisPrefix;
     }
   
-    if (message.content.match(new RegExp(`^<@!?${this.client.user.id}>$`))) {
-      return message.channel.send(`${this.client.responses.aboutMessages.random()
-        .replace("{{user}}", `${message.author.tag}`)
-        .replace("{{prefix}}", `${settings.prefix}`)}`);
-    }
-  
     if (!prefix) return;
   
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
