@@ -378,6 +378,7 @@ const config = {
   
   "defaultSettings" : {
     "prefix": "{{prefix}}",
+    "language": "{{language}}",
     "modRole": "Moderator",
     "adminRole": "Administrator",
     "systemNotice": "true",

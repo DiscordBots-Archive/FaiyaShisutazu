@@ -47,6 +47,7 @@ exports.otherBalanceMessages = [
   "Hm, chờ tẹo nè.. It's {{amount}}, hỏi của **{{user}}** chi dạ?"
 ];
 
+// Steins;Gate Ref Correction
 exports.steinerMessages = [
   "Ý **{{user}}-san** là {{steiner}}???",
   "Sai rùi nha **{{user}}-san**! \"{{steiner}}\" mới đúng!",
@@ -55,6 +56,7 @@ exports.steinerMessages = [
   "B-baka!! Là \"{{steiner}}\"!"
 ];
 
+// Rankup
 exports.rankupMessages = [
   "**{{user}}-san** lên **{{rank}}** rồi nè!",
   "**{{user}}-san**? **{{rank}}**?? Cái gì đang xảy ra thế này?",
@@ -64,6 +66,13 @@ exports.rankupMessages = [
   "**{{user}}-san** cuối cùng cũng đc **{{rank}}** ?? R-rank rác rưởi!!!"
 ];
 
+// Loading
+exports.loadingMessages = [
+  "Chờ em 1 tí nha **{{user}}-san**!",
+  "Đang tải nè **{{user}}-san**..."
+];
+
+// About
 exports.aboutMessages = [
   "Ohayō **{{user}}-san**! Chúng mình cùng phấn đấu nhé!",
   "Mệt ùi hông muốn trả lời **{{user}}-san** nữa! Phí sức lắm...",
@@ -74,14 +83,13 @@ exports.aboutMessages = [
   "**{{user}}-san** tìm em hả? Command prefix của em là **{{prefix}}**. Chạy **{{prefix}}**help để biết thêm về các commands của em nha ˭̡̞(◞⁎˃ᆺ˂)◞*✰!"
 ];
 
-// System
+// Purge/delete messages
 exports.purgeMessages = [
   "Hông biết đâu nha, senpai nào vừa kêu em purge {{amount}} messages...",
   "Oops... Em vừa xóa {{amount}} messages mất ùi..."
 ];
 
 // Reboot
-
 exports.rebootMessages = [
   "Minna-san chờ emm… Senpai kêu em reboot~",
   "Minna-san! Em cần reboot, chờ em tí..."
@@ -126,7 +134,6 @@ exports.reloadSuccess = [
 ];
 
 // Errors
-
 exports.notNSFWChannel = [
 
 ];

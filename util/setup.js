@@ -7,6 +7,7 @@ let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
 
 let defaultSettings = `{
   "prefix": "{{prefix}}",
+  "language": "{{language}}",
   "modRole": "Moderator",
   "adminRole": "Administrator",
   "systemNotice": "true",
@@ -32,6 +33,12 @@ let prompts = [
     name: "resetDefaults", 
     message: "Do you want to reset default settings?", 
     choices: ["Yes", "No"]
+  },
+  {
+    type: "list", 
+    name: "language", 
+    message: "Do you want to change the bot's language? Default is English.", 
+    choices: ["Tiếng Việt", "No"]
   },
   {
     type: "input",
@@ -68,17 +75,27 @@ let prompts = [
   if (answers.resetDefaults && answers.resetDefaults === "Yes") {
     console.log(" Resetting default guild settings...");
     defaultSettings = defaultSettings.replace("{{prefix}}", "!")
+    baseConfig = baseConfig.replace("{{prefix}}", "!");
     await settings.set("default", defaultSettings);
+  }
+
+  if (answers.language && answers.language === "Tiếng Việt") {
+    console.log(" Changing default guide language...");
+    defaultSettings = defaultSettings.replace("{{language}}", "vietnamese")
+    baseConfig = baseConfig.replace("{{language}}", "vietnamese");
+  } else {
+    defaultSettings = defaultSettings.replace("{{language}}", "english")
+    baseConfig = baseConfig.replace("{{language}}", "english");
   }
 
   if (answers.changePrefix && answers.changePrefix === "Yes") {
     console.log(" Changing default guide prefix...");
     defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
+    baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
     await settings.set("default", defaultSettings);
   }
 
   baseConfig = baseConfig.replace("{{discordKey}}", `${answers.discordKey}`);
-  baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);

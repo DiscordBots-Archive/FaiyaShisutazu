@@ -14,7 +14,7 @@ class REmibot extends Client {
     super(options);
     this.config = require(`${process.cwd()}/config.js`);
     this.logger = require(`${process.cwd()}/util/Logger`);
-    this.responses = require(`${process.cwd()}/assets/responses.js`);
+    this.responses = require(`${process.cwd()}/assets/responses/${this.config.defaultSettings.language}.js`);
 
     this.aliases = new Collection();
     this.commands = new Collection();
