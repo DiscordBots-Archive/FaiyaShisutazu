@@ -4,30 +4,33 @@ const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
 class Tattoo extends Social {
+
   constructor(client) {
     super(client, {
       name: "tattoo",
-      description: "Xăm hình nha~",
+      description: "Gets a tattoo of someone's face",
       category: "3. Canvas",
-      usage: "tattoo [@mention|user id]",
-      extended: "Nhắc đến người mà senpai muốn xăm lên tay nè, không thì em dùng ảnh của chính mình đó nha",
-      cost: 2,
+      usage: "tattoo [@mention|userid]",
+      extended: "This uses the provided tag to let you get a tattoo of someone's face. If there was no tag provided, this command will use the image of the message's author!",
+      cost: 15,
       cooldown: 10,
-      aliases: ["ink"]
+      hidden: false,
+      guildOnly: true,
+      aliases: ["ink"],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      const tattoo = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
+
+      const tattoo = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
       const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang được xăm hình nè...`);
 
-      const { getInked } = this;
-      const result = await getInked(tattoo.displayAvatarURL({format: "png", size: 512}));
+      const result = await this.getInked(tattoo.displayAvatarURL({format: "png", size: 512}));
       await message.channel.send({
         files: [{
           attachment: result,

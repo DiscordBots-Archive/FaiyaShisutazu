@@ -25,7 +25,7 @@
     "archiver": "^2.1.1",
     "bluebird": "^3.5.1",
     "bufferutil": "^4.0.0",
-    "canvas": "^1.6.11",
+    "canvas": "github:Automattic/node-canvas#986868f5205e3624e2abb9bf7b4c55ccc1fcc56b",
     "canvas-constructor": "^1.0.1",
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",

@@ -407,11 +407,12 @@ canvas-constructor@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/canvas-constructor/-/canvas-constructor-1.0.1.tgz#f83af62d96532986612fc0c72a2e0c97cf043002"
 
-canvas@^1.6.11:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/canvas/-/canvas-1.6.11.tgz#c2d8bcf283281f19ded14fa163a111804522330d"
+"canvas@github:Automattic/node-canvas#986868f5205e3624e2abb9bf7b4c55ccc1fcc56b":
+  version "2.0.0-alpha.13"
+  resolved "https://codeload.github.com/Automattic/node-canvas/tar.gz/986868f5205e3624e2abb9bf7b4c55ccc1fcc56b"
   dependencies:
-    nan "^2.10.0"
+    nan "^2.9.2"
+    node-pre-gyp "^0.9.0"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1749,7 +1750,7 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-needle@^2.2.1:
+needle@^2.2.0, needle@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.2.tgz#1120ca4c41f2fcc6976fd28a8968afe239929418"
   dependencies:
@@ -1800,6 +1801,21 @@ node-pre-gyp@^0.10.0:
     npm-packlist "^1.1.6"
     npmlog "^4.0.2"
     rc "^1.2.7"
+    rimraf "^2.6.1"
+    semver "^5.3.0"
+    tar "^4"
+
+node-pre-gyp@^0.9.0:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.9.1.tgz#f11c07516dd92f87199dbc7e1838eab7cd56c9e0"
+  dependencies:
+    detect-libc "^1.0.2"
+    mkdirp "^0.5.1"
+    needle "^2.2.0"
+    nopt "^4.0.1"
+    npm-packlist "^1.1.6"
+    npmlog "^4.0.2"
+    rc "^1.1.7"
     rimraf "^2.6.1"
     semver "^5.3.0"
     tar "^4"
@@ -2068,11 +2084,7 @@ prebuild-install@^4.0.0:
     tunnel-agent "^0.6.0"
     which-pm-runs "^1.0.0"
 
-prism-media@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.3.1.tgz#5331522d1194b544c65db4a66ea3854e6916a258"
-
-prism-media@amishshah/prism-media:
+prism-media@^0.3.1, prism-media@amishshah/prism-media:
   version "0.3.1"
   resolved "https://codeload.github.com/amishshah/prism-media/tar.gz/7146426e462bf91b39053de4cf8b78c72490cd54"
 
@@ -2144,7 +2156,7 @@ raw-body@2.3.2:
     iconv-lite "0.4.19"
     unpipe "1.0.0"
 
-rc@^1.1.6, rc@^1.2.7:
+rc@^1.1.6, rc@^1.1.7, rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
   dependencies:

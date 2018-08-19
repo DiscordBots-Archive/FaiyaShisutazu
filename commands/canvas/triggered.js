@@ -5,27 +5,30 @@ const { readFile } = require("fs-nextra");
 const GIFEncoder = require("gifencoder");
 
 class Triggered extends Social {
+
   constructor(client) {
     super(client, {
       name: "triggered",
-      description: "Muốn làm ai đó dỗi cho bỏ ghét?",
-      usage: "triggered [@mention|userid]",
+      description: "Triggers someone",
       category: "3. Canvas",
-      extended: "Trigger người senpai muốn nè, dùng mà không mention ai thì em trigger senpai nha!",
-      cost: 2,
-      cooldown: 20,
-      aliases: ["trigger"]
+      usage: "triggered [@mention|userid]",
+      extended: "This uses the provided tag to let you trigger someone. If there was no tag provided, this command will use the image of the message's author!",
+      cost: 15,
+      cooldown: 10,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["trigger"],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
-      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
+      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
       const msg = await message.channel.send(`Đang làm cho ${target.tag} dỗi~`);
 
       const attachment = await this.getTriggered(target.displayAvatarURL({format: "png", size: 512}));
@@ -35,6 +38,7 @@ class Triggered extends Social {
           name: "triggered.gif"
         }]
       });
+
       await msg.delete();
     } catch (error) {
       this.client.logger.error(error);

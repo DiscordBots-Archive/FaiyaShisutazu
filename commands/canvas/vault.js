@@ -4,35 +4,40 @@ const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
 class Valut extends Social {
+
   constructor(client) {
     super(client, {
       name: "thumbs",
-      description: "Thể hiện sự tán thành với ai đó...",
+      description: "Gives someone a thumbs up",
       category: "3. Canvas",
-      usage: "thumbs [@mention|user id]",
-      extended: "Dùng để cho người bị tag 1 cái thumbs up, không tag ai để tự thumbs up cho chính mình!",
-      cost: 2,
+      usage: "thumbs [@mention|userid]",
+      extended: "This uses the provided tag to give someone a thumbs up. If there was no tag provided, this command will use the image of the message's author!",
+      cost: 15,
       cooldown: 10,
-      aliases: ["vault"]
+      hidden: false,
+      guildOnly: true,
+      aliases: ["like"],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      const user = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
-      const msg = await message.channel.send("...");
-      const { getThumbsUp } = this;
-      const result = await getThumbsUp(user.displayAvatarURL({format: "png", size: 128}));
 
+      const user = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+      const msg = await message.channel.send("...");
+      
+      const result = await this.getThumbsUp(user.displayAvatarURL({format: "png", size: 128}));
       await message.channel.send({
         files: [{
           attachment: result,
           name: "thumbs.jpg"
         }]
       });
+
       await msg.delete();
     } catch (error) {
       throw error;

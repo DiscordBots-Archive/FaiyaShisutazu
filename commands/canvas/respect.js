@@ -4,37 +4,40 @@ const snek = require("snekfetch");
 const fsn = require("fs-nextra");
 
 class Respect extends Social {
+
   constructor(client) {
     super(client, {
       name: "respect",
-      description: "Thể hiện 1 chút tôn trọng cho người ấy nha?!",
+      description: "Pays respect to a person",
       category: "3. Canvas",
-      usage: "respect [@mention|user id]",
-      extended: "Tag người ấy vào để mọi người tưởng nhớ, không tag thì em đăng hình của chính senpai đó!",
-      cost: 2,
+      usage: "respect [@mention|userid]",
+      extended: "This uses the provided tag to allow everyone to pay respect to a person using the F react. If there was no tag provided, this command will use the image of the message's author!",
+      cost: 30,
       cooldown: 30,
-      aliases: ["pressf", "f", "rip", "ripme"]
+      hidden: false,
+      guildOnly: true,
+      aliases: ["pressf", "f", "rip", "ripme"],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
-      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
+      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
       const msg = await message.channel.send("Thật là đáng buồn mà~");
 
-      const { giveRespect } = this;
-      const result = await giveRespect(target.displayAvatarURL({format: "png", size: 128}));
+      const result = await this.giveRespect(target.displayAvatarURL({format: "png", size: 128}));
       const m = await message.channel.send("Press 🇫 to pay respects.", {
         files: [{
           attachment: result,
           name: "paid-respects.png"
         }]
       });
+
       await msg.delete();
       m.react("🇫");
     } catch (error) {
