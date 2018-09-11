@@ -1,16 +1,19 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Deduct extends Social {
+
   constructor(client) {
     super(client, {
       name: "deduct",
-      description: "Takes points away from the nominated user.",
-      usage: "deduct <@mention|userid> <amount>",
-      category: "Moderation",
-      extended: "This will take points away from a nominated user.",
-      cost: 5,
-      hidden: true,
-      aliases: ["punish", "take"],
+      description: "Takes points away from the nominated user",
+      category: "09. Social",
+      usage: "deduct [@mention|userid] [amount]",
+      extended: "This takes points away from a nominated user.",
+      cost: 0,
+      cooldown: 10,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["reward"],
       permLevel: "Administrator"
     });
   }

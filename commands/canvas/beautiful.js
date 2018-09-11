@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
@@ -9,7 +10,7 @@ class Beautiful extends Social {
     super(client, {
       name: "beautiful",
       description: "Returns a beatiful canvas with the person you like on it",
-      category: "3. Canvas",
+      category: "03. Canvas",
       usage: "beautiful [@mention|userid]",
       extended: "This uses the provided tag to create a beautiful canvas with the person you like. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
@@ -27,19 +28,15 @@ class Beautiful extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const beautiful = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const msg = await message.channel.send(`<a:typing:397490442469376001> **${message.member.displayName}** đang ngắm người nào đó trong 1 khung tranh nè...`);
-
-      const result = await this.getBeautiful(beautiful.displayAvatarURL({format: "png", size: 256}));
-      await message.channel.send({
-        files: [{
-          attachment: result,
-          name: "beautiful.jpg"
-        }]
-      });
-
-      await msg.delete();
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+      const result = await this.getBeautiful(person.displayAvatarURL({format: "png", size: 256}));
+      const attachment = new Discord.MessageAttachment(result, "beautiful.png");
+      
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.logger.error(error);
     }
   }

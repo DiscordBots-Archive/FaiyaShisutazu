@@ -1,16 +1,19 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Award extends Social {
+
   constructor(client) {
     super(client, {
       name: "award",
       description: "Gives a nominated user points.",
-      usage: "award <@mention|userid> <amount>",
-      category: "Social",
-      extended: "This will give points to a nominated user.",
+      category: "09. Social",
+      usage: "award [@mention|userid] [amount]",
+      extended: "This gives points to a nominated user.",
       cost: 0,
-      hidden: true,
-      aliases: ["reward", "give"],
+      cooldown: 10,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["reward"],
       permLevel: "Administrator"
     });
   }

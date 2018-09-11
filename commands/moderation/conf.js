@@ -1,12 +1,17 @@
 const Owner = require(`${process.cwd()}/base/Owner.js`);
 
 class Conf extends Owner {
+
   constructor(client) {
     super(client, {
       name: "conf",
-      description: "Modify the default configuration for all guilds.",
-      category: "Owner",
-      usage: "conf <view/get/edit> <key> <value>",
+      description: "Modifies the default configuration for all guilds",
+      category: "11. Moderation",
+      usage: "conf [view/get/edit] [key] [value]",
+      extended: "This modifies the default configuration for all guilds.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
       guildOnly: true,
       aliases: ["defaults"],
       permLevel: "Bot Admin"
@@ -14,20 +19,20 @@ class Conf extends Owner {
   }
 
   async run(message, [action, key, ...value], level) { // eslint-disable-line no-unused-vars
-    
+
     const defaults = this.client.settings.get("default");
-  
+
     if (action === "add") {
       if (!key) return message.reply("Please specify a key to add");
       if (defaults[key]) return message.reply("This key already exists in the default settings");
       if (value.length < 1) return message.reply("Please specify a value");
 
       defaults[key] = value.join(" ");
-  
+
       this.client.settings.set("default", defaults);
       message.reply(`${key} successfully added with the value of ${value.join(" ")}`);
     } else
-  
+
     if (action === "edit") {
       if (!key) return message.reply("Please specify a key to edit");
       if (!defaults[key]) return message.reply("This key does not exist in the settings");
@@ -38,7 +43,7 @@ class Conf extends Owner {
       this.client.settings.set("default", defaults);
       message.reply(`${key} successfully edited to ${value.join(" ")}`);
     } else
-  
+
     if (action === "del") {
       if (!key) return message.reply("Please specify a key to delete.");
       if (!defaults[key]) return message.reply("This key does not exist in the settings");
@@ -50,20 +55,20 @@ class Conf extends Owner {
 
         delete defaults[key];
         this.client.settings.set("default", defaults);
-      
+
         for (const [guildid, conf] of this.client.settings.filter((setting, id) => setting[key] && id !== "default")) {
           delete conf[key];
           this.client.settings.set(guildid, conf);
         }
-      
+
         message.reply(`${key} was successfully deleted.`);
       } else
 
-      if (["n","no","cancel"].includes(response)) {
+      if (["n", "no", "cancel"].includes(response)) {
         message.reply("Action cancelled.");
       }
     } else
-  
+
     if (action === "get") {
       if (!key) return message.reply("Please specify a key to view");
       if (!defaults[key]) return message.reply("This key does not exist in the settings");
@@ -71,11 +76,12 @@ class Conf extends Owner {
 
     } else {
       const array = [];
-      Object.entries(this.client.settings.get("default")).forEach(([key, value]) => {
-        array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
-      });
-      await message.channel.send(`= Bot Default Settings =
-${array.join("\n")}`, {code: "asciidoc"});    }
+      Object.entries(this.client.settings.get("default"))
+        .forEach(([key, value]) => {
+          array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`);
+        });
+      await message.channel.send(`= Bot Default Settings = ${array.join("\n")}`, { code: "asciidoc" });
+    }
   }
 }
 

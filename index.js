@@ -111,7 +111,7 @@ const client = new REmibot({
   messageSweepInterval: 300,
 });
 
-require(`${process.cwd()}/modules/functions.js`)(client);
+require(`${process.cwd()}/modules/Functions.js`)(client);
 
 const init = async () => {
 

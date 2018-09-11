@@ -72,6 +72,12 @@ exports.loadingMessages = [
   "Đang tải nè **{{user}}-san**..."
 ];
 
+// Error
+exports.errorMessages = [
+  "Thử lại hộ em nha **{{user}}-san**! Hình như lỗi gì ùi...",
+  "Lỗi ùi **{{user}}-san**... Chờ 1 tí rồi thử lại nha!"
+];
+
 // About
 exports.aboutMessages = [
   "Ohayō **{{user}}-san**! Chúng mình cùng phấn đấu nhé!",

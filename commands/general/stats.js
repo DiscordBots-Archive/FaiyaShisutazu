@@ -9,10 +9,10 @@ class Stats extends Command {
   constructor(client) {
     super(client, {
       name: "stats",
-      description: "Trả về các ping của bot kèm theo một số thông số hữu ích.",
-      category: "1. General",
+      description: "Returns the current status of the bot",
+      category: "01. General",
       usage: "stats",
-      extended: "Trả về ping, thông tin cơ bản của bot cũng như server mà bot đang được host.",
+      extended: "This returns the bot's status and statistics like ping, memory usage, etc.",
       cost: 2,
       cooldown: 5,
       hidden: false,
@@ -25,10 +25,10 @@ class Stats extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const duration = moment.duration(this.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
-    const msg = await message.channel.send(`${message.content.includes("ping") ? "**Pong!**" : `**${this.client.user.tag}'s Status**`}`);
+    const response = await message.channel.send(`${message.content.includes("ping") ? "**Pong!**" : `**${this.client.user.tag}'s Status**`}`);
     const embed = new Discord.MessageEmbed();
     embed
-      .setTitle(`Estimated ping: ${msg.createdTimestamp - message.createdTimestamp}ms`)
+      .setTitle(`Estimated ping: ${response.createdTimestamp - message.createdTimestamp}ms`)
       .setColor(this.client.config.colors.random())
       .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setTimestamp()
@@ -40,7 +40,7 @@ class Stats extends Command {
       .addField("Channels/Servers", `${this.client.channels.size.toLocaleString()}/${this.client.guilds.size.toLocaleString()}`, true)
       .addField("Bot's host system infomation", `${os.platform} ${os.release()}, ${os.cpus().length} cores @ ${os.cpus()[0].speed}MHz, ${Math.floor(os.totalmem / 1024 / 1024)}MB RAM`);
 
-    await message.channel.send({embed});
+    response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
   }
 }
 

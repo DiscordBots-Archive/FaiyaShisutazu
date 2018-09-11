@@ -1,12 +1,17 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
 
 class Purge extends Command {
+
   constructor(client) {
     super(client, {
       name: "purge",
       description: "Allows you to purge a users or channels messages.",
-      category: "8. Utilities",
-      usage: "purge <num> <user>",
+      category: "11. Moderation",
+      usage: "purge [amount of messages to purge] [@user]",
+      extended: "This purges a specified number of message in a channel, from everyone or from a specific individual.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
       guildOnly: true,
       aliases: ["clean", "remove", "delete"],
       permLevel: "Moderator"

@@ -5,10 +5,10 @@ class About extends Command {
   constructor(client) {
     super(client, {
       name: "about",
-      description: "Tìm hiểu về em tí nha!",
-      category: "1. General",
+      description: "Returns a general description about me",
+      category: "01. General",
       usage: "about",
-      extended: "Chỉ là command để giới thiệu thui mà...",
+      extended: "This returns a description/introduction about me.",
       cost: 0,
       cooldown: 5,
       hidden: false,
@@ -23,8 +23,9 @@ class About extends Command {
       message.channel.send(this.client.responses.aboutMessages.random()
         .replace("{{user}}", `${message.author.tag}`)
         .replace("{{prefix}}", `${message.settings.prefix}`));
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.logger.error(error);
     }
   }
 }

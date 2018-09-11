@@ -4,16 +4,20 @@ const HTMLParser = require("fast-html-parser");
 const { MessageEmbed } = require("discord.js");
 
 class FML extends Social {
+
   constructor(client) {
     super(client, {
       name: "fml",
-      description: "Lấy 1 câu chuyện FML bất kỳ",
+      description: "Returns a FML story",
+      category: "04. Fun",
       usage: "fml",
-      category: "4. Fun",
-      extended: "Dùng để kiếm 1 mẩu truyện về những người bị cuộc đời nắk!",
-      cost: 2,
+      extended: "This returns a random story on FML.",
+      cost: 10,
       cooldown: 10,
-      aliases: ["fuckmylife", "fuckme"]
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
+      permLevel: "User"
     });
   }
 
@@ -22,29 +26,34 @@ class FML extends Social {
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
-      const reply = await message.channel.send("<a:typing:397490442469376001> **Đang tìm** chờ em một tẹo~");
+
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const { text } = await request.get("http://www.fmylife.com/random");
       const root = HTMLParser.parse(text);
       const article = root.querySelector(".block a");
       const downdoot = root.querySelector(".vote-down");
       const updoot = root.querySelector(".vote-up");
       const embed = new MessageEmbed()
-        .setTitle("Chỉ là một mẩu truyện về một người bị cuộc đời nắk")
+        .setTitle("A FML story")
         .setColor(this.client.config.colors.random())
         .setThumbnail("http://i.imgur.com/5cMj0fw.png")
         .setFooter(`Requested by: ${message.member.displayName}`)
         .setDescription(`_${article.childNodes[0].text}\n\n_`)
-        .addField("RIP", updoot.childNodes[0].text, true)
-        .addField("LUL:", downdoot.childNodes[0].text, true);
+        .addField("😭", updoot.childNodes[0].text, true)
+        .addField("🤨", downdoot.childNodes[0].text, true);
       if (article.childNodes[0].text.length < 5) {
-        return message.response(undefined, "Hình như lỗi rồi huhu.... Chán wá nkỉ :<");
+        return message.response(undefined, "I encountered an error, please try again!");
       }
-      reply.edit({embed});
 
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
     } catch (error) {
       if (error.message === "Cannot send an empty message") {
-        message.response(undefined, "Today, something went wrong, so you'll have to try again in a few moments. FML");
-      }
+        loadingMessage.delete();
+        message.response(undefined, `${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      } //else {
+      //   loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      // }
       this.client.logger.error(error);
     }
   }

@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
@@ -9,7 +10,7 @@ class Valut extends Social {
     super(client, {
       name: "thumbs",
       description: "Gives someone a thumbs up",
-      category: "3. Canvas",
+      category: "03. Canvas",
       usage: "thumbs [@mention|userid]",
       extended: "This uses the provided tag to give someone a thumbs up. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
@@ -27,20 +28,16 @@ class Valut extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const user = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const msg = await message.channel.send("...");
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+      const result = await this.getThumbsUp(person.displayAvatarURL({format: "png", size: 128}));
+      const attachment = new Discord.MessageAttachment(result, "vault.png");
       
-      const result = await this.getThumbsUp(user.displayAvatarURL({format: "png", size: 128}));
-      await message.channel.send({
-        files: [{
-          attachment: result,
-          name: "thumbs.jpg"
-        }]
-      });
-
-      await msg.delete();
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
-      throw error;
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.logger.error(error);
     }
   }
 

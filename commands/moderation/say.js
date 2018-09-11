@@ -1,14 +1,18 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Say extends Social {
+
   constructor(client) {
     super(client, {
       name: "say",
-      description: "Make the bot say something.",
-      usage: "say [#channel] <message>",
-      category: "8. Utilities",
-      extended: "You can send a message to another channel via this command.",
-      cost: 5,
+      description: "Makes the bot say something",
+      category: "11. Moderation",
+      usage: "say [#channel] [message]",
+      extended: "This makes the bot say something in a specified channel.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
       aliases: ["speak"],
       permLevel: "Moderator"
     });

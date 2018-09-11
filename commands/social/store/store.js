@@ -1,13 +1,20 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Store extends Social {
+
   constructor(client) {
     super(client, {
       name: "store",
-      description: "Display All Store Items",
-      usage: "store <-buy|-sell|-add|-del|-view>",
-      category: "9. Social",
-      aliases: []
+      description: "Displays all items in the store",
+      category: "09. Social",
+      usage: "store [-<give|take> <mention|userid> <amount> <name>]",
+      extended: "This displays all items in the store.",
+      cost: 0,
+      cooldown: 5,
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
+      permLevel: "User"
     });
   }
 

@@ -7,11 +7,11 @@ class RedPanda extends Social {
   constructor(client) {
     super(client, {
       name: "redpanda",
-      description: "Trả về hình 1 chú gấu trúc đỏ bất kỳ",
-      category: "2. Animals",
+      description: "Returns an image of a red panda",
+      category: "02. Animals",
       usage: "redpanda",
-      extended: "Chỉ là trả về hình 1 chú gấu trúc đỏ bất kỳ thôi!",
-      cost: 2,
+      extended: "This returns an image of a red panda.",
+      cost: 5,
       cooldown: 5,
       hidden: false,
       guildOnly: false,
@@ -21,23 +21,21 @@ class RedPanda extends Social {
   }
 
   async run(message, args, level) {
-
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-    const loadingMessage = await message.channel.send(`<a:typing:397490442469376001>...`);
-    const { body } = await get("https://animals.anidiots.guide/red_panda");
 
+    const { body } = await get("https://animals.anidiots.guide/red_panda");
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     const embed = new Discord.MessageEmbed();
     embed
-      .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
       .setDescription(body.link)
       .setColor(this.client.config.colors.random())
       .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(body.link)
-      .setTimestamp()
+      .setTimestamp();
 
-    await loadingMessage.edit({embed});
+    response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
   }
 }
 

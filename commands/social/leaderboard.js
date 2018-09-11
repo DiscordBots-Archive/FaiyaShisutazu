@@ -2,14 +2,20 @@ const Social = require(`${process.cwd()}/base/Social.js`);
 const Discord = require("discord.js");
 
 class Leaderboard extends Social {
+
   constructor(client) {
     super(client, {
       name: "leaderboard",
-      description: "Displays the top 20 active users.",
+      description: "Displays the top 20 active users",
+      category: "09. Social",
       usage: "leaderboard",
-      category: "9. Social",
+      extended: "This returns the top 20 active users in this guild",
       cost: 0,
-      aliases: ["top20", "top", "leader", "lb"]
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["top20", "top", "leader", "lb"],
+      permLevel: "User"
     });
   }
 

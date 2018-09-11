@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
@@ -9,7 +10,7 @@ class Respect extends Social {
     super(client, {
       name: "respect",
       description: "Pays respect to a person",
-      category: "3. Canvas",
+      category: "03. Canvas",
       usage: "respect [@mention|userid]",
       extended: "This uses the provided tag to allow everyone to pay respect to a person using the F react. If there was no tag provided, this command will use the image of the message's author!",
       cost: 30,
@@ -27,20 +28,16 @@ class Respect extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const msg = await message.channel.send("Thật là đáng buồn mà~");
-
-      const result = await this.giveRespect(target.displayAvatarURL({format: "png", size: 128}));
-      const m = await message.channel.send("Press 🇫 to pay respects.", {
-        files: [{
-          attachment: result,
-          name: "paid-respects.png"
-        }]
-      });
-
-      await msg.delete();
-      m.react("🇫");
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+      const result = await this.giveRespect(person.displayAvatarURL({format: "png", size: 128}));
+      const attachment = new Discord.MessageAttachment(result, "respect.png");
+      
+      loadingMessage.delete();
+      const respectMessage = await message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | Press **F** to pay respect!`, {files: [attachment]});
+      respectMessage.react("🇫");
     } catch (error) {
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.logger.error(error);
     }
   }

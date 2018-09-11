@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const { Canvas } = require("canvas-constructor");
 const snek = require("snekfetch");
 const fsn = require("fs-nextra");
@@ -9,7 +10,7 @@ class Crush extends Social {
     super(client, {
       name: "crush",
       description: "Shows everyone who you missed",
-      category: "3. Canvas",
+      category: "03. Canvas",
       usage: "crush [@mention|userid]",
       extended: "This uses the provided tag to tell everyone who you missed the most. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
@@ -27,20 +28,16 @@ class Crush extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const crush = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
       const crusher = message.author;
-      const msg = await message.channel.send(`<a:typing:397490442469376001> **${crush.username}** đang bị ${message.member.displayName} ngắm nè~`);
-
       const result = await this.getCrushed(crusher.displayAvatarURL({format: "png", size: 128}), crush.displayAvatarURL({format: "png", size: 512}));
-      await message.channel.send({
-        files: [{
-          attachment: result,
-          name: "crush.png"
-        }]
-      });
-
-      await msg.delete();
+      const attachment = new Discord.MessageAttachment(result, "crush.png");
+      
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.logger.error(error);
     }
   }

@@ -3,28 +3,32 @@ const Discord = require("discord.js");
 const snek = require("snekfetch");
 
 class Neko extends Social {
+
   constructor(client) {
     super(client, {
       name: "neko",
-      description: "Shows a picture of a neko.",
-      category: "6. NSFW?",
+      description: "Shows a picture of a neko",
+      category: "06. NSFW?",
       usage: "neko",
-      extended: "This command will return a Neko, a lewd Neko if used in a NSFW channel",
-      cost: 2,
+      extended: "This returns a Neko, a lewd Neko if used in a NSFW channel",
+      cost: 15,
       cooldown: 10,
-      aliases: []
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      if (!message.channel.nsfw) return message.response("🔞", "Đây là channel SFW thì hông có đăng hình 18+ được nha..");
+      if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
 
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const msg = await message.channel.send(`<a:typing:397490442469376001>...`);
+      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const { body } = await snek.get(`https://nekos.life/api${Math.random() >= 0.5 ? "/lewd" : ""}/neko`);
       
       const embed = new Discord.MessageEmbed();
@@ -36,9 +40,10 @@ class Neko extends Social {
         .setImage(body.neko)
         .setTimestamp()
         
-      await msg.edit({embed});
-    } catch (e) {
-      console.log(e);
+      response.edit({embed});
+    } catch (error) {
+      response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.logger.error(error);
     }
   }
 }

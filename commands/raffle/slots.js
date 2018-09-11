@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 
 const { SlotMachine, SlotSymbol } = require("slot-machine");
 
@@ -19,35 +20,44 @@ const jackpot = new SlotSymbol("jackpot", { display: "🔅", points: 50, weight:
 const machine = new SlotMachine(3, [cherry, lemon, watermelon, apple, grape, orange, wild, bell, clover, heart, money, diamond, jackpot]);
 
 class Slots extends Social {
-  constructor(client) {!
+
+  constructor(client) {
     super(client, {
       name: "slots",
-      description: "Try your luck with the slots.",
-      category: "5. Random raffles & votes",
+      description: "Plays the slot machine",
+      category: "05. Random generators, raffles & votes",
       usage: "slots",
-      cost: 10,
+      extended: "This simulates a slot machine. Your winning is equal to the cost of this command multiplied by the machine points.",
+      cost: 15,
       cooldown: 5,
-      aliases: []
+      hidden: false,
+      guildOnly: false,
+      aliases: [],
+      permLevel: "User"
     });
   }
   
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system has been disabled.");
-  
-    if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
   
     try {
+      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const results = machine.play();
       const winnings = this.help.cost * results.totalPoints;
-      message.buildEmbed()
+      const embed = new Discord.MessageEmbed();
+      embed
         .setColor(this.client.config.colors.random())
-        .setAuthor("REmibot Slots")
+        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setDescription(`${results.visualize(false)}\n\n${results.winCount === 0 ? `${message.member.displayName} has lost!\nBetter luck next time!` : `Whoa... ${message.member.displayName} won!`}\n\n${results.winCount === 0 ? "" : `You have won 💎${winnings.toLocaleString()}`}`)
-        .setTimestamp()
-        .send();
+        .setTimestamp();
+
+      response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed})
       if (results.winCount > 0) return message.member.givePoints(winnings);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.logger.error(error);
     }
   }
 }

@@ -3,13 +3,19 @@ const { inspect } = require("util");
 const { post } = require("snekfetch");
 
 class Eval extends Owner {
+
   constructor(client) {
     super(client, {
       name: "eval",
-      description: "Evaluates arbitrary Javascript.",
-      category: "Owner",
-      usage: "eval <expression>",
-      aliases: ["ev"],
+      description: "Evaluates arbitrary Javascript",
+      category: "11. Moderation",
+      usage: "eval [expression]",
+      extended: "This evaluates arbitrary Javascript.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["defaults"],
       permLevel: "Bot Owner"
     });
   }

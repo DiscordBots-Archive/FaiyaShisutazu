@@ -1,12 +1,19 @@
 const Owner = require(`${process.cwd()}/base/Owner.js`);
 
 class Reload extends Owner {
+
   constructor(client) {
     super(client, {
       name: "reload",
-      description: "Reloads a command that has been modified.",
-      category: "Owner",
+      description: "Reloads a command that has been modified",
+      category: "11. Moderation",
       usage: "reload [command]",
+      extended: "This reloads a specific command for new changes or fixes.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
       permLevel: "Bot Admin"
     });
   }

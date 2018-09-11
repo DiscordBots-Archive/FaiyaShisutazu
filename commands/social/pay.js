@@ -1,14 +1,20 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Pay extends Social {
+
   constructor(client) {
     super(client, {
       name: "pay",
-      description: "Pay another user your activity points.",
-      usage: "pay <@mention|userid> <amount>",
-      category: "9. Social",
+      description: "Gives points to someone in the guild",
+      category: "09. Social",
+      usage: "pay",
+      extended: "This gives points to someone in the guild.",
       cost: 0,
-      aliases: ["loan", "donate"]
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["giff", "give"],
+      permLevel: "User"
     });
   }
 
@@ -19,9 +25,9 @@ class Pay extends Social {
     try {
       const [bot, user] = await this.verifySocialUser(message, args[0]);
       if (bot) return message.response("❗", "Bot's cannot accumulate points or levels.");
-      if (isNaN(args[1])) return message.response(undefined, "Not a valid amount");
+      if (isNaN(args[1])) return message.response(undefined, "Not a valid amount!");
 
-      if (parseInt(args[1]) > Number.MAX_SAFE_INTEGER) return message.response(undefined, "That number is to high");
+      if (parseInt(args[1]) > Number.MAX_SAFE_INTEGER) return message.response(undefined, "That number is to high!");
       
       if (args[1] < 0) return message.response(undefined, "You cannot pay less than zero, whatcha trying to do? rob em?");
       else if (args[1] < 1) return message.response(undefined, "You paying 'em with air? boi don't make me slap you 👋");

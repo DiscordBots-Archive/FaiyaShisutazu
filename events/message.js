@@ -92,8 +92,11 @@ module.exports = class {
     const command = args.shift().toLowerCase();
     const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
     
-    if (!cmd) return;
-
+    if (!cmd) {
+      message.react("❓");  
+      return;
+    }
+    
     const rateLimit = await this.client.ratelimit(message, level, cmd.help.name, cmd.conf.cooldown); 
 
     if (typeof rateLimit == "string") {

@@ -3,30 +3,32 @@ const Discord = require("discord.js");
 const snek = require("snekfetch");
 
 class Boobs extends Social {
+
   constructor(client) {
     super(client, {
       name: "boobs",
-      description: "Muốn xem hình zú?!",
-      category: "6. NSFW?",
+      description: "Returns b0bs images",
+      category: "06. NSFW?",
       usage: "boobs",
-      extended: "Dùng lệnh này để ngắm những cái dzú nha!",
-      cost: 2,
+      extended: "This returns a random b0bs image from oboobs.ru.",
+      cost: 15,
       cooldown: 10,
-      aliases: ["tits"]
+      hidden: false,
+      guildOnly: true,
+      aliases: ["tits"],
+      permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      if (!message.channel.nsfw) return message.response("🔞", "Đây là channel SFW thì hông có đăng hình 18+ được nha..");
-
+      if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
       if (message.settings.socialSystem === "true") {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const msg = await message.channel.send(`<a:typing:397490442469376001>...`);
+      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const { body } = await snek.get("http://api.oboobs.ru/boobs/0/1/random");
-      
       const embed = new Discord.MessageEmbed();
       embed
         .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
@@ -36,9 +38,10 @@ class Boobs extends Social {
         .setImage(`http://media.oboobs.ru/${body[0].preview}`)
         .setTimestamp()
 
-      await msg.edit({embed});
-    } catch (e) {
-      console.log(e);
+      response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
+    } catch (error) {
+      response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.logger.error(error);
     }
   }
 }

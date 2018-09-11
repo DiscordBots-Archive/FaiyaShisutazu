@@ -1,15 +1,20 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 
 class Daily extends Social {
+
   constructor(client) {
     super(client, {
       name: "daily",
-      description: "Claim your daily points.",
+      description: "Claims your daily points",
+      category: "09. Social",
       usage: "daily",
-      category: "9. Social",
-      extended: "This command will redeem your guilds daily bonus.",
+      extended: "This redeems your guilds daily bonus.",
       cost: 0,
-      aliases: ["claim"]
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
+      permLevel: "User"
     });
   }
 

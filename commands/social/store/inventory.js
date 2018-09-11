@@ -1,13 +1,20 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 class Item extends Social {
+
   constructor(client) {
+    
     super(client, {
       name: "inventory",
-      description: "Displays, adds, and removes from inventories.",
+      description: "Displays, adds, and removes from inventories",
+      category: "09. Social",
       usage: "inventory [-<give|take> <mention|userid> <amount> <name>]",
-      category: "9. Social",      
-      aliases: ["inv"],
-      hidden: true
+      extended: "This displays, adds, and removes items from inventories.",
+      cost: 0,
+      cooldown: 5,
+      hidden: false,
+      guildOnly: true,
+      aliases: [],
+      permLevel: "User"
     });
   }
 

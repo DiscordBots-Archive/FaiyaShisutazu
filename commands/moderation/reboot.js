@@ -3,12 +3,19 @@ const {promisify} = require("util");
 const write = promisify(require("fs").writeFile);
 
 class Reboot extends Owner {
+
   constructor(client) {
     super(client, {
       name: "reboot",
-      description: "If running under PM2, bot will restart.",
-      category: "Owner",
+      description: "Restarts the bot",
+      category: "11. Moderation",
       usage: "reboot",
+      extended: "This restarts the bot if running under PM2.",
+      cost: 0,
+      cooldown: 0,
+      hidden: false,
+      guildOnly: true,
+      aliases: ["restart"],
       permLevel: "Bot Admin"
     });
   }

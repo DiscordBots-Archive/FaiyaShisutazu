@@ -1,4 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
+const Discord = require("discord.js");
 const Canvas = require("canvas");
 const snek = require("snekfetch");
 const { readFile } = require("fs-nextra");
@@ -10,7 +11,7 @@ class Triggered extends Social {
     super(client, {
       name: "triggered",
       description: "Triggers someone",
-      category: "3. Canvas",
+      category: "03. Canvas",
       usage: "triggered [@mention|userid]",
       extended: "This uses the provided tag to let you trigger someone. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
@@ -28,19 +29,15 @@ class Triggered extends Social {
         if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
       }
 
-      const target = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const msg = await message.channel.send(`Đang làm cho ${target.tag} dỗi~`);
-
-      const attachment = await this.getTriggered(target.displayAvatarURL({format: "png", size: 512}));
-      await message.channel.send({
-        files: [{
-          attachment,
-          name: "triggered.gif"
-        }]
-      });
-
-      await msg.delete();
+      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+      const result = await this.getTriggered(person.displayAvatarURL({format: "png", size: 512}));
+      const attachment = new Discord.MessageAttachment(result, "triggered.gif");
+      
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
+      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.logger.error(error);
     }
   }
