@@ -38,6 +38,7 @@
     "fast-html-parser": "^1.0.1",
     "fs-nextra": "^0.3.7",
     "gifencoder": "^1.1.0",
+    "idiotic-api": "^0.2.11",
     "inquirer": "^6.1.0",
     "kitsu": "^6.1.0",
     "klaw": "^3.0.0",

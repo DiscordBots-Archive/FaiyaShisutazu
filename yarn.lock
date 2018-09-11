@@ -1247,6 +1247,12 @@ iconv-lite@^0.4.22, iconv-lite@^0.4.4:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
+idiotic-api@^0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/idiotic-api/-/idiotic-api-0.2.11.tgz#afd06e61bbdf4c4e398264e50ecfa71cab6fecee"
+  dependencies:
+    snekfetch "^3.6.4"
+
 ieee754@^1.1.4:
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
@@ -2454,6 +2460,10 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+snekfetch@^3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
 
 snekfetch@^4.0.4:
   version "4.0.4"

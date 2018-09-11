@@ -46,10 +46,9 @@ let prompts = [
     message: "[Required] Please enter your bot token from the application page!"
   },
   {
-    type: "list", 
-    name: "changePrefix", 
-    message: "Do you want to change your prefix?", 
-    choices: ["Yes", "No"]
+    type: "input",
+    name: "idiotKey",
+    message: "[Required] Please enter your IdiotAPI key!"
   },
   {
     type: "input",
@@ -86,19 +85,13 @@ let prompts = [
     baseConfig = baseConfig.replace("{{language}}", "english");
   }
 
-  if (answers.changePrefix && answers.changePrefix === "Yes") {
-    console.log(" Changing default guide prefix...");
-    defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
-    baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
-    await settings.set("default", defaultSettings);
-  } else {
-    console.log(" Changing default guide prefix...");
-    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
-    baseConfig = baseConfig.replace("{{prefix}}", "!");
-    await settings.set("default", defaultSettings);
-  }
+  console.log(" Setting default guide prefix...");
+  defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
+  baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
+  await settings.set("default", defaultSettings);
 
   baseConfig = baseConfig.replace("{{discordKey}}", `${answers.discordKey}`);
+  baseConfig = baseConfig.replace("{{idiotKey}}", `${answers.idiotKey}`);
   // End
   
   fs.writeFileSync("./config.js", baseConfig);

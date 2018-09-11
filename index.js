@@ -4,6 +4,7 @@ require(`${process.cwd()}/modules/Prototypes.js`);
 if (Number(process.version.slice(1).split(".")[0]) < 8) throw new Error("Node 8.0.0 or higher is required. Update Node on your system.");
 
 const { Client, Collection } = require("discord.js");
+const idioticAPI = require("idiotic-api");
 const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const klaw = require("klaw");
@@ -15,6 +16,7 @@ class REmibot extends Client {
     this.config = require(`${process.cwd()}/config.js`);
     this.logger = require(`${process.cwd()}/util/Logger`);
     this.responses = require(`${process.cwd()}/assets/responses/${this.config.defaultSettings.language}.js`);
+    this.idiotAPI = new idioticAPI.Client(`${this.config.idiotKey}`, { dev: true });
 
     this.aliases = new Collection();
     this.commands = new Collection();

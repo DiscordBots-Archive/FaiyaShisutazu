@@ -11,6 +11,9 @@ const config = {
   // Enter your keys directly or use and .env file instead before hosting on Heroku
   // [Required] Your Discord bot's token. Available @ https://discordapp.com/developers/applications/me
   "discordKey":  "{{discordKey}}",
+
+  // [Required] Your IdiotAPI key
+  "idiotAPI":  "{{idiotKey}}",
   
   // [Optional - Steam games commands] Your Steam Developer's API key. Available @ https://steamcommunity.com/dev/apikey
   "steamKey":  "steamKey",
