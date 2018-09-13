@@ -33,8 +33,8 @@
     "fast-html-parser": "^1.0.1",
     "fs-nextra": "^0.3.7",
     "idiotic-api": "YorkAARGH/Idiotic-Wrapper#1.0.0",
-    "inquirer": "^6.1.0",
-    "kitsu": "^6.1.0",
+    "inquirer": "^6.2.0",
+    "kitsu": "^6.4.0",
     "klaw": "^3.0.0",
     "libsodium-wrappers": "^0.7.3",
     "moment": "^2.22.2",
@@ -47,8 +47,8 @@
     "snekfetch": "^4.0.4",
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
-    "uws": "^99.0.0",
-    "ytdl-core": "^0.24.0",
+    "uws": "discordjs/uws",
+    "ytdl-core": "^0.25.2",
     "zlib-sync": "^0.1.4"
   }
 }
