@@ -1,8 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
-const { Canvas } = require("canvas-constructor");
-const snek = require("snekfetch");
-const fsn = require("fs-nextra");
+const { MessageAttachment } = require("discord.js");
 
 class Respect extends Social {
 
@@ -23,35 +20,22 @@ class Respect extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const result = await this.giveRespect(person.displayAvatarURL({format: "png", size: 128}));
-      const attachment = new Discord.MessageAttachment(result, "respect.png");
-      
-      loadingMessage.delete();
-      const respectMessage = await message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | Press **F** to pay respect!`, {files: [attachment]});
-      respectMessage.react("🇫");
-    } catch (error) {
-      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-  }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
-  async giveRespect(person) {
-    const plate = await fsn.readFile("./assets/images/image_respects.png");
-    const { body } = await snek.get(person);
-    return new Canvas(720, 405)
-      .addRect(0, 0, 720, 405)
-      .setColor("#000000")
-      .addImage(body, 110, 45, 90, 90)
-      .restore()
-      .addImage(plate, 0, 0, 720, 405)
-      .toBuffer();
+    try {
+      const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
+      const attachment = new MessageAttachment(await this.client.idiotAPI.respect(target.displayAvatarURL({format:"png", size:128})), "respect.png");
+      
+      await loadingMessage.delete();
+      const respectMessage = await message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content} | Press **F** to pay respect!`, {files: [attachment]});
+      await respectMessage.react("🇫");
+    } catch (error) {
+      await loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      console.log(error);
+    }
   }
 }
 

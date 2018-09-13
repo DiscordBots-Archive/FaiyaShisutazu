@@ -16,7 +16,7 @@ class REmibot extends Client {
     this.config = require(`${process.cwd()}/config.js`);
     this.logger = require(`${process.cwd()}/util/Logger`);
     this.responses = require(`${process.cwd()}/assets/responses/${this.config.defaultSettings.language}.js`);
-    this.idiotAPI = new idioticAPI.Client(`${this.config.idiotKey}`, { dev: true });
+    this.idiotAPI = new idioticAPI.Client(`${this.config.idiotAPI}`, { dev: true });
 
     this.aliases = new Collection();
     this.commands = new Collection();

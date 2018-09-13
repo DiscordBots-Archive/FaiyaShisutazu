@@ -1,8 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
-const { Canvas } = require("canvas-constructor");
-const snek = require("snekfetch");
-const fsn = require("fs-nextra");
+const { MessageAttachment } = require("discord.js");
 
 class Crush extends Social {
 
@@ -23,39 +20,22 @@ class Crush extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      const crush = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
+    try {
+      const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
       const crusher = message.author;
-      const result = await this.getCrushed(crusher.displayAvatarURL({format: "png", size: 128}), crush.displayAvatarURL({format: "png", size: 512}));
-      const attachment = new Discord.MessageAttachment(result, "crush.png");
+      const attachment = new MessageAttachment(await this.client.idiotAPI.crush(target.displayAvatarURL({format:"png", size:512}), crusher.displayAvatarURL({format:"png", size:128})), "crush.png");
       
-      loadingMessage.delete();
-      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
+      await loadingMessage.delete();
+      return message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
       loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      console.log(error);
     }
-  }
-
-  async getCrushed(crusher, crush) {
-    const [plate, Crusher, Crush] = await Promise.all([
-      fsn.readFile("./assets/images/plate_crush.png"),
-      snek.get(crusher),
-      snek.get(crush),
-    ]);
-    return new Canvas(600, 873)
-      .rotate(-0.09)
-      .addImage(Crush.body, 109, 454, 417, 417)
-      .resetTransformation()
-      .addImage(plate, 0, 0, 600, 873)
-      .addImage(Crusher.body, 407, 44, 131, 131, {type: "round", radius: 66})
-      .restore()
-      .toBuffer();
   }
 }
 

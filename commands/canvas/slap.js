@@ -1,20 +1,20 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 const { MessageAttachment } = require("discord.js");
 
-class Tattoo extends Social {
+class Slap extends Social {
 
   constructor(client) {
     super(client, {
-      name: "tattoo",
-      description: "Gets a tattoo of someone's face",
+      name: "slap",
+      description: "Slaps a person in the face",
       category: "03. Canvas",
-      usage: "tattoo [@mention|userid]",
-      extended: "This uses the provided tag to let you get a tattoo of someone's face. If there was no tag provided, this command will use the image of the message's author!",
+      usage: "slap [@mention|userid]",
+      extended: "This slaps the person you tagged. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,
       hidden: false,
       guildOnly: true,
-      aliases: ["ink"],
+      aliases: [],
       permLevel: "User"
     });
   }
@@ -27,7 +27,8 @@ class Tattoo extends Social {
 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await this.client.idiotAPI.tattoo(target.displayAvatarURL({ format:"png", size:512 })), "tattoo.png");
+      const slapper = message.author;
+      const attachment = new MessageAttachment(await this.client.idiotAPI.batSlap(slapper.displayAvatarURL({format:"png", size:128}), target.displayAvatarURL({format:"png", size:256})), "batslap.png");
       
       await loadingMessage.delete();
       return message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
@@ -38,4 +39,4 @@ class Tattoo extends Social {
   }
 }
 
-module.exports = Tattoo; //
+module.exports = Slap; //

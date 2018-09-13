@@ -1,8 +1,5 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
-const { Canvas } = require("canvas-constructor");
-const snek = require("snekfetch");
-const fsn = require("fs-nextra");
+const { MessageAttachment } = require("discord.js");
 
 class Valut extends Social {
 
@@ -23,33 +20,21 @@ class Valut extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      const person = await this.verifyUser(message, args[0] ? args[0] : message.author.id);
-      const result = await this.getThumbsUp(person.displayAvatarURL({format: "png", size: 128}));
-      const attachment = new Discord.MessageAttachment(result, "vault.png");
+    try {
+      const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
+      const attachment = new MessageAttachment(await this.client.idiotAPI.vaultBoy(target.displayAvatarURL({ format: "png", size: 128 })), "vault.png");
       
       loadingMessage.delete();
       message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
     } catch (error) {
       loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      console.log(error);
     }
-  }
-
-  async getThumbsUp(person) {
-    const plate = await fsn.readFile("./assets/images/plate_vaultboy.png");
-    const { body } = await snek.get(person);
-    return new Canvas(365, 365)
-      .setColor("#000000")
-      .addRect(0, 0, 365, 365)
-      .addImage(body, 153, 62, 100, 100)
-      .addImage(plate, 0, 0, 365, 365)
-      .toBuffer();
   }
 }
 
