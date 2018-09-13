@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const Enmap = require("enmap");
-const EnmapLevel = require("enmap-level");
 const fs = require("fs");
 
 let baseConfig = fs.readFileSync("./util/setup_base.txt", "utf8");
@@ -25,7 +24,7 @@ let defaultSettings = `{
   "costMulti": "2"
 }`;
 
-const settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+const settings = new Enmap({name: "settings"});
 
 let prompts = [
   {

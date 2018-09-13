@@ -6,7 +6,6 @@ if (Number(process.version.slice(1).split(".")[0]) < 8) throw new Error("Node 8.
 const { Client, Collection } = require("discord.js");
 const idioticAPI = require("idiotic-api");
 const Enmap = require("enmap");
-const EnmapLevel = require("enmap-level");
 const klaw = require("klaw");
 const path = require("path");
 
@@ -23,11 +22,11 @@ class REmibot extends Client {
     this.playlists = new Collection();
     this.ratelimits = new Collection();
 
-    this.settings = new Enmap({ provider: new EnmapLevel({ name: "settings" }) });
-    this.reminders = new Enmap({provider: new EnmapLevel({ name: "reminders" }) });
-    this.points = new Enmap({provider: new EnmapLevel({ name: "points" }) });
-    this.store = new Enmap({provider: new EnmapLevel({ name: "shop" }) });
-    this.inventory = new Enmap({provider: new EnmapLevel({ name: "inventory" }) });
+    this.settings = new Enmap({ name: "settings" });
+    this.reminders = new Enmap({ name: "reminders" });
+    this.points = new Enmap({ name: "points" });
+    this.store = new Enmap({ name: "shop" });
+    this.inventory = new Enmap({ name: "inventory" });
   }
 
   permlevel(message) {
