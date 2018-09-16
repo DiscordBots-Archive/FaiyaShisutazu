@@ -4,7 +4,8 @@
   "description": "REmibot is a multipurpose Discord bot based on the discord.js library.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint .",
+    "lint": "eslint --fix .",
     "start": "pm2 start index.js",
     "prepare": "node util/setup.js"
   },
@@ -31,6 +32,7 @@
     "erlpack": "discordapp/erlpack",
     "express": "^4.16.3",
     "fast-html-parser": "^1.0.1",
+    "ffmpeg-static": "^2.3.0",
     "fs-nextra": "^0.3.7",
     "idiotic-api": "YorkAARGH/Idiotic-Wrapper#1.0.0",
     "inquirer": "^6.2.0",
@@ -50,5 +52,8 @@
     "uws": "discordjs/uws",
     "ytdl-core": "^0.25.2",
     "zlib-sync": "^0.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
   }
 }
