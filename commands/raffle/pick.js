@@ -22,9 +22,9 @@ class Pick extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-    
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const options = args.join(" ");
       if (options.length < 2) return response.edit("Invalid command usage, you must supply text.");
       const list = options.split(",");

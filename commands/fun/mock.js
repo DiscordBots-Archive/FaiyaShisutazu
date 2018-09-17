@@ -29,12 +29,12 @@ class Mock extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-      
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const grabMock = args.length === 0 ? await message.channel.messages.fetch({
         limit: 1,
         before: message.id

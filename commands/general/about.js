@@ -19,6 +19,8 @@ class About extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
     try {
       message.channel.send(this.client.responses.aboutMessages.random()
         .replace("{{user}}", `${message.author.tag}`)

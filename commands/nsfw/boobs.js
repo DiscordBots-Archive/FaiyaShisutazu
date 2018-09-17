@@ -21,13 +21,13 @@ class Boobs extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
+    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
     try {
-      if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const { body } = await snek.get("http://api.oboobs.ru/boobs/0/1/random");
       const embed = new Discord.MessageEmbed();
       embed
@@ -36,7 +36,7 @@ class Boobs extends Social {
         .setColor(this.client.config.colors.random())
         .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setImage(`http://media.oboobs.ru/${body[0].preview}`)
-        .setTimestamp()
+        .setTimestamp();
 
       response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
     } catch (error) {

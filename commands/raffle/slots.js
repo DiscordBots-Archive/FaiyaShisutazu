@@ -41,9 +41,9 @@ class Slots extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
-  
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const results = machine.play();
       const winnings = this.help.cost * results.totalPoints;
       const embed = new Discord.MessageEmbed();
@@ -53,7 +53,7 @@ class Slots extends Social {
         .setDescription(`${results.visualize(false)}\n\n${results.winCount === 0 ? `${message.member.displayName} has lost!\nBetter luck next time!` : `Whoa... ${message.member.displayName} won!`}\n\n${results.winCount === 0 ? "" : `You have won 💎${winnings.toLocaleString()}`}`)
         .setTimestamp();
 
-      response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed})
+      response.edit(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
       if (results.winCount > 0) return message.member.givePoints(winnings);
     } catch (error) {
       response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);

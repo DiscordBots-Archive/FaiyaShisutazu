@@ -22,9 +22,9 @@ class Dice extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
     try {
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const rolls = (args[0] === undefined) ? 1 : args[0];
       const sides = (args[1] === undefined) ? 6 : args[1];
       if (rolls > 100000 || sides > 100000)
@@ -32,7 +32,7 @@ class Dice extends Social {
       else {
         let total = 0;
         for (let i = 1; i <= rolls; i++) {
-          let number = Math.floor(Math.random() * sides) + 1;
+          const number = Math.floor(Math.random() * sides) + 1;
           total += number;
         }
         const average = Math.floor((total / rolls));

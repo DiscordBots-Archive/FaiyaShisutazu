@@ -19,12 +19,12 @@ class Yomomma extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    try {
       const { text } = await snek.get("http://api.yomomma.info/");
 
       response.edit(`🌺 **${message.author.tag}** ❯ ${message.content} | _${JSON.parse(text).joke}_`);

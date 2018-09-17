@@ -54,12 +54,12 @@ class Manga extends Command {
         .addField("Popularity rank:", `${data[index].popularityRank}`, true)
         .addField("Link:", `https://kitsu.io/manga/${data[index].id}`);
 
-        loadingMessage.delete();
-        message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, embed);
-      } catch (error) {
-        if (error instanceof Discord.Collection()) return message.reply("Command canceled! Timed out.");
-        loadingMessage.edit("I had an error while trying to fetch the data from Kitsu. Sorry! Did you spell the manga name right?");
-        this.client.logger.error(error);
+      loadingMessage.delete();
+      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, embed);
+    } catch (error) {
+      if (error instanceof Discord.Collection()) return message.reply("Command canceled! Timed out.");
+      loadingMessage.edit("I had an error while trying to fetch the data from Kitsu. Sorry! Did you spell the manga name right?");
+      this.client.logger.error(error);
     }  
   }
 }

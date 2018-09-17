@@ -21,12 +21,12 @@ class Inspire extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
+    try {  
       const xmas = message.flags[0] === "xmas" ? "&season=xmas" : "";
       const { text } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
       const attachment = new Discord.MessageAttachment(text, "inspire.jpg");

@@ -35,7 +35,7 @@ class Help extends Command {
         const category = command.help.category.toProperCase();
         if (currentCategory !== category) {
           if (category !== "01. General")
-            output += `"},`;
+            output += "\"},";
           output += `{"name": "${category}","value": "`;
           currentCategory = category;
         } else {
@@ -71,7 +71,7 @@ class Help extends Command {
         .addField("Usage", `${settings.prefix}${command.help.usage}`, true)
         .addField("Cost", `💎 ${parseInt(command.help.cost)}`, true)
         .addField("Aliases", `${command.conf.aliases.join(", ") ? command.conf.aliases.join(", ") : "None!"}`, true)
-        .addField("Details", `${command.help.extended}`)
+        .addField("Details", `${command.help.extended}`);
       
       loadingMessage.delete();
       message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});

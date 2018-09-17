@@ -22,9 +22,9 @@ class Roll extends Social {
     if (message.settings.socialSystem === "true") {
       if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
     }
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
     try {
-      const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const min = (args[0] === undefined) ? 1 : Math.ceil(args[0]);
       const max = (args[1] === undefined) ? 100 : Math.floor(args[1]);
       const number = Math.floor(Math.random() * (max - min + 1)) + min;

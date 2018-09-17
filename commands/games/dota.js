@@ -1,9 +1,9 @@
 const Social = require(`${process.cwd()}/base/Social.js`);
 const config = require(`${process.cwd()}/config.js`);
 const Discord = require("discord.js");
-const steamID64 = require('steamidconvert')(config.steamKey);
-const steamID3 = require('steamid');
-const request = require('request');
+const steamID64 = require("steamidconvert")(config.steamKey);
+const steamID3 = require("steamid");
+const request = require("request");
 
 class Dota extends Social {
 
@@ -37,11 +37,11 @@ class Dota extends Social {
   }
 
   async stats(message, input) {
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {
       const customURL = input;
-
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      steamID64.convertVanity(customURL, function (err, res) {
+      steamID64.convertVanity(customURL, function(err, res) {
         if (err) {
           loadingMessage.edit("I'm only supporting Steam's customURL as input!");
         } else {
@@ -52,35 +52,35 @@ class Dota extends Social {
             .replace("]", "");
 
           const output = {
-            status: '',
-            daysSinceLastMatch: '',
-            estMMR: '',
-            name: '',
+            status: "",
+            daysSinceLastMatch: "",
+            estMMR: "",
+            name: "",
             winLoss: {
-              wins: '',
-              losses: '',
-              winrate: '',
-              totalGames: ''
+              wins: "",
+              losses: "",
+              winrate: "",
+              totalGames: ""
             },
             mostPlayed: [],
             recentGames: [],
-            profileURL: 'https://opendota.com/players/' + playerID,
-            profileImage: '',
-            isPrime: ''
+            profileURL: "https://opendota.com/players/" + playerID,
+            profileImage: "",
+            isPrime: ""
           };
 
-          const apiBase = 'https://api.opendota.com/api/players/' + playerID;
+          const apiBase = "https://api.opendota.com/api/players/" + playerID;
 
-          request(apiBase, function (err, res) {
+          request(apiBase, function(err, res) {
             if (err) {
-              output.status = 'Error';
+              output.status = "Error";
               loadingMessage.edit("Error with initial request! This might be a problem with OpenDota API!");
             } else {
               const data = JSON.parse(res.body);
               if (data.error) {
-                output.status = 'Invalid';
+                output.status = "Invalid";
               } else {
-                output.status = 'Valid Account';
+                output.status = "Valid Account";
                 output.estMMR = data.mmr_estimate.estimate;
                 if (data.profile != undefined) {
                   output.name = data.profile.personaname;
@@ -89,9 +89,9 @@ class Dota extends Social {
                   output.name = "Undefined";
                   output.estMMR = 0;
                 }
-                request(apiBase + '/wl', function (err, res) {
+                request(apiBase + "/wl", function(err, res) {
                   if (err) {
-                    output.status = 'Error';
+                    output.status = "Error";
                     loadingMessage.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   const data = JSON.parse(res.body);
@@ -116,7 +116,7 @@ class Dota extends Social {
                     .addField("Winrate", `\`${parseInt(output.winLoss.winrate).toPrecision(3)}%\``, true)
                     .addField("Wins", `\`${output.winLoss.wins}\``, true)
                     .addField("Losses", `\`${output.winLoss.losses}\``, true)
-                    .addField("Details", `${output.profileURL}`)
+                    .addField("Details", `${output.profileURL}`);
                   
                   loadingMessage.delete();
                   message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, { embed });

@@ -1,6 +1,5 @@
 const Command = require(`${process.cwd()}/base/Command.js`);
 const moment = require("moment");
-const snek = require("snekfetch");
 
 class Social extends Command {
 
@@ -110,13 +109,6 @@ class Social extends Command {
     } catch (error) {
       this.client.logger.error(error);
     }
-  }
-
-  async cmdWeeb(type, imgType, nsfw = false) {
-    const { body } = await get(`https://api.weeb.sh/images/random?type=${type}&filetype=${imgType}&nsfw=${nsfw}`)
-      .set("Authorization", `Wolke ${process.env.WEEBSH}`)
-      .set("User-Agent", `Misaki/${version}/${this.client.user.id === "396323622953680910" ? "Production" : "Development"}`);
-    return body.url;
   }
 }
 

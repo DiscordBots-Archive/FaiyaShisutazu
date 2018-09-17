@@ -22,6 +22,11 @@ class IsNowIllegal extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
     inUse.set("true", {
       user: message.author.id
     });
@@ -41,11 +46,6 @@ class IsNowIllegal extends Social {
     }
 
     try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       await post("https://is-now-illegal.firebaseio.com/queue/tasks.json").send({
         task: "gif",
         word: word.toUpperCase()

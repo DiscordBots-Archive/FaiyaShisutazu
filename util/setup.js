@@ -62,7 +62,7 @@ let prompts = [
   if (!settings.has("default")) {
     prompts = prompts.slice(1);
     console.log(" First Start! Inserting default guild settings in the database...");
-    defaultSettings = defaultSettings.replace("{{prefix}}", "!")
+    defaultSettings = defaultSettings.replace("{{prefix}}", "!");
     await settings.set("default", defaultSettings);
   }
   
@@ -77,15 +77,15 @@ let prompts = [
 
   if (answers.language && answers.language === "Tiếng Việt") {
     console.log(" Changing default guide language...");
-    defaultSettings = defaultSettings.replace("{{language}}", "vietnamese")
+    defaultSettings = defaultSettings.replace("{{language}}", "vietnamese");
     baseConfig = baseConfig.replace("{{language}}", "vietnamese");
   } else {
-    defaultSettings = defaultSettings.replace("{{language}}", "english")
+    defaultSettings = defaultSettings.replace("{{language}}", "english");
     baseConfig = baseConfig.replace("{{language}}", "english");
   }
 
   console.log(" Setting default guide prefix...");
-  defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`)
+  defaultSettings = defaultSettings.replace("{{prefix}}", `${answers.prefix}`);
   baseConfig = baseConfig.replace("{{prefix}}", `${answers.prefix}`);
   await settings.set("default", defaultSettings);
 
@@ -98,9 +98,9 @@ let prompts = [
   console.log("*  Never share your bot token and API keys with anyone! *");
   console.log("*  Configuration has been written, enjoy!               *");
   console.log("*                                                       *");
-  console.log("*  This setup only prompt for the required bot token!   *")
-  console.log("*  Please manually enter other optional keys in the     *")
-  console.log("*  config.js file to enable additional features!        *")
+  console.log("*  This setup only prompt for the required bot token!   *");
+  console.log("*  Please manually enter other optional keys in the     *");
+  console.log("*  config.js file to enable additional features!        *");
   console.log("*********************************************************");
 }());
 

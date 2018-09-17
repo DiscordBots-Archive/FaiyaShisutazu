@@ -22,12 +22,12 @@ class FML extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
+    if (message.settings.socialSystem === "true") {
+      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
+    }
+    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
     try {
-      if (message.settings.socialSystem === "true") {
-        if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-      }
-
-      const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       const { text } = await request.get("http://www.fmylife.com/random");
       const root = HTMLParser.parse(text);
       const article = root.querySelector(".block a");

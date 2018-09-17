@@ -27,7 +27,7 @@ module.exports = class {
         if (score >= (ranking[i].points)) {
           if (hasRoles.has(`${ranking[i].id}`)) break loop;
           else {
-            member.roles.add(`${ranking[i].id}`)
+            member.roles.add(`${ranking[i].id}`);
 
             // Set medal thumbnail url for embed
             let medal = "https://i.imgur.com/EfJrTH5.png";
@@ -45,7 +45,7 @@ module.exports = class {
               .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
               .setThumbnail(`${medal}`)
               .setColor(this.client.config.colors.random())
-              .setFooter(`REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+              .setFooter("REmibot by @Jjeuweiii", message.author.displayAvatarURL({ format: "png", size: 32 }))
               .setTimestamp()
               .addField("Current rank:", `${ranking[i].title}`)
               .addField("Next rank:", `${ranking[i - 1].title}`)
@@ -67,8 +67,8 @@ module.exports = class {
       message.channel.send(`***${message.author.tag}*** *said "${message.content}"*\n\n${this.client.responses.steinerMessages.random()
         .replace("{{user}}", `${message.author.tag}`)
         .replace("{{steiner}}", message.content.replace(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i, "**El Psy Kongroo**")
-        .replace(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
-        .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`);
+          .replace(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
+          .replace(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`);
     
     const level = this.client.permlevel(message);
 
