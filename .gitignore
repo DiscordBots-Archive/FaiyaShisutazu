@@ -7,16 +7,13 @@ yarn-error.log*
 config.json
 config.js
 data/
-*.txt
 .env
 .DS_Store
 
 # Private, unstable or test commands/functions
 assets/languages/vietnamese/
-commands/music
+commands/music/
 functions/
-util/Setup.js
-util/setup.js
 
 # Runtime data
 pids
