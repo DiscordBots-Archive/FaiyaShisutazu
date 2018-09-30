@@ -1,37 +1,33 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
+const Social = require("../../structures/Social.js");
+const { MessageEmbed } = require("discord.js");
 
 class Leaderboard extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "leaderboard",
       description: "Displays the top 20 active users",
-      category: "09. Social",
+      category: "7. Social",
       usage: "leaderboard",
-      extended: "This returns the top 20 active users in this guild",
-      cost: 0,
-      cooldown: 0,
-      hidden: false,
-      guildOnly: true,
+      extended: "This returns the top 20 active users in message guild",
+      cooldown: 15,
       aliases: ["top20", "top", "leader", "lb"],
       permLevel: "User"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
     try {
       const top3 = [];
       const leaderboard = [];
       const lbServer = [];
+      const list = message.client.points.filter(p => p.guild === message.guild.id && message.guild.members.get(p.user) && p.points > 0);
 
-      const list = this.client.points.filter(p => p.guild === message.guild.id && message.guild.members.get(p.user) && p.points > 0);
-   
       const page = 0;
-      const totalPages = Math.round(list.size / 20);
-      if (totalPages === 0) return message.channel.send("There is no leaderboard in the server, maybe its a dead place???");
+      const totalPages = Math.round(list.size / 10);
+      if (totalPages === 0) return message.channel.send("There is no leaderboard in the server, is this a new server under my watch or is this a dead place???");
 
       list.map(p => ({points: p.points, user: p.user}))
         .sort((a, b) => b.points > a.points ? 1 : -1)
@@ -40,37 +36,33 @@ class Leaderboard extends Social {
         });
 
       list.map(p => ({points: p.points, user: p.user}))
-        .sort((a, b) => b.points > a.points ? 1 : -1).slice(page*20, (page+1)*20)
+        .sort((a, b) => b.points > a.points ? 1 : -1).slice(page*10, (page+1)*10)
         .map((u, i) => {
+          leaderboard.push(`${(page*10 + (i + 1)).toString().padStart(2, "0")}❯ ${u.points.toLocaleString()} ${" ".repeat(10 - u.points.toLocaleString().length)} ::  ${message.client.users.get(u.user).tag}`);
           if (i <= 2) {
-            top3.push(`${this.client.users.get(u.user).tag}`);
+            top3.push(`${message.client.users.get(u.user).tag}`);
             top3.push(`${u.points.toLocaleString()}`);
-          } else {
-            leaderboard.push(`${(page*20 + (i + 1)).toString().padStart(2, "0")}❯ 💎 ${u.points.toLocaleString()} ${" ".repeat(10 - u.points.toLocaleString().length)} ::  ${this.client.users.get(u.user).tag}`);
           }
         });
 
       // Get the message author's position on leaderboard
       const authorPosition = lbServer.indexOf(message.author.id).toString().padStart(2, "0") == -1 ? "??" : (lbServer.indexOf(message.author.id) + 1).toString();
 
-      const embed = new Discord.MessageEmbed();
-      if (message.author.bot) 
-        embed.addBlankField();
-      else
-        embed.addField(`${message.author.tag}'s current position: #${authorPosition} with 💎 ${this.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`, "\u200b");
-
+      const embed = new MessageEmbed();
       embed
-        .setDescription(`**Position 4 to 20:**\`\`\`${leaderboard.join("\n")}\`\`\``)
-        .setColor(this.client.config.colors.random())
-        .setFooter(`${message.author.bot ? "REmibot by @Jjeuweiii" : `Requested by ${message.author.tag} | REmibot by @Jjeuweiii`}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setDescription(`**Position 1 to 10:**\`\`\`${leaderboard.join("\n")}\`\`\``)
+        .setColor(message.client.config.colors.random())
+        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
-        .addField(`🥇 ${top3[0]}`, `💎 ${top3[1]}`, true)
-        .addField(`🥈 ${top3[2]}`, `💎 ${top3[3]}`, true)
-        .addField(`🥉 ${top3[4]}`, `💎 ${top3[5]}`, true);  
+        .addField(`${message.author.tag}'s current position: #${authorPosition} with 🍩  ${message.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`, "\u200b")
+        .addField(`🥇 ${top3[0]}`, `🍩  ${top3[1]}`, true)
+        .addField(`🥈 ${top3[2]}`, `🍩  ${top3[3]}`, true)
+        .addField(`🥉 ${top3[4]}`, `🍩  ${top3[5]}`, true);  
 
-      await message.channel.send(`${message.author.bot ? `🌺 **${message.author.tag}** ❯ ${message.content} | ` : ""}**${message.guild.name}'s Leaderboard**`, {embed});
+      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
     } catch (error) {
-      console.log(error);
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
     }
   }
 }

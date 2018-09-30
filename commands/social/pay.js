@@ -1,12 +1,12 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../structures/Social.js");
 
 class Pay extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "pay",
       description: "Gives points to someone in the guild",
-      category: "09. Social",
+      category: "7. Social",
       usage: "pay",
       extended: "This gives points to someone in the guild.",
       cost: 0,
@@ -19,8 +19,6 @@ class Pay extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
-
     if (args.length === 0) return message.response(undefined, "B-baka, you need to mention someone to b-be able to pay them.");
     try {
       const [bot, user] = await this.verifySocialUser(message, args[0]);
@@ -35,7 +33,7 @@ class Pay extends Social {
 
       await this.usrPay(message, message.author.id, user, parseInt(args[1]));
     } catch (error) {
-      this.client.logger.error(error);
+      this.client.console.error(error);
     }
   }
 }

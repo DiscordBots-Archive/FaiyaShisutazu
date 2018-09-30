@@ -1,25 +1,21 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../../structures/Social.js");
+
 class Item extends Social {
 
-  constructor(client) {
-    
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "inventory",
       description: "Displays, adds, and removes from inventories",
-      category: "09. Social",
+      category: "7. Social",
       usage: "inventory [-<give|take> <mention|userid> <amount> <name>]",
       extended: "This displays, adds, and removes items from inventories.",
       cost: 0,
       cooldown: 5,
-      hidden: false,
-      guildOnly: true,
-      aliases: [],
-      permLevel: "User"
+      aliases: []
     });
   }
 
   async run(message, [member, amount, name], level) {
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
     if (message.settings.socialInventory !== "true") return message.response(undefined, "The inventory system is disabled.");
     if (!message.flags.length) message.flags.push("view");
     try {

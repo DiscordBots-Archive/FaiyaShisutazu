@@ -1,49 +1,46 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
-const config = require(`${process.cwd()}/config.js`);
-const Discord = require("discord.js");
+const Social = require("../../structures/Social.js");
+const config = require("../../config.js");
+const { MessageEmbed } = require("discord.js");
 const steamID64 = require("steamidconvert")(config.steamKey);
 const steamID3 = require("steamid");
 const request = require("request");
 
 class Dota extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "dota",
       description: "Returns information an selected Dota2 tag",
-      category: "07. Games",
-      usage: "dota [stats customURL] | [builds heroName]",
+      category: "5. Games",
+      usage: "dota [stats customURL]",
       extended: "This returns information about the Dota2 tag selected.",
       cost: 15,
       cooldown: 10,
-      hidden: false,
-      guildOnly: true,
       aliases: ["dota2", "doto"],
-      permLevel: "User"
+      botPerms: ["EMBED_LINKS"]
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {
       const suffix = args[0];
       const input = args[1];
       if (suffix == "stats")
-        await this.stats(message, input);
-      else if (suffix == "builds")
-        await this.builds(message, input);
-    } catch (e) {
-      console.log(e);
+        await this.stats(message, input, response);
+    } catch (error) {
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
     }
   }
 
-  async stats(message, input) {
-    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
+  async stats(message, input, response) {
     try {
       const customURL = input;
       steamID64.convertVanity(customURL, function(err, res) {
         if (err) {
-          loadingMessage.edit("I'm only supporting Steam's customURL as input!");
+          response.edit("I'm only supporting Steam's customURL as input!");
         } else {
 
           const playerID = new steamID3(res)
@@ -74,7 +71,7 @@ class Dota extends Social {
           request(apiBase, function(err, res) {
             if (err) {
               output.status = "Error";
-              loadingMessage.edit("Error with initial request! This might be a problem with OpenDota API!");
+              response.edit("Error with initial request! This might be a problem with OpenDota API!");
             } else {
               const data = JSON.parse(res.body);
               if (data.error) {
@@ -92,23 +89,22 @@ class Dota extends Social {
                 request(apiBase + "/wl", function(err, res) {
                   if (err) {
                     output.status = "Error";
-                    loadingMessage.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    response.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   const data = JSON.parse(res.body);
                   if (data.lose === null || data.win === null) {
-                    loadingMessage.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    response.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   output.winLoss.losses = data.lose;
                   output.winLoss.wins = data.win;
                   output.winLoss.totalGames = data.lose + data.win;
                   output.winLoss.winrate = (data.win / (data.lose + data.win)) * 100;
 
-                  const embed = new Discord.MessageEmbed();
+                  const embed = new MessageEmbed();
                   embed
-                    .setTitle(`${output.name}'s Dota 2 Stats @ OpenDota`)
-                    .setColor(config.colors.random())
-                    .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
-                    .setTimestamp()
+                    .setTitle(`${output.name}'s Dota 2 Stats`)
+                    .setColor(this.config.colors.random())
+                    .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
                     .setThumbnail(`${output.profileImage}`)
                     .addField("Account Status", `\`${output.status}\``, true)
                     .addField("Estimated MMR", `\`${output.estMMR}\``, true)
@@ -116,10 +112,10 @@ class Dota extends Social {
                     .addField("Winrate", `\`${parseInt(output.winLoss.winrate).toPrecision(3)}%\``, true)
                     .addField("Wins", `\`${output.winLoss.wins}\``, true)
                     .addField("Losses", `\`${output.winLoss.losses}\``, true)
-                    .addField("Details", `${output.profileURL}`);
+                    .addField("Details", `${output.profileURL}`)
+                    .setTimestamp();
                   
-                  loadingMessage.delete();
-                  message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, { embed });
+                  response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | Powered by OpenDota API`, embed);
                 });
               }
             }
@@ -127,8 +123,8 @@ class Dota extends Social {
         }
       });
     } catch (error) {
-      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
     }
   }
 }

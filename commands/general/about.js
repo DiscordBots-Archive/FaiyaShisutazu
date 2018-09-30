@@ -1,33 +1,30 @@
-const Command = require(`${process.cwd()}/base/Command.js`);
+const Command = require("../../structures/Command.js");
 
 class About extends Command {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "about",
       description: "Returns a general description about me",
-      category: "01. General",
+      category: "1. General",
       usage: "about",
       extended: "This returns a description/introduction about me.",
       cost: 0,
       cooldown: 5,
-      hidden: false,
-      guildOnly: false,
-      aliases: [],
-      permLevel: "User"
+      aliases: []
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     
     try {
-      message.channel.send(this.client.responses.aboutMessages.random()
-        .replace("{{user}}", `${message.author.tag}`)
-        .replace("{{prefix}}", `${message.settings.prefix}`));
+      await response.edit(message.client.responses.aboutMessages.random()
+        .replaceAll("{{user}}", `${message.author.tag}`)
+        .replaceAll("{{prefix}}", `${message.settings.prefix}`));
     } catch (error) {
-      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
     }
   }
 }

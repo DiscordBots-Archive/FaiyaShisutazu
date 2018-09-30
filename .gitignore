@@ -11,9 +11,12 @@ data/
 .env
 .DS_Store
 
-# Music commands
+# Private, unstable or test commands/functions
+assets/languages/vietnamese/
 commands/music
 functions/
+util/Setup.js
+util/setup.js
 
 # Runtime data
 pids

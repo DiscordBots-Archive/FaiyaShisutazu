@@ -1,36 +1,30 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
-const snek = require("snekfetch");
+const Social = require("../../structures/Social.js");
+const { MessageEmbed } = require("discord.js");
+const { get } = require("snekfetch");
 
 class Reddit extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "reddit",
       description: "Posts a random subreddit entry",
-      category: "06. NSFW?",
+      category: "6. NSFW",
       usage: "reddit [-new|-random|-hot|-top] [subreddit]",
       extended: "This returns a random entry from the requested subreddit.",
       cost: 15,
       cooldown: 10,
-      hidden: false,
-      guildOnly: true,
       aliases: [],
-      permLevel: "User"
+      botPerms: ["EMBED_LINKS"]
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem === "true") {
-      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-    }
-
-    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
 
     const subreddit = args.join(" ") || "random";
     const subRedCat = message.flags[0] || "random";
     try {
-      const { body } = await snek.get(`https://www.reddit.com/r/${subreddit}/${subRedCat}.json`);
+      const { body } = await get(`https://www.reddit.com/r/${subreddit}/${subRedCat}.json`);
       let entry;
       if (body[0]) {
         entry = body[0].data.children[Math.floor(Math.random() * body[0].data.children.length)].data;
@@ -39,25 +33,24 @@ class Reddit extends Social {
       }
       
       if (!message.channel.nsfw && entry.over_18) {
-        message.response("🔞", "You need to be in a NSFW channel to use this command!");
+        message.response("🔞", "You need to be in a NSFW channel to use message command!");
         return;
       }
 
-      const embed = new Discord.MessageEmbed();
+      const embed = new MessageEmbed();
       embed
-        .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
         .setDescription(`${entry.title} submitted by ${entry.author}\n\nPermalink: https://www.reddit.com${entry.permalink}`)
-        .setColor(this.client.config.colors.random())
-        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setColor(message.client.config.colors.random())
+        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
         .setImage(`${entry.url}`)
         .setTimestamp()
         .addField("Subreddit:", `${entry.subreddit_name_prefixed}`, true)
         .addField("Reddit score:", `${entry.score}`, true);
       
-      response.edit({embed});
+      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
     } catch (error) {
-      response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
     }
   }
 }

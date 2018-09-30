@@ -1,30 +1,25 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../structures/Social.js");
 
 class Daily extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "daily",
       description: "Claims your daily points",
-      category: "09. Social",
+      category: "7. Social",
       usage: "daily",
       extended: "This redeems your guilds daily bonus.",
-      cost: 0,
-      cooldown: 0,
       hidden: false,
       guildOnly: true,
-      aliases: [],
-      permLevel: "User"
+      aliases: []
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
-
     try {
       await this.usrDay(message);
     } catch (error) {
-      throw error;
+      message.client.console.error(error);
     }
   }
 }

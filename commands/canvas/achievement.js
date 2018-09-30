@@ -1,43 +1,38 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../structures/Social.js");
 const { MessageAttachment } = require("discord.js");
 
 class Achievement extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "achievement",
       description: "Creates an user-defined achievement",
-      category: "03. Canvas",
-      usage: "achievement [description]",
+      category: "3. Canvas",
+      usage: "achievement [description] [@mention]",
       extended: "This uses the provided text to create a custom achievement.",
       cost: 15,
       cooldown: 10,
-      hidden: false,
-      guildOnly: true,
       aliases: ["get", "achieveget", "achievementget", "achieve"],
-      permLevel: "User"
+      botPerms: ["ATTACH_FILES"]
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    if (message.settings.socialSystem === "true") {
-      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-    }
-    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
+  async run(message, [...text], level) { // eslint-disable-line no-unused-vars 
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    
     try {
-      let text = args.join(" ").toUpperCase();
+      let text = text.join(" ").toUpperCase();
       if (message.mentions.users.size !== 0) text = text.replace(/<@!?\d+>/, "").replace(/\n/g, " ").trim();
-      if (!text) return loadingMessage.edit(`B-baka!! ${message.member.displayName}-san must input something in order for this to work!!`);
-      if (text.length > 22) return loadingMessage.edit(`The maximum length is 22 characters ${message.member.displayName}-san!`);
+      if (!text) return response.edit(`B-baka!! ${message.author.username}-san must input something in order for message to work!!`);
+      if (text.length > 22) return response.edit(`The maximum length is 22 characters ${message.author.username}-san!`);
       
-      const attachment = new MessageAttachment(await this.client.idiotAPI.achievement((message.mentions.users.first() || message.author).displayAvatarURL({ format:"png", size:32 }), text), "achievement.png");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.achievement((message.mentions.users.first()).displayAvatarURL({ format:"png", size:32 }), text), "achievement.png");
       
-      await loadingMessage.delete();
-      return message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
+      await response.delete();
+      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {files: [attachment]});
     } catch (error) {
-      await loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      console.log(error);
+      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.author.username)}`);
+      message.client.console.error(error);
     }
   }
 }

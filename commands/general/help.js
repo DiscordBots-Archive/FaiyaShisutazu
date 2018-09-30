@@ -1,56 +1,52 @@
-const Command = require(`${process.cwd()}/base/Command.js`);
-const Discord = require("discord.js");
+const Command = require("../../structures/Command.js");
+const { MessageEmbed } = require("discord.js");
 
 class Help extends Command {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "help",
       description: "Displays information on all commands",
-      category: "01. General",
-      usage: "help [command]",
+      category: "1. General",
+      usage: "help [category/command/setting] [page num]",
       extended: "This displays all supported commands. It also returns specific help text when run help [command name].",
       cost: 0,
       cooldown: 5,
-      hidden: false,
-      guildOnly: false,
       aliases: ["h", "halp", "help"],
-      permLevel: "User"
+      botPerms: ["EMBED_LINKS"]
     });
   }
-
+  
   async run(message, args, level) {
     const settings = message.settings;
-    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     
     if (!args[0]) {
-      const myCommands = message.guild ? this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true) : this.client.commands.filter(cmd => this.client.levelCache[cmd.conf.permLevel] <= level && cmd.conf.hidden !== true && cmd.conf.guildOnly !== true);
+      const myCommands = this.client.commands;
 
       let currentCategory = "";
       let output = `{"color": ${this.client.config.colors.random()}, "fields": [`;
 
-      const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
+      const sorted = myCommands.array()
+        .filter(c => this.client.levelCache[c.permLevel] <= level && c.hidden !== true)
+        .sort((p, c) => p.category > c.category ? 1 : p.name > c.name && p.category === c.category ? 1 : -1);
 
       sorted.forEach(command => {
-        const category = command.help.category.toProperCase();
+        const category = command.category;
         if (currentCategory !== category) {
-          if (category !== "01. General")
+          if (category !== "1. General")
             output += "\"},";
           output += `{"name": "${category}","value": "`;
           currentCategory = category;
         } else {
           output += ",";
         }
-        output += ` ${command.help.name}`;
+        output += ` ${command.name}`;
       });
 
-      output += `"}],"footer": {"icon_url": "${message.author.displayAvatarURL({ format: "png", size: 32 })}", "text": "Requested by ${message.author.tag} | REmibot by @Jjeuweiii"}}`;
+      output += `"}],"footer": {"icon_url": "${message.client.user.displayAvatarURL({ format: "png", size: 32 })}", "text": "FaiyaShisutazu"}}`;
       
-      loadingMessage.delete();
-      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {
-        "embed": JSON.parse(output)
-      });
-
+      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, { "embed": JSON.parse(output) });
     } else {
       let command = args[0];
 
@@ -58,24 +54,24 @@ class Help extends Command {
       else if (this.client.aliases.has(command)) command = this.client.commands.get(this.client.aliases.get(command));
       else return;
 
-      if (!message.guild && command.conf.guildOnly === true) return;
-      if (level < this.client.levelCache[command.conf.permLevel]) return;
+      if (!message.guild && command.guildOnly === true) return;
+      if (level < this.client.levelCache[command.permLevel]) return;
 
-      const embed = new Discord.MessageEmbed();
+      const embed = new MessageEmbed();
       embed
-        .setTitle(`${command.help.name}`)
+        .setTitle(`${command.name}`)
         .setColor(this.client.config.colors.random())
-        .setFooter(`Requested by ${message.author.tag} | REmibot by @Jjeuweiii`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
-        .addField("Category", `${command.help.category}`, true)
-        .addField("Usage", `${settings.prefix}${command.help.usage}`, true)
-        .addField("Cost", `💎 ${parseInt(command.help.cost)}`, true)
-        .addField("Aliases", `${command.conf.aliases.join(", ") ? command.conf.aliases.join(", ") : "None!"}`, true)
-        .addField("Details", `${command.help.extended}`);
+        .addField("Category", `${command.category}`, true)
+        .addField("Usage", `${settings.prefix}${command.usage}`, true)
+        .addField("Cost", `💎 ${parseInt(command.cost)}`, true)
+        .addField("Aliases", `${command.aliases.join(", ") ? command.aliases.join(", ") : "None!"}`, true)
+        .addField("Details", `${command.extended}`);
       
-      loadingMessage.delete();
-      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {embed});
+      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
     }
   }
 }
+  
 module.exports = Help;

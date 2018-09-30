@@ -1,41 +1,41 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
-const Discord = require("discord.js");
+const Social = require("../../structures/Social.js");
+const { MessageEmbed } = require("discord.js");
 const snek = require("snekfetch");
 
 class Inspire extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "inspire",
       description: "Returns an inspirational quote",
-      category: "04. Fun",
+      category: "4. Fun",
       usage: "inspire",
       extended: "This returns an inspirational quote from an AI.",
       cost: 15,
       cooldown: 10,
-      hidden: false,
-      guildOnly: true,
       aliases: [],
-      permLevel: "User"
+      botPerms: ["EMBED_LINKS"]
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem === "true") {
-      if (!(await this.cmdPay(message, message.author.id, this.help.cost))) return;
-    }
-    const loadingMessage = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-    
+    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+
     try {  
       const xmas = message.flags[0] === "xmas" ? "&season=xmas" : "";
       const { text } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
-      const attachment = new Discord.MessageAttachment(text, "inspire.jpg");
-      
-      loadingMessage.delete();
-      message.channel.send(`🌺 **${message.author.tag}** ❯ ${message.content}`, {files: [attachment]});
+
+      const embed = new MessageEmbed()
+        .setDescription(text)
+        .setColor(this.client.config.colors.random())
+        .setImage(text)
+        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setTimestamp();
+
+      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
     } catch (error) {
-      loadingMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-      this.client.logger.error(error);
+      await response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      this.client.console.error(error);
     }
   }
 }

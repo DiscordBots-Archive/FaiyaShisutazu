@@ -1,27 +1,24 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../../structures/Social.js");
 
 class Deduct extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "deduct",
       description: "Takes points away from the nominated user",
-      category: "09. Social",
+      category: "7. Social",
       usage: "deduct [@mention|userid] [amount]",
       extended: "This takes points away from a nominated user.",
       cost: 0,
       cooldown: 10,
-      hidden: false,
-      guildOnly: true,
-      aliases: ["reward"],
+      aliases: [],
       permLevel: "Administrator"
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
-
     if (args.length === 0) return message.response(undefined, "BAKA! You need to mention someone to punish them!");
+
     try {
       const [bot, user] = await this.verifySocialUser(message, args[0]);
       if (bot) return message.response("❗", "Bot's cannot accumulate points or levels.");
@@ -31,7 +28,7 @@ class Deduct extends Social {
       if (message.author.id === user.id) return message.response(undefined, "You cannot punish yourself, why did you even try it?");
       await this.cmdPun(message, user, parseInt(args[1]));
     } catch (error) {
-      throw error;
+      message.client.console.error(error);
     }
   }
 }

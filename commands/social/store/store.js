@@ -1,26 +1,21 @@
-const Social = require(`${process.cwd()}/base/Social.js`);
+const Social = require("../../../structures/Social.js");
 
 class Store extends Social {
 
-  constructor(client) {
-    super(client, {
+  constructor(...args) {
+    super(...args, {
       name: "store",
       description: "Displays all items in the store",
-      category: "09. Social",
+      category: "7. Social",
       usage: "store [-<give|take> <mention|userid> <amount> <name>]",
       extended: "This displays all items in the store.",
       cost: 0,
       cooldown: 5,
-      hidden: false,
-      guildOnly: true,
-      aliases: [],
-      permLevel: "User"
+      aliases: []
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (message.settings.socialSystem !== "true") return message.response(undefined, "The social system is disabled.");
-
     if (!args[0] && !message.flags.length) message.flags.push("view");
     if (!message.flags.length) {
       return message.reply(`|\`❌\`| ${this.help.usage}`);
@@ -39,11 +34,11 @@ class Store extends Social {
         if (message.member.roles.has(item.array()[0].id)) return message.channel.send("You already have the role :facepalm: ");
         
         if (parseInt(item.array()[0].price) > parseInt(message.member.score.points)) {
-          return message.channel.send(`You currently have ₲${parseInt(message.member.score.points).toLocaleString()}, but the role costs ${parseInt(item.array()[0].price).toLocaleString()}!`);
+          return message.channel.send(`You currently have 🍩 ${parseInt(message.member.score.points).toLocaleString()}, but the role costs ${parseInt(item.array()[0].price).toLocaleString()}!`);
         }
 
         const filter = m => m.author.id === message.author.id;
-        const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${item.array()[0].name} for ₲${item.array()[0].price.toLocaleString()}?`, filter, undefined, null);
+        const response = await this.client.awaitReply(message, `Are you sure you want to purchase ${item.array()[0].name} for 🍩 ${item.array()[0].price.toLocaleString()}?`, filter, undefined, null);
         if (["y", "yes"].includes(response.toLowerCase())) {
         
           message.member.takePoints(parseInt(item.array()[0].price));
@@ -71,7 +66,7 @@ class Store extends Social {
         const returnPrice = Math.floor(item.array()[0].price/2);
         
         const filter = m => m.author.id === message.author.id;
-        const response = await this.client.awaitReply(message, `Are you sure you want to sell ${item.array()[0].name} for ₲${returnPrice.toLocaleString()}?`, filter, undefined, null);
+        const response = await this.client.awaitReply(message, `Are you sure you want to sell ${item.array()[0].name} for 🍩 ${returnPrice.toLocaleString()}?`, filter, undefined, null);
         if (["y", "yes"].includes(response.toLowerCase())) {
         
           message.member.givePoints(returnPrice);
@@ -130,7 +125,7 @@ class Store extends Social {
         const items = message.guild.store;
         if (items.length === 0) return message.response(undefined, "Baka... nothing is for sale!");
         message.channel.send(`= ${message.guild.name} General Store =\n` + items.map(item => 
-          `${message.guild.roles.get(item.id.toString()).name}${" ".repeat(20 - message.guild.roles.get(item.id.toString()).name.length)}::  ${parseInt(item.price) === 0 ? "FREE" : `₲${parseInt(item.price).toLocaleString()}`}`).join("\n"), { code: "asciidoc" }
+          `${message.guild.roles.get(item.id.toString()).name}${" ".repeat(20 - message.guild.roles.get(item.id.toString()).name.length)}::  ${parseInt(item.price) === 0 ? "FREE" : `🍩 ${parseInt(item.price).toLocaleString()}`}`).join("\n"), { code: "asciidoc" }
         );
       }
     }
