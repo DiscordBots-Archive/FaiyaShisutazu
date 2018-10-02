@@ -22,25 +22,23 @@ class Dota extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const suffix = args[0];
       const input = args[1];
       if (suffix == "stats")
-        await this.stats(message, input, response);
+        await this.stats(message, input);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }
 
-  async stats(message, input, response) {
+  async stats(message, input) {
     try {
       const customURL = input;
       steamID64.convertVanity(customURL, function(err, res) {
         if (err) {
-          response.edit("I'm only supporting Steam's customURL as input!");
+          return message.channel.send("I'm only supporting Steam's customURL as input!");
         } else {
 
           const playerID = new steamID3(res)
@@ -71,7 +69,7 @@ class Dota extends Social {
           request(apiBase, function(err, res) {
             if (err) {
               output.status = "Error";
-              response.edit("Error with initial request! This might be a problem with OpenDota API!");
+              return message.channel.send("Error with initial request! This might be a problem with OpenDota API!");
             } else {
               const data = JSON.parse(res.body);
               if (data.error) {
@@ -89,11 +87,11 @@ class Dota extends Social {
                 request(apiBase + "/wl", function(err, res) {
                   if (err) {
                     output.status = "Error";
-                    response.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    return message.channel.send("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   const data = JSON.parse(res.body);
                   if (data.lose === null || data.win === null) {
-                    response.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    return message.channel.send("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   output.winLoss.losses = data.lose;
                   output.winLoss.wins = data.win;
@@ -115,7 +113,7 @@ class Dota extends Social {
                     .addField("Details", `${output.profileURL}`)
                     .setTimestamp();
                   
-                  response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | Powered by OpenDota API`, embed);
+                  return message.channel.send(`Requested by **${message.author.tag}** | Powered by OpenDota API`, embed);
                 });
               }
             }
@@ -123,7 +121,7 @@ class Dota extends Social {
         }
       });
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

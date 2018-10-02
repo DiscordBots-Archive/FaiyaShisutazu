@@ -76,8 +76,10 @@ module.exports = class extends Event {
         response = await message.channel.send(`✅ | ${message.client.responses.commandSuccessMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
         const filter = m => m.author.id === "475554834892980230";
         const collected = await message.channel.awaitMessages(filter, {max: 1, time: 2000, errors: ["time"]});
-        if (collected.size !== 1)
-          setTimeout( async () => await response.edit(message.client.responses.waitTsukihiMessages.random().replaceAll("{{user}}", message.member.displayName)), 2000);
+        setTimeout( async () => {
+          if (collected.size === 1) await response.delete();
+          else await response.edit(message.client.responses.waitTsukihiMessages.random().replaceAll("{{user}}", message.member.displayName));
+        }, 5000);
       } else {
         if (message.settings.socialSystem === "true") monitor.run(this.client, message, level);
         const filter = m => (m.author.id === "475552332138938378" && m.content.startsWith("✅"));
@@ -91,10 +93,12 @@ module.exports = class extends Event {
           }
 
           if (cmd.guildOnly && !message.guild) return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
-          
+
           while (args[0] && args[0][0] === "-") message.flags.push(args.shift().slice(1));
           message.author.permLevel = level;
+          const loadingMessage = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
           await this.runCommand(message, cmd, args);
+          await loadingMessage.delete();
         }
       }
     } catch (error) {

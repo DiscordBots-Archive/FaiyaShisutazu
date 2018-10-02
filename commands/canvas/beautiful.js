@@ -18,16 +18,13 @@ class Beautiful extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const target = await this.verifyUser(message, message.mentions.users.first().id);
       const attachment = new MessageAttachment(await message.client.idiotAPI.beautiful(target.displayAvatarURL({format:"png", size:256})), "beautiful.png");
       
-      await response.delete();
-      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {files: [attachment]});
+      await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.author.tag)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

@@ -18,17 +18,14 @@ class Crush extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
-      const crusher = await this.verifyUser(message, message.mentions.users.size === 1  ? message.mentions.users.first().id : message.author );
-      const target = await this.verifyUser(message, message.mentions.users.size === 2 ? message.mentions.users.last().id : message.mentions.users.first().id);
+      const crusher = await this.verifyUser(message, message.author.id );
+      const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
       const attachment = new MessageAttachment(await message.client.idiotAPI.crush(target.displayAvatarURL({format:"png", size:512}), crusher.displayAvatarURL({format:"png", size:128})), "crush.png");
       
-      await response.delete();
-      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {files: [attachment]});
+      await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.author.tag)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

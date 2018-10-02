@@ -17,15 +17,13 @@ class Magic8 extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
-      if (!message.content.endsWith("?")) return response.edit("That does not look like a question, (Hint: End your question with a `?`.)");
-      if (!args) return response.edit("A-a real baka...?!! You need to actually ask a question... yes? No?!");
+      if (!message.content.endsWith("?")) return message.channel.send("That does not look like a question, (Hint: End your question with a `?`.)");
+      if (!args) return message.channel.send("A-a real baka...?!! You need to actually ask a question... yes? No?!");
 
-      setTimeout( async () => await response.edit(`${this.answers[Math.floor(Math.random() * this.answers.length)]}`), Math.random() * (1 - 5) + 1 * 2000);
+      setTimeout( async () => await message.channel.send(`${this.answers[Math.floor(Math.random() * this.answers.length)]}`), Math.random() * (1 - 5) + 1 * 2000);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

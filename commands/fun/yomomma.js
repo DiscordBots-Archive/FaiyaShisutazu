@@ -16,8 +16,6 @@ class Yomomma extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       let target;
       if (message.mentions.users.first())
@@ -25,9 +23,9 @@ class Yomomma extends Social {
 
       const { text } = await get("http://api.yomomma.info/");
 
-      response.edit(`_${JSON.parse(text).joke} @${target.tag}_`);
+      await message.channel.send(`_${JSON.parse(text).joke} @${target.tag}_`);
     } catch (error) {
-      response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

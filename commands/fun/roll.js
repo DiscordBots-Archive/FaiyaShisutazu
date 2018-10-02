@@ -16,16 +16,14 @@ class Roll extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const min = (args[0] === undefined) ? 1 : Math.ceil(args[0]);
       const max = (args[1] === undefined) ? 100 : Math.floor(args[1]);
       const number = Math.floor(Math.random() * (max - min + 1)) + min;
       
-      response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | You rolled **${number}**!`);
+      message.channel.send(`Requested by **${message.author.tag}** | You rolled **${number}**!`);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

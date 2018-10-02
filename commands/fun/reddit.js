@@ -8,7 +8,7 @@ class Reddit extends Social {
     super(...args, {
       name: "reddit",
       description: "Posts a random subreddit entry",
-      category: "6. NSFW",
+      category: "4. Fun",
       usage: "reddit [-new|-random|-hot|-top] [subreddit]",
       extended: "This returns a random entry from the requested subreddit.",
       cost: 15,
@@ -19,8 +19,6 @@ class Reddit extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     const subreddit = args.join(" ") || "random";
     const subRedCat = message.flags[0] || "random";
     try {
@@ -33,8 +31,7 @@ class Reddit extends Social {
       }
       
       if (!message.channel.nsfw && entry.over_18) {
-        message.response("🔞", "You need to be in a NSFW channel to use message command!");
-        return;
+        return message.reply("🔞", "You need to be in a NSFW channel view this content!");
       }
 
       const embed = new MessageEmbed();
@@ -47,9 +44,9 @@ class Reddit extends Social {
         .addField("Subreddit:", `${entry.subreddit_name_prefixed}`, true)
         .addField("Reddit score:", `${entry.score}`, true);
       
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

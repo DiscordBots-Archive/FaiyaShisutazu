@@ -16,20 +16,17 @@ class Pick extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const options = args.join(" ");
-      if (options.length < 2) return response.edit("Invalid command usage, you must supply text.");
+      if (options.length < 2) return message.channel.send("Invalid command usage, you must supply text.");
       const list = options.split(",");
-      if (list.length < 2 || list[1] === "") return response.edit("Invalid command usage, you must supply at least two items to pick from.");
+      if (list.length < 2 || list[1] === "") return message.channel.send("Invalid command usage, you must supply at least two items to pick from.");
       
-      setTimeout(
-        () => response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | I have decided upon **${list[Math.floor(Math.random()*list.length)].trim()}**!`),
+      setTimeout( async () => await message.channel.send(`Requested by **${message.author.tag}** | I have decided upon **${list[Math.floor(Math.random()*list.length)].trim()}**!`),
         Math.random() * (1 - 5) + 1 * 5000
       );
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

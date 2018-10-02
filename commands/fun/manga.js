@@ -5,7 +5,7 @@
 
 */
 const Command = require("../../structures/Command.js");
-const { MessageEmbed, Collection } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const Kitsu = require("kitsu");
 const kitsu = new Kitsu();
 
@@ -26,8 +26,6 @@ class Manga extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     function filter(msg) {
       if (msg.author.id !== message.author.id) return false;
       return ["1", "2", "3", "4", "5"].includes(msg.content);
@@ -36,11 +34,13 @@ class Manga extends Command {
     if (args.length < 1) return message.reply("You must add a manga to search for");
     try {
       const { data } = await kitsu.fetch("manga", { filter: { text: args.join("-") } });
-      await response.edit(`Okay I found 5 possible matches which do you want to see? Write the first number, this will be canceled after 20 seconds! ${this.makeTitles(data)}`);
+      const found = await message.channel.send(`Okay I found 5 possible matches which do you want to see? Write the first number, this will be canceled after 20 seconds! ${this.makeTitles(data)}`);
       const collected = await message.channel.awaitMessages(filter, { max: 20, maxProcessed: 1, time: 20000, errors: ["time"] });
       const returnMessage = collected.first();
       const index = Number(returnMessage.content) - 1;
-      returnMessage.delete(); 
+
+      await found.delete();
+      await returnMessage.delete(); 
 
       const embed = new MessageEmbed();
       embed
@@ -54,12 +54,23 @@ class Manga extends Command {
         .addField("Link:", `https://kitsu.io/manga/${data[index].id}`)
         .setTimestamp();
 
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | Fetched from Kitsu...`, embed);
+      await message.channel.send(`Requested by **${message.author.tag}** | Fetched from Kitsu...`, embed);
     } catch (error) {
-      if (error instanceof Collection()) return message.reply(`Command timed out, please try again **${message.author.displayName}**!`);
-      await response.edit(`I had an error while trying to fetch the data from Kitsu. Sorry! Did you spell the manga name right **${message.author.displayName}**?`);
+      await message.channel.send("I failed to fetch the data from Kitsu. Sorry! Did you reply during the 20 seconds limit or spell the anime name correctly?");
       message.client.console.error(error);
     }  
+  }
+
+  makeTitles(data) {
+    const arr = [];
+    for (let i = 0; i < 5; i++) arr.push(`\n${i + 1}: ${this.makeTitle(i, data)}`);
+    return arr.join(" ");
+  }
+
+  makeTitle(index, data) {
+    const line1 = data[index].titles.en_jp ? data[index].titles.en_jp : "";
+    const line2 = data[index].titles.en ? `/${data[index].titles.en}` : "";
+    return `${line1}${line2}`;
   }
 }
 

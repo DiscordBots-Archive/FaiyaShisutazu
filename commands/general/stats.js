@@ -38,7 +38,8 @@ class Stats extends Command {
       .addField("Channels/Servers", `${message.client.channels.size.toLocaleString()}/${message.client.guilds.size.toLocaleString()}`, true)
       .addField("Bot's host system infomation", `${os.platform} ${os.release()}, ${os.cpus().length} cores @ ${os.cpus()[0].speed}MHz, ${Math.floor(os.totalmem / 1024 / 1024)}MB RAM`);
 
-    response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+    await response.delete();
+    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
   }
 }
 

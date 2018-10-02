@@ -16,13 +16,11 @@ class Dice extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const rolls = (args[0] === undefined) ? 1 : args[0];
       const sides = (args[1] === undefined) ? 6 : args[1];
       if (rolls > 100000 || sides > 100000)
-        response.edit("Those numbers are just too high so how about no?");
+        await message.reply("Those numbers are just too high so how about no?");
       else {
         let total = 0;
         for (let i = 1; i <= rolls; i++) {
@@ -30,10 +28,10 @@ class Dice extends Social {
           total += number;
         }
         const average = Math.floor((total / rolls));
-        response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | You rolled a ${sides}-sided dice ${rolls} times! The total is **${total}** (Average: **${average}**)`);
+        await message.channel.send(`Requested by **${message.author.tag}** | You rolled a ${sides}-sided dice ${rolls} times! The total is **${total}** (Average: **${average}**)`);
       }
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

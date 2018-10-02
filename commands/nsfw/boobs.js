@@ -19,8 +19,7 @@ class Boobs extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use message command!");
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
     
     try {
       const { body } = await get("http://api.oboobs.ru/boobs/0/1/random");
@@ -33,9 +32,9 @@ class Boobs extends Social {
         .setImage(`http://media.oboobs.ru/${body[0].preview}`)
         .setTimestamp();
 
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

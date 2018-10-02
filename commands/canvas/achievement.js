@@ -17,21 +17,18 @@ class Achievement extends Social {
     });
   }
 
-  async run(message, [...text], level) { // eslint-disable-line no-unused-vars 
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-    
+  async run(message, args, level) { // eslint-disable-line no-unused-vars     
     try {
-      let text = text.join(" ").toUpperCase();
+      let text = args.join(" ").toUpperCase();
       if (message.mentions.users.size !== 0) text = text.replace(/<@!?\d+>/, "").replace(/\n/g, " ").trim();
-      if (!text) return response.edit(`B-baka!! ${message.author.username}-san must input something in order for message to work!!`);
-      if (text.length > 22) return response.edit(`The maximum length is 22 characters ${message.author.username}-san!`);
+      if (!text) return message.reply("B-baka!! You must input something in order for message to work!!");
+      if (text.length > 22) return message.reply("The maximum length is 22 characters!");
       
-      const attachment = new MessageAttachment(await message.client.idiotAPI.achievement((message.mentions.users.first()).displayAvatarURL({ format:"png", size:32 }), text), "achievement.png");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.achievement(message.author.displayAvatarURL({ format:"png", size:32 }), text), "achievement.png");
       
-      await response.delete();
-      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {files: [attachment]});
+      await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.author.username)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

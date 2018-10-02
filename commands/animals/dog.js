@@ -19,7 +19,6 @@ class Dog extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     const { body } = await get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : "https://dog.ceo/api/breeds/image/random");
 
     const embed = new MessageEmbed();
@@ -30,7 +29,7 @@ class Dog extends Social {
       .setImage(body.message)
       .setTimestamp();
 
-    await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
   }
 }
 

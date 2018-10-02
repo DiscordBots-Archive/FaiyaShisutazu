@@ -20,8 +20,6 @@ class FML extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const { text } = await request.get("http://www.fmylife.com/random");
       const root = HTMLParser.parse(text);
@@ -29,7 +27,7 @@ class FML extends Social {
       const downdoot = root.querySelector(".vote-down");
       const updoot = root.querySelector(".vote-up");
       if (article.childNodes[0].text.length < 5) {
-        return response.edit(`There is an error on my side, please try again ${message.author.displayName}!`);
+        return message.reply(`There is an error on my side, please try again ${message.member.displayName}!`);
       }
 
       const embed = new MessageEmbed()
@@ -42,9 +40,9 @@ class FML extends Social {
         .addField("🤨", downdoot.childNodes[0].text, true)
         .setTimestamp();
 
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\` | Powered by FML`, embed);
+      await message.channel.send(`Requested by **${message.author.tag}** | Powered by FML`, embed);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

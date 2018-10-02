@@ -19,8 +19,6 @@ class Inspire extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {  
       const xmas = message.flags[0] === "xmas" ? "&season=xmas" : "";
       const { text } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
@@ -32,9 +30,9 @@ class Inspire extends Social {
         .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp();
 
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
     } catch (error) {
-      await response.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.console.error(error);
     }
   }

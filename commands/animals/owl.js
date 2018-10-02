@@ -19,7 +19,6 @@ class Owl extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     const owl = await get("http://pics.floofybot.moe/owl").then(r => r.body.image); // API Provided by Lewdcario
 
     const embed = new MessageEmbed();
@@ -30,7 +29,7 @@ class Owl extends Social {
       .setImage(owl)
       .setTimestamp();
 
-    await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
   }
 }
 

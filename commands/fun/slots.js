@@ -36,8 +36,6 @@ class Slots extends Social {
   }
   
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const results = machine.play();
       const winnings = message.help.cost * results.totalPoints;
@@ -48,10 +46,10 @@ class Slots extends Social {
         .setDescription(`${results.visualize(false)}\n\n${results.winCount === 0 ? `${message.member.displayName} has lost!\nBetter luck next time!` : `Whoa... ${message.member.displayName} won!`}\n\n${results.winCount === 0 ? "" : `You have won 💎${winnings.toLocaleString()}`}`)
         .setTimestamp();
 
-      response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {embed});
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
       if (results.winCount > 0) return message.member.givePoints(winnings);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

@@ -19,7 +19,6 @@ class Shibe extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
     const { body } = await get("http://shibe.online/api/shibes");
 
     const embed = new MessageEmbed();
@@ -30,7 +29,7 @@ class Shibe extends Social {
       .setImage(body[0])
       .setTimestamp();
 
-    await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
   }
 }
 

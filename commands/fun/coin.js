@@ -19,8 +19,6 @@ class Coin extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const heads = await fsn.readFile("./assets/images/heads.png");
       const tails = await fsn.readFile("./assets/images/tails.png");
@@ -29,10 +27,9 @@ class Coin extends Social {
       if (number !== 1) result = tails;
       const attachment = new MessageAttachment(result, "coin.png");
 
-      response.delete();
-      message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, {files: [attachment]});
+      await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

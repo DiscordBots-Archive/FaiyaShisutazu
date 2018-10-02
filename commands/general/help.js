@@ -19,8 +19,7 @@ class Help extends Command {
   
   async run(message, args, level) {
     const settings = message.settings;
-    const response = await message.channel.send(`${this.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-    
+
     if (!args[0]) {
       const myCommands = this.client.commands;
 
@@ -46,7 +45,7 @@ class Help extends Command {
 
       output += `"}],"footer": {"icon_url": "${message.client.user.displayAvatarURL({ format: "png", size: 32 })}", "text": "FaiyaShisutazu"}}`;
       
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, { "embed": JSON.parse(output) });
+      await message.channel.send(`Requested by **${message.author.tag}**`, { "embed": JSON.parse(output) });
     } else {
       let command = args[0];
 
@@ -69,7 +68,7 @@ class Help extends Command {
         .addField("Aliases", `${command.aliases.join(", ") ? command.aliases.join(", ") : "None!"}`, true)
         .addField("Details", `${command.extended}`);
       
-      await response.edit(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
     }
   }
 }

@@ -17,8 +17,6 @@ class Leaderboard extends Social {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-
     try {
       const top3 = [];
       const leaderboard = [];
@@ -59,9 +57,9 @@ class Leaderboard extends Social {
         .addField(`🥈 ${top3[2]}`, `🍩  ${top3[3]}`, true)
         .addField(`🥉 ${top3[4]}`, `🍩  ${top3[5]}`, true);  
 
-      await message.channel.send(`Requested by **${message.author.tag}** ❯ \`${message.content}\``, embed);
+      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

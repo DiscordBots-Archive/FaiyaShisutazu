@@ -15,15 +15,13 @@ class About extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
-    const response = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-    
+  async run(message, args, level) { // eslint-disable-line no-unused-vars    
     try {
-      await response.edit(message.client.responses.aboutMessages.random()
+      await message.channel.send(message.client.responses.aboutMessages.random()
         .replaceAll("{{user}}", `${message.author.tag}`)
         .replaceAll("{{prefix}}", `${message.settings.prefix}`));
     } catch (error) {
-      await response.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }
