@@ -7,7 +7,7 @@
     "test": "eslint .",
     "lint": "eslint --fix .",
     "start": "pm2 start index.js",
-    "prepare": "node util/Setup.js"
+    "prepare": "node setup/Setup.js"
   },
   "engines": {
     "node": ">=8"
@@ -40,6 +40,7 @@
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.1",
+    "node-fetch": "^2.2.0",
     "node-opus": "^0.3.0",
     "request": "^2.88.0",
     "simple-youtube-api": "^5.0.2",

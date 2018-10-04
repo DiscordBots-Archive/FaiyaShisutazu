@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const Enmap = require("enmap");
 const fs = require("fs");
 
-let baseConfig = fs.readFileSync("./util/BaseSetup.txt", "utf8");
+let baseConfig = fs.readFileSync("./setup/BaseSetup.txt", "utf8");
 
 let defaultSettings = `{
   "prefix": "{{prefix}}",
