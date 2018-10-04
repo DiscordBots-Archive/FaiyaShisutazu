@@ -64,7 +64,7 @@ class Help extends Command {
         .setTimestamp()
         .addField("Category", `${command.category}`, true)
         .addField("Usage", `${settings.prefix}${command.usage}`, true)
-        .addField("Cost", `💎 ${parseInt(command.cost)}`, true)
+        .addField("Cost", `🍩 ${parseInt(command.cost)}`, true)
         .addField("Aliases", `${command.aliases.join(", ") ? command.aliases.join(", ") : "None!"}`, true)
         .addField("Details", `${command.extended}`);
       
