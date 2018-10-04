@@ -13,6 +13,7 @@ data/
 # Private, unstable or test commands/functions
 assets/languages/vietnamese/
 commands/music/
+setup/
 functions/
 
 # Runtime data
