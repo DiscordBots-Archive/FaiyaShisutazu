@@ -8,7 +8,7 @@ class Crush extends Social {
       name: "crush",
       description: "Shows everyone who you missed",
       category: "3. Canvas",
-      usage: "crush [@mention crusher] [@mention target]",
+      usage: "crush [@mention target]",
       extended: "This uses the provided tag to tell everyone who you missed the most. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,
@@ -21,7 +21,7 @@ class Crush extends Social {
     try {
       const crusher = await this.verifyUser(message, message.author.id );
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.crush(target.displayAvatarURL({format:"png", size:512}), crusher.displayAvatarURL({format:"png", size:128})), "crush.png");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.crush(target.displayAvatarURL({ format: "png", size: 512 }), crusher.displayAvatarURL({format:"png", size:128})), "crush.png");
       
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {

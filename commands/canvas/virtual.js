@@ -1,27 +1,26 @@
 const Social = require("../../structures/Social.js");
 const { MessageAttachment } = require("discord.js");
 
-class Tattoo extends Social {
-
+class Virtual extends Social {
   constructor(...args) {
-    super(...args , {
-      name: "tattoo",
-      description: "Gets a tattoo of someone's face",
+    super(...args, {
+      name: "virtual",
+      description: "Brings Virtual Reality to the provided tag",
       category: "3. Canvas",
-      usage: "tattoo [@mention|userid]",
-      extended: "This uses the provided tag to let you get a tattoo of someone's face. If there was no tag provided, this command will use the image of the message's author!",
+      usage: "virtual [@mention target]",
+      extended: "This uses the provided tag to bring that user to virtual reality. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
-      cooldown: 10,
-      aliases: ["ink"],
+      cooldown: 5,
+      aliases: [],
       botPerms: ["ATTACH_FILES"]
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.tattoo(target.displayAvatarURL({ format: "png", size: 512 })), "tattoo.png");
-      
+      const attachment = new MessageAttachment(await message.client.idiotAPI.virtual(target.displayAvatarURL({ format: "png", size: 256 })), "virtual.png");
+
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
       await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
@@ -30,4 +29,4 @@ class Tattoo extends Social {
   }
 }
 
-module.exports = Tattoo; //
+module.exports = Virtual;

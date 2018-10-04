@@ -1,7 +1,7 @@
 const Social = require("../../structures/Social.js");
 const { MessageAttachment } = require("discord.js");
 
-class Valut extends Social {
+class Vault extends Social {
 
   constructor(...args) {
     super(...args, {
@@ -12,7 +12,7 @@ class Valut extends Social {
       extended: "This uses the provided tag to give someone a thumbs up. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,
-      aliases: ["like"],
+      aliases: ["like", "vault"],
       botPerms: ["ATTACH_FILES"]
     });
   }
@@ -30,4 +30,4 @@ class Valut extends Social {
   }
 }
 
-module.exports = Valut; //
+module.exports = Vault;

@@ -20,7 +20,7 @@ class Respect extends Social {
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.respect(target.displayAvatarURL({format:"png", size:128})), "respect.png");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.respect(target.displayAvatarURL({ format: "png", size: 128 })), "respect.png");
       
       const respectMessage = await message.channel.send(`Requested by **${message.author.tag}** | Press **F** to pay respect!`, {files: [attachment]});
       await respectMessage.react("🇫");

@@ -1,27 +1,26 @@
 const Social = require("../../structures/Social.js");
 const { MessageAttachment } = require("discord.js");
 
-class Tattoo extends Social {
-
+class Fear extends Social {
   constructor(...args) {
-    super(...args , {
-      name: "tattoo",
-      description: "Gets a tattoo of someone's face",
+    super(...args, {
+      name: "fear",
+      description: "Displays your fear toward something",
       category: "3. Canvas",
-      usage: "tattoo [@mention|userid]",
-      extended: "This uses the provided tag to let you get a tattoo of someone's face. If there was no tag provided, this command will use the image of the message's author!",
+      usage: "fear [@mention target]",
+      extended: "This uses the provided tag to help you express your fear. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,
-      aliases: ["ink"],
+      aliases: [],
       botPerms: ["ATTACH_FILES"]
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.tattoo(target.displayAvatarURL({ format: "png", size: 512 })), "tattoo.png");
-      
+      const attachment = new MessageAttachment(await message.client.idiotAPI.heavyFear(target.displayAvatarURL({ format: "png", size: 256 })), "fear.png");
+
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
       await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
@@ -30,4 +29,4 @@ class Tattoo extends Social {
   }
 }
 
-module.exports = Tattoo; //
+module.exports = Fear;

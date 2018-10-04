@@ -20,7 +20,7 @@ class Triggered extends Social {
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.triggered(target.displayAvatarURL({ format:"png", size:512 })), "triggered.gif");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.triggered(target.displayAvatarURL({ format: "png", size: 512 })), "triggered.gif");
       
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
@@ -29,4 +29,5 @@ class Triggered extends Social {
     }
   }
 }
+
 module.exports = Triggered;

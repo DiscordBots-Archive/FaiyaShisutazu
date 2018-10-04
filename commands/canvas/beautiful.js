@@ -19,8 +19,8 @@ class Beautiful extends Social {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
-      const target = await this.verifyUser(message, message.mentions.users.first().id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.beautiful(target.displayAvatarURL({format:"png", size:256})), "beautiful.png");
+      const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
+      const attachment = new MessageAttachment(await message.client.idiotAPI.beautiful(target.displayAvatarURL({ format: "png", size: 256 })), "beautiful.png");
       
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
