@@ -8,7 +8,7 @@ class Vault extends Social {
       name: "thumbs",
       description: "Gives someone a thumbs up",
       category: "3. Canvas",
-      usage: "thumbs [@mention|userid]",
+      usage: "thumbs [@mention target]",
       extended: "This uses the provided tag to give someone a thumbs up. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,

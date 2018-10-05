@@ -8,7 +8,7 @@ class Achievement extends Social {
       name: "achievement",
       description: "Creates an user-defined achievement",
       category: "3. Canvas",
-      usage: "achievement [description] [@mention]",
+      usage: "achievement [description]",
       extended: "This uses the provided text to create a custom achievement.",
       cost: 15,
       cooldown: 10,

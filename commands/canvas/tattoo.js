@@ -8,7 +8,7 @@ class Tattoo extends Social {
       name: "tattoo",
       description: "Gets a tattoo of someone's face",
       category: "3. Canvas",
-      usage: "tattoo [@mention|userid]",
+      usage: "tattoo [@mention target]",
       extended: "This uses the provided tag to let you get a tattoo of someone's face. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,

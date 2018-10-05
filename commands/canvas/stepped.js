@@ -8,7 +8,7 @@ class Stepped extends Social {
       name: "stepped",
       description: "Steps on someone you dislike",
       category: "3. Canvas",
-      usage: "stepped [@mention|userid]",
+      usage: "stepped [@mention target]",
       extended: "This uses the provided tag to let you step on a person you dislike. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,

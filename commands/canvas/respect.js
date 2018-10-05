@@ -8,7 +8,7 @@ class Respect extends Social {
       name: "respect",
       description: "Pays respect to a person",
       category: "3. Canvas",
-      usage: "respect [@mention|userid]",
+      usage: "respect [@mention target]",
       extended: "This uses the provided tag to allow everyone to pay respect to a person using the F react. If there was no tag provided, this command will use the image of the message's author!",
       cost: 30,
       cooldown: 25,

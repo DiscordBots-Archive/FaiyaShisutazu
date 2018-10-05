@@ -8,7 +8,7 @@ class Wanted extends Social {
       name: "wanted",
       description: "Puts someone on a wanted poster",
       category: "3. Canvas",
-      usage: "wanted [@mention|userid]",
+      usage: "wanted [@mention target]",
       extended: "This uses the provided tag to let you put someone on a wanted poster. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,

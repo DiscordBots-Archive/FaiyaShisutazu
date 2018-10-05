@@ -8,7 +8,7 @@ class Triggered extends Social {
       name: "triggered",
       description: "Triggers someone",
       category: "3. Canvas",
-      usage: "triggered [@mention|userid]",
+      usage: "triggered [@mention target]",
       extended: "This uses the provided tag to let you trigger someone. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,

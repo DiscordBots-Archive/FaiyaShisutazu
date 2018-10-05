@@ -8,7 +8,7 @@ class Slap extends Social {
       name: "slap",
       description: "Slaps a person in the face",
       category: "3. Canvas",
-      usage: "slap [@mention slapper] [@mention target]",
+      usage: "slap [@mention target]",
       extended: "This slaps the person you tagged. If there was no tag provided, this command will use the image of the message's author!",
       cost: 15,
       cooldown: 10,
