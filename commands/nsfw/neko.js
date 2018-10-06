@@ -28,7 +28,6 @@ class Neko extends Social {
       
       const embed = new MessageEmbed();
       embed
-        .setTitle(`🌺 **${message.author.tag}** ❯ ${message.content}`)
         .setDescription(body.neko)
         .setColor(message.client.config.colors.random())
         .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))

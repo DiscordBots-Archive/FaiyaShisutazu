@@ -2,33 +2,33 @@ const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
 const { get } = require("snekfetch");
 
-class FourK extends Social {
+class Butts extends Social {
 
   constructor(...args) {
     super(...args, {
-      name: "fourk",
-      description: "Returns 4K porn",
+      name: "butts",
+      description: "Returns butts",
       category: "6. NSFW",
-      usage: "fourk",
-      extended: "This returns some sweet 4K porn.",
+      usage: "butts",
+      extended: "This returns butts from oboobs.ru.",
       cost: 15,
       cooldown: 10,
-      aliases: ["4k"],
+      aliases: [],
       botPerms: ["EMBED_LINKS"]
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
-
+    
     try {
-      const { body } = await get("https://nekobot.xyz/api/image?type=4k");
+      const { body } = await get("http://api.obutts.ru/butts/0/1/random");
       const embed = new MessageEmbed();
       embed
-        .setDescription(body.message)
+        .setDescription(`http://media.obutts.ru/${body[0].preview}`)
         .setColor(message.client.config.colors.random())
         .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
-        .setImage(body.message)
+        .setImage(`http://media.obutts.ru/${body[0].preview}`)
         .setTimestamp();
 
       await message.channel.send(`Requested by **${message.author.tag}**`, embed);
@@ -39,4 +39,4 @@ class FourK extends Social {
   }
 }
 
-module.exports = FourK;
+module.exports = Butts;

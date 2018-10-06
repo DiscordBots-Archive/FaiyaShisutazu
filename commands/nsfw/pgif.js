@@ -2,27 +2,27 @@ const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
 const { get } = require("snekfetch");
 
-class FourK extends Social {
+class PGif extends Social {
 
   constructor(...args) {
     super(...args, {
-      name: "fourk",
-      description: "Returns 4K porn",
+      name: "porngif",
+      description: "Returns porn gifs",
       category: "6. NSFW",
-      usage: "fourk",
-      extended: "This returns some sweet 4K porn.",
+      usage: "porngif",
+      extended: "This returns porn gifs.",
       cost: 15,
       cooldown: 10,
-      aliases: ["4k"],
+      aliases: ["pgif"],
       botPerms: ["EMBED_LINKS"]
     });
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
-
+    
     try {
-      const { body } = await get("https://nekobot.xyz/api/image?type=4k");
+      const { body } = await get("https://nekobot.xyz/api/image?type=pgif");
       const embed = new MessageEmbed();
       embed
         .setDescription(body.message)
@@ -39,4 +39,4 @@ class FourK extends Social {
   }
 }
 
-module.exports = FourK;
+module.exports = PGif;

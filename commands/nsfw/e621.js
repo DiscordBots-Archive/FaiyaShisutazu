@@ -2,18 +2,18 @@ const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
 const { get } = require("snekfetch");
 
-class FourK extends Social {
+class E621 extends Social {
 
   constructor(...args) {
     super(...args, {
-      name: "fourk",
-      description: "Returns 4K porn",
+      name: "e621",
+      description: "Returns an entry from E621",
       category: "6. NSFW",
-      usage: "fourk",
-      extended: "This returns some sweet 4K porn.",
+      usage: "e621 [search term]",
+      extended: "This returns an entry from E621.",
       cost: 15,
       cooldown: 10,
-      aliases: ["4k"],
+      aliases: [],
       botPerms: ["EMBED_LINKS"]
     });
   }
@@ -22,13 +22,15 @@ class FourK extends Social {
     if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
 
     try {
-      const { body } = await get("https://nekobot.xyz/api/image?type=4k");
+      const { body } = await get(`https://e621.net/post/index.json?limit=100&tags=${encodeURI(args)}`);
+      const result = body.random();
+
       const embed = new MessageEmbed();
       embed
-        .setDescription(body.message)
+        .setDescription(`https://e621.net/post/show/${result.id}`)
         .setColor(message.client.config.colors.random())
         .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
-        .setImage(body.message)
+        .setImage(result.file_url)
         .setTimestamp();
 
       await message.channel.send(`Requested by **${message.author.tag}**`, embed);
@@ -39,4 +41,4 @@ class FourK extends Social {
   }
 }
 
-module.exports = FourK;
+module.exports = E621;

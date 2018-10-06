@@ -2,18 +2,18 @@ const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
 const { get } = require("snekfetch");
 
-class FourK extends Social {
+class Kitsune extends Social {
 
   constructor(...args) {
     super(...args, {
-      name: "fourk",
-      description: "Returns 4K porn",
+      name: "kitsune",
+      description: "Returns an entry from Kitsune",
       category: "6. NSFW",
-      usage: "fourk",
-      extended: "This returns some sweet 4K porn.",
+      usage: "kitsune [search term]",
+      extended: "This returns an entry from Kitsune.",
       cost: 15,
       cooldown: 10,
-      aliases: ["4k"],
+      aliases: [],
       botPerms: ["EMBED_LINKS"]
     });
   }
@@ -22,7 +22,7 @@ class FourK extends Social {
     if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
 
     try {
-      const { body } = await get("https://nekobot.xyz/api/image?type=4k");
+      const { body } = await get("https://nekobot.xyz/api/image?type=lewdkitsune");
       const embed = new MessageEmbed();
       embed
         .setDescription(body.message)
@@ -39,4 +39,4 @@ class FourK extends Social {
   }
 }
 
-module.exports = FourK;
+module.exports = Kitsune;
