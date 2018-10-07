@@ -19,7 +19,7 @@ class Religion extends Social {
   async run(message, args, level) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.religion(target.displayAvatarURL({ format: "png", size: 256 }), (message.mentions.members.first() || message.member).displayName, "facepalm.png"));
+      const attachment = new MessageAttachment(await message.client.idiotAPI.religion(target.displayAvatarURL({ format: "png", size: 256 })), "religion.png");
 
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
