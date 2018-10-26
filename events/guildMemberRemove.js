@@ -1,5 +1,4 @@
 const Event = require("../structures/Event.js");
-const { MessageAttachment } = require("discord.js");
 
 module.exports = class extends Event {
 
@@ -15,7 +14,10 @@ module.exports = class extends Event {
     });
 
     if (settings.welcomeEnabled !== "true") return;
-    if (settings.welcomeType === "text") member.guild.channels.find("name", settings.welcomeChannel).send(`${this.client.emojis.get("396391329367588878")}  ${this.client.responses.welcomeMessages.random().replaceAll("{{user}}", member.user.username).replaceAll("{{amount}}", member.guild.memberCount).replaceAll("{{guild}}", member.guild.name).trim()}`).catch(console.error);
-    if (settings.welcomeType === "image") member.guild.channels.find("name", settings.welcomeChannel).send(new MessageAttachment(await this.client.idiotAPI.goodbye("anime", member.user.bot, member.user.displayAvatarURL({ format: "png", size: 128 }), encodeURIComponent(member.user.tag), null, null))).catch(console.error);
+    member.guild.channels.find("name", settings.welcomeChannel)
+      .send(`${this.client.responses.welcomeMessages.random().replaceAll("{{user}}", member.user.username)
+        .replaceAll("{{amount}}", member.guild.memberCount).replaceAll("{{guild}}", member.guild.name)
+        .trim()}`)
+      .catch(console.error);
   }
 };

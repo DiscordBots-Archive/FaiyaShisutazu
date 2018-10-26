@@ -11,28 +11,6 @@ exports.aboutMessages = [
   "Hmmph! If you haven't notice already, I'm platinum mad so don't even ask!"
 ];
 
-// Member Join
-exports.welcomeMessages = [
-  "O-ohayou **{{user}}-san**.",
-  "O-ohayou gozaimasu **{{user}}-san**.",
-  "O-oh, welcome **{{user}}-san**. I hope I haven't embarrased you...",
-  "Who dis? **{{user}}** s-sounds like a name for b-bakas...",
-  "Yay! More b-bakas to deal with! Who is dis **{{user}}**!?",
-  "**Karen-chan** I don't want to greet this **{{user}}**...",
-  "**{{user}}-san** vô đúng channel không vậy!?",
-  "I'm platinum mad! Are {{amount}} users not enough already?! Why has **{{user}}** got to come?"
-];
-
-// Member Leave
-exports.goodbyeMessages = [
-  "Not joining again would be a very smart move **{{user}}-san** !",
-  "Awh, **{{user}}-san** has left... Just kidding, less people to deal with!",
-  "Finally **{{user}}-san** left! Byeeeee~",
-  "Eeeee! **{{user}}-san** left?!",
-  "Not like we needed **{{user}}-san** or anything, more space I guess?",
-  "Life finally freed me from that baka **{{user}}**!"
-];
-
 // Daily
 exports.dailySuccessMessages = [
   "**{{user}}-san** got {{amount}} for today. Not like I like **{{user}}-san** or anything, I would rather deduct {{amount}}...",

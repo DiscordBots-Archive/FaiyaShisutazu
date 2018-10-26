@@ -8,6 +8,28 @@ exports.aboutMessages = [
   "Hm **Tsukihi-chan** might not want to do this ya know... Sigh, I'm Karen by the way."
 ];
 
+// Member Join
+exports.welcomeMessages = [
+  "O-ohayou **{{user}}-san**.",
+  "O-ohayou gozaimasu **{{user}}-san**.",
+  "O-oh, welcome **{{user}}-san** to **{{guild}}**. I hope I haven't embarrased you...",
+  "Who dis? **{{user}}** s-sounds like a name for b-bakas...",
+  "Yay! More b-bakas in **{{guild}}** to deal with! Who is dis **{{user}}**!?",
+  "**Tsukihi-chan** I don't want to greet this **{{user}}**...",
+  "**{{user}}-san** ? U-uh did you get lost!?",
+  "I'm platinum mad! Are {{amount}} users in **{{guild}}** not enough already?! Why has **{{user}}** got to come?"
+];
+
+// Member Leave
+exports.goodbyeMessages = [
+  "Not joining **{{guild}}** again would be a very smart move **{{user}}-san** !",
+  "Awh, **{{user}}-san** has left... Just kidding, less people in **{{guild}}** to deal with!",
+  "Finally **{{user}}-san** left **{{guild}}**! Byeeeee~",
+  "Eeeee! **{{user}}-san** left?!",
+  "Not like we needed **{{user}}-san** in **{{guild}}** or anything, more space I guess?",
+  "Life finally freed me from **{{user}}**!"
+];
+
 // Karen's command check succeed
 exports.commandSuccessMessages = [
   "Please wait a bit for **Tsukihi** to process **{{user}}-san**...",
