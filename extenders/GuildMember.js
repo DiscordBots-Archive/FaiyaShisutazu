@@ -15,18 +15,15 @@ module.exports = Structures.extend("GuildMember", GuildMember => class extends G
   }
 
   givePoints(points) {
-    this.score.points = Number(this.score.points) + Number(points);
-    return this.client.points.set(this.fullId, this.score);
+    return this.client.points.math(this.fullId, "+", points, "points");
   }
 
   takePoints(points) {
-    this.score.points = Number(this.score.points) - Number(points);
-    return this.client.points.set(this.fullId, this.score);
+    return this.client.points.math(this.fullId, "-", points, "points");
   }
 
   setLevel(level) {
-    this.score.level = Number(level);
-    return this.client.points.set(this.fullId, this.score);
+    return this.client.points.set(this.fullId, level, "levels");
   }
 
 });

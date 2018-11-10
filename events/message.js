@@ -81,6 +81,14 @@ module.exports = class extends Event {
           else await response.edit(message.client.responses.waitTsukihiMessages.random().replaceAll("{{user}}", message.member.displayName));
         }, 5000);
       } else {
+        this.client.points.ensure(`${message.guild.id}-${message.author.id}`, {
+          points: 0,
+          level: 0,
+          user: message.author.id,
+          guild: message.guild.id,
+          daily: 1504120109
+        });
+
         if (message.settings.socialSystem === "true") monitor.run(this.client, message, level);
         const filter = m => (m.author.id === "475552332138938378" && m.content.startsWith("✅"));
         const collected = await message.channel.awaitMessages(filter, {max: 1, time: 1000, errors: ["time"]});

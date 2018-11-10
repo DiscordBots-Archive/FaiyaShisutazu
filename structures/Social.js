@@ -25,11 +25,11 @@ class Social extends Command {
         const msg = await message.channel.send(`${message.client.responses.dailySuccessMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{amount}}", `🍩 ${pointsReward.toLocaleString()}`)}`);
         score.daily = msg.createdTimestamp + (dailyTime * 60 * 60 * 1000);
         message.member.givePoints(pointsReward);
-        message.client.points.set(message.member.fullId, score);
+        message.client.points.set(message.member.fullId, score.daily, "daily");
         return msg;
       } else {
         const fromNow = moment(score.daily).fromNow(true);
-        message.channel.send(`${message.client.responses.dailyFailureMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{time}}", fromNow)}.`);
+        await message.channel.send(`${message.client.responses.dailyFailureMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{time}}", fromNow)}.`);
       }
     } catch (error) {
       message.client.console.error(error);
