@@ -9,6 +9,7 @@ config.js
 data/
 .env
 .DS_Store
+.tmp.drivedownload/
 
 # Private, unstable or test commands/functions
 assets/languages/vietnamese/
