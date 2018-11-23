@@ -20,15 +20,21 @@ class KarenClient extends Client {
       errors: require("../util/CustomError.js")
     };
 
-    this.settings = new Enmap({name: "settings2"});
+    this.settings = new Enmap({ name: "settingsKaren" });
 
     this.ready = false;
     this.on("ready", this._ready.bind(this));
+    this.on("message", message => this._message(message));
   }
 
   _ready() {
     this.ready = true;
     this.emit("readyKaren");
+  }
+
+  _message(message) {
+    this.message = true;
+    this.emit("messageKaren", message);
   }
 
   async login(token) {

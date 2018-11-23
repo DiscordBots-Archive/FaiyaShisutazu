@@ -22,18 +22,24 @@ class TsukihiClient extends Client {
       errors: require("../util/CustomError.js")
     };
   
-    this.settings = new Enmap({ name: "settings" });
+    this.settings = new Enmap({ name: "settingsTsukihi" });
     this.reminders = new Enmap({ name: "reminders" });
     this.points = new Enmap({ name: "points" });
     this.store = new Enmap({ name: "shop" });
 
     this.ready = false;
     this.on("ready", this._ready.bind(this));
+    this.on("message", message => this._message(message));
   }
 
   _ready() {
     this.ready = true;
     this.emit("readyTsukihi");
+  }
+
+  _message(message) {
+    this.message = true;
+    this.emit("messageTsukihi", message);
   }
 
   async login(token) {
