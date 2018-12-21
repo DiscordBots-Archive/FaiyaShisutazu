@@ -21,7 +21,7 @@ class Slap extends Social {
     try {
       const slapper = await this.verifyUser(message, message.author.id);
       const target = await this.verifyUser(message, message.mentions.users.size === 1  ?  message.mentions.users.first().id : message.author.id);
-      const attachment = new MessageAttachment(await message.client.idiotAPI.batSlap(slapper.displayAvatarURL({ format: "png", size: 128 }), target.displayAvatarURL({format:"png", size:256})), "batslap.png");
+      const attachment = new MessageAttachment(await message.client.idiotAPI.batSlap(slapper.displayAvatarURL({ format: "png", size: 128 }), target.displayAvatarURL({ format: "png", size: 256 })), "batslap.png");
       
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {

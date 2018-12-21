@@ -31,6 +31,9 @@ module.exports = class extends Event {
   async run(message) {
     try {
       if (message.author.bot) return;
+      if (!message.guild) return message.channel.send("Please message Tsukihi instead!");
+      if (message.guild && !message.guild.me) await message.guild.members.fetch(this.client.user);
+      if (message.guild && !message.channel.postable) return;
 
       if (message.content.search(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i) !== -1
         || message.content.search(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i) !== -1
@@ -40,10 +43,6 @@ module.exports = class extends Event {
           .replaceAll("{{steiner}}", message.content.replace(/El[\s\W]+Psy[\s\W]+Con([a-z]*)/i, "**El Psy Kongroo**")
             .replaceAll(/T[u,o]{1,2}[\s,-]?T[u,o]{1,2}[\s,-]?r[u,o]?[u,o]?/i, "**Tutturu**")
             .replaceAll(/Ho(u)?oin Kyo(u)?ma/i, "**Hououin Kyouma**"))}`);
-
-      if (!message.guild) return message.channel.send("Please message Tsukihi instead!");
-      if (message.guild && !message.guild.me) await message.guild.members.fetch(this.client.user);
-      if (message.guild && !message.channel.postable) return;
 
       const prefix = new RegExp(`^<@!?${this.client.user.id}> |^${this.client.methods.util.regExpEsc(message.settings.prefix)}`)
         .exec(message.content);
