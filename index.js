@@ -10,7 +10,6 @@ const KarenClient = require("./structures/BotKaren.js");
 const errorDirnameRegex = new RegExp(`${__dirname}/`, "g");
 
 const client = new TsukihiClient({
-  disabledEvents: ["CHANNEL_PINS_UPDATE", "GUILD_BAN_ADD", "GUILD_BAN_REMOVE", "RELATIONSHIP_ADD", "RELATIONSHIP_REMOVE", "TYPING_START", "VOICE_SERVER_UPDATE", "VOICE_STATE_UPDATE"],
   disableEveryone: true,
   messageCacheMaxSize: 100,
   messageCacheLifetime: 240,
@@ -18,7 +17,6 @@ const client = new TsukihiClient({
 });
 
 const supClient = new KarenClient({
-  disabledEvents: ["CHANNEL_PINS_UPDATE", "GUILD_BAN_ADD", "GUILD_BAN_REMOVE", "RELATIONSHIP_ADD", "RELATIONSHIP_REMOVE", "TYPING_START", "VOICE_SERVER_UPDATE", "VOICE_STATE_UPDATE"],
   disableEveryone: true,
   messageCacheMaxSize: 100,
   messageCacheLifetime: 240,
