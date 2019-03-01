@@ -50,6 +50,15 @@ exports.loadingMessages = [
   "It's not like I like **{{user}}-san**, but here I am loading a command for **{{user}}-san**..."
 ];
 
+// Music prompt cancelation
+exports.musicCancelMessages = [
+  "S-sumimasen **{{user}}-san**! Seems like I couldn't find what you wanted...",
+  "B-baka! Maybe try again with a better search term?",
+  "Wat... Nothing you want from the above list?",
+  "Don't be so indecisive **{{user}}-san**, why can't you just pick one from the list..",
+  "........ Stop requesting if you don't like any of the option I give you **{{user}}-san**!"
+];
+
 // Error
 exports.errorMessages = [
   "B-baka **{{user}}-san**! It's probably your fault that I ran into an error...",

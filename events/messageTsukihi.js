@@ -28,7 +28,6 @@ module.exports = class extends Event {
     }, {});
 
     this.ratelimits = new Collection();
-    this.playlists = new Collection();
   }
 
   async run(message) {
@@ -66,7 +65,6 @@ module.exports = class extends Event {
           return message.channel.send(`Please wait ${rateLimit.toPlural()} to run this command.`); // return stop command from executing
         }
 
-        if (cmd.guildOnly && !message.guild) return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
         while (args[0] && args[0][0] === "-") message.flags.push(args.shift().slice(1));
         message.author.permLevel = level;
         const loadingMessage = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
