@@ -5,41 +5,44 @@ require("./extenders/Guild.js");
 require("./extenders/DMChannel.js");
 require("./extenders/TextChannel.js");
 
-const TsukihiClient = require("./structures/BotTsukihi.js");
-const KarenClient = require("./structures/BotKaren.js");
+const Karen = require("./structures/Karen.js");
+const Tsukihi = require("./structures/Tsukihi.js");
+
 const errorDirnameRegex = new RegExp(`${__dirname}/`, "g");
 
-const client = new TsukihiClient({
+const botKaren = new Karen({
   disableEveryone: true,
   messageCacheMaxSize: 100,
   messageCacheLifetime: 240,
   messageSweepInterval: 300
 });
 
-const supClient = new KarenClient({
+const botTsukihi = new Tsukihi({
   disableEveryone: true,
   messageCacheMaxSize: 100,
   messageCacheLifetime: 240,
   messageSweepInterval: 300
 });
 
-client.login(client.config.discordKey1);
-supClient.login(client.config.discordKey2);
+botKaren.login(botKaren.config.karenKey);
+botTsukihi.login(botTsukihi.config.tsukihiKey);
 
-client.on("disconnect", () => client.console.warn("Bot is disconnecting..."))
-  .on("reconnect", () => client.console.log("Bot reconnecting..."))
-  .on("error", err => client.console.error(err))
-  .on("warn", info => client.console.warn(info));
+botKaren.on("disconnect", () => botKaren.console.warn("Karen is disconnecting..."))
+  .on("reconnect", () => botKaren.console.log("Karen reconnecting..."))
+  .on("error", err => botKaren.console.error(err))
+  .on("warn", info => botKaren.console.warn(info));
 
-supClient.on("disconnect", () => supClient.console.warn("Bot is disconnecting..."))
-  .on("reconnect", () => supClient.console.log("Bot reconnecting..."))
-  .on("error", err => supClient.console.error(err))
-  .on("warn", info => supClient.console.warn(info));
+botTsukihi.on("disconnect", () => botTsukihi.console.warn("Tsukihi is disconnecting..."))
+  .on("reconnect", () => botTsukihi.console.log("Tsukihi reconnecting..."))
+  .on("error", err => botTsukihi.console.error(err))
+  .on("warn", info => botTsukihi.console.warn(info));
 
 process.on("uncaughtException", err => {
   const errorMsg = err.stack.replace(errorDirnameRegex, "./");
-  client.console.error(`Uncaught Exception: ${errorMsg}`);
-  process.exit(1);
+  console.error(`Uncaught Exception: ${errorMsg}`);
 });
 
-process.on("unhandledRejection", client.console.error);
+process.on("unhandledRejection", err => {
+  const errorMsg = err.stack.replace(errorDirnameRegex, "./");
+  console.error(`Uncaught Exception: ${errorMsg}`);
+});

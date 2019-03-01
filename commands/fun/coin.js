@@ -13,7 +13,7 @@ class Coin extends Social {
       extended: "This returns a flipped coin.",
       cost: 5,
       cooldown: 10,
-      aliases: [],
+      aliases: ["flip"],
       botPerms: ["ATTACH_FILES"]
     });
   }

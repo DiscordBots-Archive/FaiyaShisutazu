@@ -1,12 +1,13 @@
 {
-  "name": "remibot",
+  "name": "faiyashisutazu",
   "version": "1.0.0",
-  "description": "REmibot is a multipurpose Discord bot based on the discord.js library.",
+  "description": "FaiyaShisutazu is a multipurpose Discord bot based on the discord.js library.",
   "main": "index.js",
   "scripts": {
     "test": "eslint .",
     "lint": "eslint --fix .",
     "start": "pm2 start index.js",
+    "stop": "pm2 stop all",
     "prepare": "node setup/Setup.js"
   },
   "engines": {
@@ -14,28 +15,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jjeuweiii/REmibot.git"
+    "url": "git+https://github.com/schwei23/FaiyaShisutazu.git"
   },
   "author": "Junwei Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jjeuweiii/REmibot/issues"
+    "url": "https://github.com/schwei23/FaiyaShisutazu/issues"
   },
-  "homepage": "https://github.com/Jjeuweiii/REmibot",
+  "homepage": "https://github.com/schwei23/FaiyaShisutazu",
   "dependencies": {
     "@discordjs/uws": "^11.149.1",
     "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
-    "chalk": "^2.4.1",
+    "chalk": "^2.4.2",
     "discord.js": "github:discordjs/discord.js",
-    "enmap": "^4.5.0",
+    "enmap": "^4.7.1",
     "erlpack": "discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
-    "fs-nextra": "^0.3.8",
+    "fs-nextra": "^0.4.3",
     "idiotic-api": "^0.2.11",
-    "inquirer": "^6.2.1",
+    "inquirer": "^6.2.2",
     "kitsu": "^6.5.1",
     "klaw": "^3.0.0",
-    "moment": "^2.23.0",
+    "moment": "^2.24.0",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.1.1",
     "node-fetch": "^2.3.0",
@@ -49,10 +50,10 @@
     "steamid": "^1.1.0",
     "steamidconvert": "^0.2.4",
     "uws": "discordjs/uws",
-    "ytdl-core": "^0.28.3",
+    "ytdl-core-discord": "^1.0.3",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^5.10.0"
+    "eslint": "^5.13.0"
   }
 }

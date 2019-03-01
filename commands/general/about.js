@@ -18,7 +18,7 @@ class About extends Command {
   async run(message, args, level) { // eslint-disable-line no-unused-vars    
     try {
       await message.channel.send(message.client.responses.aboutMessages.random()
-        .replaceAll("{{user}}", `${message.author.tag}`)
+        .replaceAll("{{user}}", `${message.author.username}`)
         .replaceAll("{{prefix}}", `${message.settings.prefix}`));
     } catch (error) {
       await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);

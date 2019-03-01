@@ -28,9 +28,9 @@ class Slots extends Social {
       category: "4. Fun",
       usage: "slots",
       extended: "This simulates a slot machine. Your winning is equal to the cost of message command multiplied by the machine points.",
-      cost: 15,
+      cost: 10,
       cooldown: 5,
-      aliases: [],
+      aliases: ["slot"],
       botPerms: ["EMBED_LINKS"]
     });
   }
@@ -38,12 +38,12 @@ class Slots extends Social {
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     try {
       const results = machine.play();
-      const winnings = message.help.cost * results.totalPoints;
+      const winnings = 10 * results.totalPoints;
       const embed = new MessageEmbed();
       embed
         .setColor(message.client.config.colors.random())
         .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
-        .setDescription(`${results.visualize(false)}\n\n${results.winCount === 0 ? `${message.member.displayName} has lost!\nBetter luck next time!` : `Whoa... ${message.member.displayName} won!`}\n\n${results.winCount === 0 ? "" : `You have won 💎${winnings.toLocaleString()}`}`)
+        .setDescription(`${results.visualize(false)}\n\n${results.winCount === 0 ? `${message.member.displayName} has lost!\nBetter luck next time!` : `Whoa... ${message.member.displayName} won!`}\n\n${results.winCount === 0 ? "" : `You have won 🍩 ${winnings.toLocaleString()}`}`)
         .setTimestamp();
 
       await message.channel.send(`Requested by **${message.author.tag}**`, embed);

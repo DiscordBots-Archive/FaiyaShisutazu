@@ -48,7 +48,7 @@ module.exports = class extends Event {
 
       if (message.settings.socialSystem === "true") {
         this.client.points.ensure(`${message.guild.id}-${message.author.id}`, {
-          points: 0,
+          points: 100,
           level: 0,
           user: message.author.id,
           guild: message.guild.id,

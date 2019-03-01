@@ -26,7 +26,7 @@ class Stats extends Command {
     
     const embed = new MessageEmbed();
     embed
-      .setTitle(`Estimated ping: ${response.createdTimestamp - message.createdTimestamp}ms`)
+      .setTitle(`API ping: ${Math.round(message.client.ws.ping)}ms | Client ping: ${response.createdTimestamp - message.createdTimestamp}ms`)
       .setColor(message.client.config.colors.random())
       .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
       .setTimestamp()
