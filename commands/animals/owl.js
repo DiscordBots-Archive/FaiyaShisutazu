@@ -18,18 +18,18 @@ class Owl extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const owl = await get("http://pics.floofybot.moe/owl").then(r => r.body.image); // API Provided by Lewdcario
 
     const embed = new MessageEmbed();
     embed
       .setDescription(owl)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(owl)
       .setTimestamp();
 
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

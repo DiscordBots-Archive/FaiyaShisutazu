@@ -30,15 +30,18 @@ exports.goodbyeMessages = [
   "Life finally freed me from **{{user}}**!"
 ];
 
+// Karen's wait for response
+exports.waitTsukihiMessages = [
+  "Please wait a bit for **Tsukihi** to process...",
+  "Can you help this baka out already **Tsukihi-chan**?",
+  "Here comes the big baka, **Tsukihi-chan**..."
+];
+
 // Karen's command check succeed
 exports.commandSuccessMessages = [
-  "Please wait a bit for **Tsukihi** to process **{{user}}-san**...",
-  "It's **{{user}}-san**, the big baka, again!",
-  "Can you help this baka out already **Tsukihi-chan**?",
-  "You can always ignore **{{user}}-san** **Tsukihi**!",
-  "Seems like you do know how to use a command **{{user}}-san** after all...",
+  "You should have ignore **{{user}}-san** **Tsukihi**!",
+  "Seems like **{{user}}-san** do know how to use a command after all...",
   "Running a command seems simple enough for a baka like **{{user}}-san**...",
-  "Here comes **{{user}}-san**, the big baka, **Tsukihi-chan**..."
 ];
 
 // Karen's command check failed
@@ -50,25 +53,4 @@ exports.commandErrorMessages = [
   "This is getting pretty annoying...",
   "This baka keeps misusing our prefix. Does it bother you **Tsukihi-chan**?",
   "?? :smile: ?? **{{prefix}}help** is not that hard to remember..."
-];
-
-// Karen's timed out 
-exports.waitTsukihiMessages = [
-  "I don't see **Tsukihi-chan** responding...Maybe she fell asleep?",
-  "Where is **Tsukihi-chan**? Did you scare my little **Tsukihi** **{{user}}-san** away?!",
-  "Where are you **Tsukihi-chan**? Don't leave me alone with this big baka **{{user}}**!",
-  "Sigh... She is probably mad at you **{{user}}-san** since I don't see her response yet!",
-  "You should do this more oftens **Tsukihi-chan**! Just ignore **{{user}}-san**...",
-  "Looks like someone is platinum mad...",
-  "Seems like **{{user}}-san** is not worth **Tsukihi-chan**'s time!"
-];
-
-// Anime Steins;Gate Ref Correction
-exports.steinerMessages = [
-  "I'm assuming **{{user}}-san** means {{steiner}}???",
-  "Pretty sure it's \"{{steiner}}\" **{{user}}-san**...",
-  "I never knew **{{user}}-san** is such a big baka! It's \"{{steiner}}\"!",
-  "?? :smile: ?? It's \"{{steiner}}\" **{{user}}-san**!",
-  "\"{{steiner}}\"! **{{user}}-san**, do you you even Tutturu? https://i.imgur.com/N8n0ZC5.jpg",
-  "B-baka!!? It's \"{{steiner}}\"!"
 ];

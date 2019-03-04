@@ -17,18 +17,19 @@ class Respect extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars 
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
       const attachment = new MessageAttachment(await message.client.idiotAPI.respect(target.displayAvatarURL({ format: "png", size: 128 })), "respect.png");
       
-      const respectMessage = await message.channel.send(`Requested by **${message.author.tag}** | Press **F** to pay respect!`, {files: [attachment]});
-      await respectMessage.react("🇫");
+      await replyMessage.delete();
+      const respect = await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
+      await respect.react("🇫");
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }
 }
 
-module.exports = Respect; //
+module.exports = Respect;

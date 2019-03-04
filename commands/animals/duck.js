@@ -18,18 +18,18 @@ class Duck extends Social {
     });
   }
 
-  async run(message, client, level) { // eslint-disable-line no-unused-vars
+  async run(message, client, level, replyMessage) { // eslint-disable-line no-unused-vars
     const { body } = await get("https://random-d.uk/api/v1/random?type=gif");
 
     const embed = new MessageEmbed();
     embed
       .setDescription(body.url)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(body.url)
       .setTimestamp();
 
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

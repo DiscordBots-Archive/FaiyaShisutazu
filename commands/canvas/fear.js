@@ -16,14 +16,15 @@ class Fear extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars 
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars 
     try {
       const target = await this.verifyUser(message, message.mentions.users.size === 1 ? message.mentions.users.first().id : message.author.id);
       const attachment = new MessageAttachment(await message.client.idiotAPI.heavyFear(target.displayAvatarURL({ format: "png", size: 256 })), "fear.png");
 
+      await replyMessage.delete();
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

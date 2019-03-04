@@ -17,7 +17,7 @@ class Achievement extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars     
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars     
     try {
       let text = args.join(" ").toUpperCase();
       if (message.mentions.users.size !== 0) text = text.replace(/<@!?\d+>/, "").replace(/\n/g, " ").trim();
@@ -25,9 +25,10 @@ class Achievement extends Social {
       if (text.length > 22) return message.reply("The maximum length is 22 characters!");
       const attachment = new MessageAttachment(await message.client.idiotAPI.achievement(message.author.displayAvatarURL({ format: "png", size: 32 }), text), "achievement.png");
       
+      await replyMessage.delete();
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

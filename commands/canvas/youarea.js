@@ -17,15 +17,16 @@ class YouAreA extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars 
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars 
     try {
       const text = args.join(" ").toUpperCase();    
       const { body } = await get("https://i.ode.bz/auto/nichijou").query({ text });
       const attachment = new MessageAttachment(body, `${text}.gif`);
 
+      await replyMessage.delete();
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

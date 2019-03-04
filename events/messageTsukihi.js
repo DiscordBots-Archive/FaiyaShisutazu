@@ -56,7 +56,7 @@ module.exports = class extends Event {
         monitor.run(this.client, message, level);
       } 
 
-      const filter = m => (m.author.id === "475552332138938378" && m.content.startsWith("✅"));
+      const filter = m => (m.author.id === "475552332138938378" && m.content.startsWith("<a:loading:542815160650432532>"));
       const collected = await message.channel.awaitMessages(filter, {max: 1, time: 1000, errors: ["time"]});
       if (collected.size === 1) {
         const rateLimit = this.ratelimit(message, cmd);
@@ -67,9 +67,7 @@ module.exports = class extends Event {
 
         while (args[0] && args[0][0] === "-") message.flags.push(args.shift().slice(1));
         message.author.permLevel = level;
-        const loadingMessage = await message.channel.send(`${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
         await this.runCommand(message, cmd, args);
-        await loadingMessage.delete();
       }
     } catch (error) {
       this.client.console.error(error);
@@ -79,7 +77,7 @@ module.exports = class extends Event {
   botPerms(message, cmd) {
     const missing = message.channel.type === "text" ? message.channel.permissionsFor(this.client.user).missing(cmd.botPerms) : this.impliedPermissions.missing(cmd.botPerms);
     if (missing.length > 0) {
-      message.channel.send(`The bot does not have the following permissions \`${missing.map(key => this.friendlyPerms[key]).join(", ")}\``);
+      message.channel.send(`Tsukihi does not have the following permissions \`${missing.map(key => this.friendlyPerms[key]).join(", ")}\``);
       return false;
     }
     return true;
@@ -104,13 +102,16 @@ module.exports = class extends Event {
     try {
       const hasPerm = this.botPerms(message, cmd);
       if (!hasPerm) return;
+      let loadingMessage;
+      if (cmd.loadingMessage) loadingMessage = await message.channel.send(`${cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName)}`);
+      else loadingMessage = await message.channel.send(`<a:loading:542815160650432532> ${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       if (cmd instanceof Social) {
         await cmd.cmdVerify(message, args);
         if (message.settings.socialSystem === "true") await cmd.cmdPay(message, message.author.id, cmd.cost);
       }
       const userPermLevel = this.client.config.permLevels.find(perm => perm.level === message.author.permLevel);
       this.client.console.log(`\u001b[43;30m[${userPermLevel.name}]\u001b[49;39m \u001b[44m${message.author.username} (${message.author.id})\u001b[49m ran command ${cmd.name}`);
-      await cmd.run(message, args, message.author.permLevel);
+      await cmd.run(message, args, message.author.permLevel, loadingMessage);
     } catch (error) {
       this.client.emit("commandError", error, message);
     }

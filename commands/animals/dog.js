@@ -18,18 +18,18 @@ class Dog extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const { body } = await get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : "https://dog.ceo/api/breeds/image/random");
 
     const embed = new MessageEmbed();
     embed
       .setDescription(body.message)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(body.message)
       .setTimestamp();
 
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

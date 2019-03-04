@@ -18,7 +18,7 @@ class RedPanda extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const { body } = await get("https://animals.anidiots.guide/red_panda");
 
     const embed = new MessageEmbed();
@@ -29,7 +29,7 @@ class RedPanda extends Social {
       .setImage(body.link)
       .setTimestamp();
 
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

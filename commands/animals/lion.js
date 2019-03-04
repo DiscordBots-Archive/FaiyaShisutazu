@@ -18,18 +18,18 @@ class Lion extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const { body } = await get("https://animals.anidiots.guide/lion");
 
     const embed = new MessageEmbed();
     embed
       .setDescription(body.link)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(body.link)
       .setTimestamp();
 
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);    
+    await replyMessage.edit(embed);
   }
 }
 

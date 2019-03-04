@@ -14,22 +14,22 @@ class Bird extends Social {
       cost: 5,
       cooldown: 5,
       aliases: ["birb"],
-      botPerms: ["EMBED_LINKS"]
+      botPerms: ["EMBED_LINKS"],
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const { body } = await get("http://random.birb.pw/tweet/");
 
     const embed = new MessageEmbed();
     embed
       .setDescription(`https://random.birb.pw/img/${body}`)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setImage(`https://random.birb.pw/img/${body}`)
       .setTimestamp();
     
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

@@ -18,6 +18,7 @@ class Command {
     this.permLevel = options.permLevel || "User";
     this.file = file;
     this.store = this.client.commands;
+    this.loadingMessage = options.loadingMessage;
   }
 
   async paginate(message, list, makeEmbed) {
