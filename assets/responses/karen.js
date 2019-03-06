@@ -32,14 +32,14 @@ exports.goodbyeMessages = [
 
 // Karen's wait for response
 exports.waitTsukihiMessages = [
-  "Please wait a bit for **Tsukihi** to process...",
-  "Can you help this baka out already **Tsukihi-chan**?",
-  "Here comes the big baka, **Tsukihi-chan**..."
+  "Please wait a bit for Tsukihi-chan to load your command...",
+  "Can you help this baka out already Tsukihi-chan?",
+  "Here comes a baka running a command, Tsukihi-chan..."
 ];
 
 // Karen's command check succeed
 exports.commandSuccessMessages = [
-  "You should have ignore **{{user}}-san** **Tsukihi**!",
+  "You should have ignore **{{user}}-san** Tsukihi!",
   "Seems like **{{user}}-san** do know how to use a command after all...",
   "Running a command seems simple enough for a baka like **{{user}}-san**...",
 ];
@@ -52,5 +52,5 @@ exports.commandErrorMessages = [
   "It seems like you are a big baka **{{user}}-san**. Just run **{{prefix}}help** again please?!",
   "This is getting pretty annoying...",
   "This baka keeps misusing our prefix. Does it bother you **Tsukihi-chan**?",
-  "?? :smile: ?? **{{prefix}}help** is not that hard to remember..."
+  "??? **{{prefix}}help** is not that hard to remember..."
 ];

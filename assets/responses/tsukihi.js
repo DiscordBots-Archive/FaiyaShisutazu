@@ -1,7 +1,7 @@
 // Tsukihi's about/introduction
 exports.aboutMessages = [
   "Ohayō! We are the **Faiya Shisutazu**! **{{prefix}}** is how you request a command,",
-  "Right, so I'm tired now **{{user}}-san** nữa! Can we do this later?",
+  "Right, so I'm tired now **{{user}}-san**! Can we do this later?",
   "Wat **{{user}}-san** again?! This is probably the nth time we have to do this already!?",
   "Our prefix is **{{prefix}}**, that's pretty much all you ever need to know **{{user}}-san**...",
   "Hm not sure if it's a good thing that **{{user}}-san** asked me to introduce myself.",
@@ -44,10 +44,11 @@ exports.rankupMessages = [
 
 // Loading
 exports.loadingMessages = [
+  "Aa yoisho...",
   "Platinum loading...!",
-  "Loading a platinum response for **{{user}}-san**!",
-  "Sheesh...What a drag! Why am I loading these commands for **{{user}}-san** again?",
-  "It's not like I like **{{user}}-san**, but here I am loading a command for **{{user}}-san**..."
+  "Loading a platinum response...",
+  "Aa yoisho! Why do I have to load these commands for a baka...",
+  "Would be nice if this is the last time I have to load these commands..."
 ];
 
 // Music prompt cancelation
@@ -56,7 +57,7 @@ exports.musicCancelMessages = [
   "B-baka! Maybe try again with a better search term?",
   "Wat... Nothing you want from the above list?",
   "Don't be so indecisive **{{user}}-san**, why can't you just pick one from the list..",
-  "........ Stop requesting if you don't like any of the option I give you **{{user}}-san**!"
+  "Stop requesting if you don't like any of the option I give you **{{user}}-san**!"
 ];
 
 // Error

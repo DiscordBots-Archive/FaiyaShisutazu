@@ -102,16 +102,16 @@ module.exports = class extends Event {
     try {
       const hasPerm = this.botPerms(message, cmd);
       if (!hasPerm) return;
-      let loadingMessage;
-      if (cmd.loadingMessage) loadingMessage = await message.channel.send(`${cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName)}`);
-      else loadingMessage = await message.channel.send(`<a:loading:542815160650432532> ${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      let replyMessage;
+      if (cmd.loadingMessage) replyMessage = await message.channel.send(`${cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName)}`);
+      else replyMessage = await message.channel.send(`<a:loading:542815160650432532> ${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       if (cmd instanceof Social) {
         await cmd.cmdVerify(message, args);
         if (message.settings.socialSystem === "true") await cmd.cmdPay(message, message.author.id, cmd.cost);
       }
       const userPermLevel = this.client.config.permLevels.find(perm => perm.level === message.author.permLevel);
       this.client.console.log(`\u001b[43;30m[${userPermLevel.name}]\u001b[49;39m \u001b[44m${message.author.username} (${message.author.id})\u001b[49m ran command ${cmd.name}`);
-      await cmd.run(message, args, message.author.permLevel, loadingMessage);
+      await cmd.run(message, args, message.author.permLevel, replyMessage);
     } catch (error) {
       this.client.emit("commandError", error, message);
     }

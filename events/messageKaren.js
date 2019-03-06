@@ -57,16 +57,16 @@ module.exports = class extends Event {
         this.client.console.log(`\u001b[43;30m[${userPermLevel.name}]\u001b[49;39m \u001b[44m${message.author.username} (${message.author.id})\u001b[49m got ratelimited while running command ${cmd.name}`);
         return message.channel.send(`Please wait ${rateLimit.toPlural()} to run this command.`); // return stop command from executing
       }
-      if (!(cmd instanceof Music)) {
-        const loadingMessage = await message.channel.send(`<a:loading:542815160650432532> ${message.client.responses.waitTsukihiMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
-        const filter = m => (m.author.id === "475554834892980230" && m.content.startsWith("<a:loading:542815160650432532>"));
-        const collected = await message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ["time"]});
-        setTimeout( async () => {
-          if (collected.size === 1) {
-            await loadingMessage.edit(message.client.responses.commandSuccessMessages.random().replaceAll("{{user}}", message.member.displayName));
-          }
-        }, 5000);
-      }
+
+      const loadingMessage = await message.channel.send(`<a:loading:542815160650432532> ${message.client.responses.waitTsukihiMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      const filter = m => (m.author.id === "475554834892980230" && m.content.startsWith("<a:loading:542815160650432532>"));
+      const collected = await message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ["time"]});
+      setTimeout( async () => {
+        if (collected.size === 1) {
+          if (cmd instanceof Music) await loadingMessage.delete();
+          else await loadingMessage.edit(message.client.responses.commandSuccessMessages.random().replaceAll("{{user}}", message.member.displayName));
+        }
+      }, 5000);
     } catch (error) {
       this.client.console.error(error);
     }
