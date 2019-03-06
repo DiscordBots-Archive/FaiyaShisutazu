@@ -17,7 +17,7 @@ class Help extends Command {
     });
   }
   
-  async run(message, args, level) {
+  async run(message, args, level, replyMessage) {
     const settings = message.settings;
 
     if (!args[0]) {
@@ -43,9 +43,9 @@ class Help extends Command {
         output += ` ${command.name}`;
       });
 
-      output += `"}],"footer": {"icon_url": "${message.client.user.displayAvatarURL({ format: "png", size: 32 })}", "text": "FaiyaShisutazu"}}`;
+      output += `"}],"footer": {"icon_url": "${message.author.displayAvatarURL({ format: "png", size: 32 })}", "text": "Requested by ${message.author.tag}"}}`;
       
-      await message.channel.send(`Requested by **${message.author.tag}**`, { "embed": JSON.parse(output) });
+      await replyMessage.edit({ "embed": JSON.parse(output) });
     } else {
       let command = args[0];
 
@@ -60,7 +60,7 @@ class Help extends Command {
       embed
         .setTitle(`${command.name}`)
         .setColor(this.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
         .addField("Category", `${command.category}`, true)
         .addField("Usage", `${settings.prefix}${command.usage}`, true)
@@ -68,7 +68,7 @@ class Help extends Command {
         .addField("Aliases", `${command.aliases.join(", ") ? command.aliases.join(", ") : "None!"}`, true)
         .addField("Details", `${command.extended}`);
       
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     }
   }
 }

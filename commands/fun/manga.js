@@ -25,7 +25,7 @@ class Manga extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     function filter(msg) {
       if (msg.author.id !== message.author.id) return false;
       return ["1", "2", "3", "4", "5"].includes(msg.content);
@@ -46,7 +46,7 @@ class Manga extends Command {
       embed
         .setTitle(`${data[index].titles.en_jp} (${data[index].titles.en})`)
         .setColor(this.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setDescription(`**Synopsis:** ${data[index].synopsis}`)
         .addField("Start & end date:", `${data[index].startDate} > ${data[index].endDate || "In progress..."}`, true)
         .addField("Type:", `${data[index].subtype}`, true)
@@ -54,9 +54,9 @@ class Manga extends Command {
         .addField("Link:", `https://kitsu.io/manga/${data[index].id}`)
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}** | Fetched from Kitsu...`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send("I failed to fetch the data from Kitsu. Sorry! Did you reply during the 20 seconds limit or spell the anime name correctly?");
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }  
   }

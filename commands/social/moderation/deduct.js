@@ -16,7 +16,8 @@ class Deduct extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     if (args.length === 0) return message.response(undefined, "BAKA! You need to mention someone to punish them!");
 
     try {

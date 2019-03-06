@@ -18,8 +18,8 @@ class Kitsune extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    if (!message.channel.nsfw) return replyMessage.edit("🔞 You need to be in a NSFW channel to use this command!");
 
     try {
       const { body } = await get("https://nekobot.xyz/api/image?type=lewdkitsune");
@@ -27,13 +27,13 @@ class Kitsune extends Social {
       embed
         .setDescription(body.message)
         .setColor(message.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setImage(body.message)
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

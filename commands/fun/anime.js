@@ -25,7 +25,7 @@ class Anime extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     function filter(msg) {
       if (msg.author.id !== message.author.id) return false;
       return ["1", "2", "3", "4", "5"].includes(msg.content);
@@ -54,9 +54,9 @@ class Anime extends Command {
         .addField("Link:", `https://kitsu.io/anime/${data[index].id}`)
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}** | Fetched from Kitsu...`, embed);
+      await replyMessage.edit(`Requested by **${message.author.tag}**`, embed);
     } catch (error) {
-      await message.channel.send("I failed to fetch the data from Kitsu. Sorry! Did you reply during the 20 seconds limit or spell the anime name correctly?");
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

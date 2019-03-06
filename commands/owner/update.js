@@ -17,7 +17,8 @@ class Update extends Owner {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     const { stdout, stderr, err } = await exec(`git pull ${require(`${process.cwd()}/package.json`).repository.url.split("+")[1]}`, { cwd: path.join(__dirname, "../../") }).catch(err => ({ err }));
     if (err) return console.error(err);
     const out = [];

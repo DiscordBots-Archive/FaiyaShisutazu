@@ -14,7 +14,8 @@ class Reload extends Owner {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     if (!args || args.size < 1) return message.channel.send(`${message.client.responses.reloadMissingArg.random().replaceAll("{{user}}", message.member.displayName)}`);
     
     const commands = message.client.commands.get(args[0]) || message.client.commands.get(message.client.aliases.get(args[0]));

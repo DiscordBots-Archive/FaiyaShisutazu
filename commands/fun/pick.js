@@ -15,14 +15,14 @@ class Pick extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
       const options = args.join(" ");
-      if (options.length < 2) return message.channel.send("Invalid command usage, you must supply text.");
+      if (options.length < 2) return replyMessage.edit("Invalid command usage, you must supply text.");
       const list = options.split(",");
-      if (list.length < 2 || list[1] === "") return message.channel.send("Invalid command usage, you must supply at least two items to pick from.");
+      if (list.length < 2 || list[1] === "") return replyMessage.edit("Invalid command usage, you must supply at least two items to pick from.");
       
-      setTimeout( async () => await message.channel.send(`Requested by **${message.author.tag}** | I have decided upon **${list[Math.floor(Math.random()*list.length)].trim()}**!`),
+      setTimeout( async () => await replyMessage.edit(`Requested by **${message.author.tag}** | I have decided upon **${list[Math.floor(Math.random()*list.length)].trim()}**!`),
         Math.random() * (1 - 5) + 1 * 5000
       );
     } catch (error) {

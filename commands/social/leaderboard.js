@@ -16,7 +16,7 @@ class Leaderboard extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
       const top3 = [];
       const leaderboard = [];
@@ -50,16 +50,16 @@ class Leaderboard extends Social {
       embed
         .setDescription(`**Position 1 to 10:**\`\`\`${leaderboard.join("\n")}\`\`\``)
         .setColor(message.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp()
         .addField(`${message.author.tag}'s current position: #${authorPosition} with 🍩  ${message.client.points.get(`${message.guild.id}-${message.author.id}`).points.toLocaleString()}`, "\u200b")
         .addField(`🥇 ${top3[0]}`, `🍩  ${top3[1]}`, true)
         .addField(`🥈 ${top3[2]}`, `🍩  ${top3[3]}`, true)
         .addField(`🥉 ${top3[4]}`, `🍩  ${top3[5]}`, true);  
 
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

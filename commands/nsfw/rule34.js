@@ -25,27 +25,27 @@ class Rule34 extends Social {
     if (rating === "u") return "Unrated";
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    if (!message.channel.nsfw) return replyMessage.edit("🔞 You need to be in a NSFW channel to use this command!");
 
     try {
       const tags = args.join("_");
       const { body } = await get(`https://rule34.xxx?page=dapi&s=post&q=index&limit=100&tags=${encodeURI(`${tags}+rating:explicit`)}&json=1`);
       const result = JSON.parse(body).random();
-      if (!result) return message.channel.send(`I could not find results for \`${tags}\` **${message.member.displayName}-san**.`);
+      if (!result) return replyMessage.edit(`I could not find results for \`${tags}\`.`);
       const embed = new MessageEmbed();
       embed
         .setDescription(`https://rule34.xxx/index.php?page=post&s=view&id=${result.id}`)
         .setColor(message.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setImage(`https://rule34.xxx/images/${result.directory}/${result.image}`)
         .setTimestamp()
         .addField("Score", `${result.score}`, true)
         .addField("Rating", `${this.getRating(result.rating)}`, true);
 
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

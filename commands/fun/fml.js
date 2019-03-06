@@ -19,7 +19,7 @@ class FML extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars 
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars 
     try {
       const { text } = await request.get("http://www.fmylife.com/random");
       const root = HTMLParser.parse(text);
@@ -31,18 +31,18 @@ class FML extends Social {
       }
 
       const embed = new MessageEmbed()
-        .setTitle("A FML story")
+        .setTitle("A FML story | Powered by FML")
         .setDescription(`_${article.childNodes[0].text}\n\n_`)
         .setColor(message.client.config.colors.random())
         .setThumbnail("http://i.imgur.com/5cMj0fw.png")
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .addField("😭", updoot.childNodes[0].text, true)
         .addField("🤨", downdoot.childNodes[0].text, true)
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}** | Powered by FML`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

@@ -16,7 +16,8 @@ class Eval extends Owner {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     const { client } = message;
     const { clean } = this;
     const code = args.join(" ");

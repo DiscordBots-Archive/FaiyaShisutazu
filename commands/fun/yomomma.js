@@ -15,7 +15,7 @@ class Yomomma extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
       let target;
       if (message.mentions.users.first())
@@ -23,9 +23,9 @@ class Yomomma extends Social {
 
       const { text } = await get("http://api.yomomma.info/");
 
-      await message.channel.send(`_${JSON.parse(text).joke} @${target.tag}_`);
+      await replyMessage.edit(`_${JSON.parse(text).joke} @${target.tag}_`);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

@@ -25,25 +25,25 @@ class Yandere extends Social {
     if (rating === "u") return "Unrated";
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
-    if (!message.channel.nsfw) return message.response("🔞", "You need to be in a NSFW channel to use this command!");
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    if (!message.channel.nsfw) return replyMessage.edit("🔞 You need to be in a NSFW channel to use this command!");
 
     try {
       const tags = args.join("_");
       const { body } = await get(`http://yande.re/post.json?limit=100&tags=${tags}`);
       const result = body.random();
-      if (!result) return message.channel.send(`I could not find results for \`${tags}\` **${message.member.displayName}-san**.`);
+      if (!result) return replyMessage.edit(`I could not find results for \`${tags}\`.`);
       const embed = new MessageEmbed();
       embed
         .setDescription(`http://yande.re/post/show/${result.id}`)
         .setColor(message.client.config.colors.random())
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setImage(result.file_url)
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }

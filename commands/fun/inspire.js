@@ -18,7 +18,7 @@ class Inspire extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {  
       const xmas = message.flags[0] === "xmas" ? "&season=xmas" : "";
       const { text } = await snek.get(`http://inspirobot.me/api?generate=true${xmas}`);
@@ -27,12 +27,12 @@ class Inspire extends Social {
         .setDescription(text)
         .setColor(this.client.config.colors.random())
         .setImage(text)
-        .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
         .setTimestamp();
 
-      await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+      await replyMessage.edit(embed);
     } catch (error) {
-      await message.channel.send(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${this.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       this.client.console.error(error);
     }
   }

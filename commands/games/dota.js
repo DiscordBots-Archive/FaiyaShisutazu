@@ -21,24 +21,24 @@ class Dota extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
       const suffix = args[0];
       const input = args[1];
       if (suffix == "stats")
-        await this.stats(message, input);
+        await this.stats(message, input, replyMessage);
     } catch (error) {
       await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }
 
-  async stats(message, input) {
+  async stats(message, input, replyMessage) {
     try {
       const customURL = input;
       steamID64.convertVanity(customURL, function(err, res) {
         if (err) {
-          return message.channel.send("I'm only supporting Steam's customURL as input!");
+          return replyMessage.edit("I'm only supporting Steam's customURL as input!");
         } else {
 
           const playerID = new steamID3(res)
@@ -69,7 +69,7 @@ class Dota extends Social {
           request(apiBase, function(err, res) {
             if (err) {
               output.status = "Error";
-              return message.channel.send("Error with initial request! This might be a problem with OpenDota API!");
+              return replyMessage.edit("Error with initial request! This might be a problem with OpenDota API!");
             } else {
               const data = JSON.parse(res.body);
               if (data.error) {
@@ -87,11 +87,11 @@ class Dota extends Social {
                 request(apiBase + "/wl", function(err, res) {
                   if (err) {
                     output.status = "Error";
-                    return message.channel.send("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    return replyMessage.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   const data = JSON.parse(res.body);
                   if (data.lose === null || data.win === null) {
-                    return message.channel.send("Error with wins/losses request! This might be a problem with OpenDota API!");
+                    return replyMessage.edit("Error with wins/losses request! This might be a problem with OpenDota API!");
                   }
                   output.winLoss.losses = data.lose;
                   output.winLoss.wins = data.win;
@@ -100,9 +100,9 @@ class Dota extends Social {
 
                   const embed = new MessageEmbed();
                   embed
-                    .setTitle(`${output.name}'s Dota 2 Stats`)
+                    .setTitle(`${output.name}'s Dota 2 Stats | Powered by OpenDota API`)
                     .setColor(this.config.colors.random())
-                    .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+                    .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
                     .setThumbnail(`${output.profileImage}`)
                     .addField("Account Status", `\`${output.status}\``, true)
                     .addField("Estimated MMR", `\`${output.estMMR}\``, true)
@@ -113,7 +113,7 @@ class Dota extends Social {
                     .addField("Details", `${output.profileURL}`)
                     .setTimestamp();
                   
-                  return message.channel.send(`Requested by **${message.author.tag}** | Powered by OpenDota API`, embed);
+                  return replyMessage.edit(embed);
                 });
               }
             }

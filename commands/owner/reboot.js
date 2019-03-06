@@ -16,7 +16,8 @@ class Reboot extends Owner {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     try {
       const msg = await message.channel.send(`${message.client.responses.rebootMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       await write(`${process.cwd()}/assets/json/reboot.json`, `{ "id": "${msg.id}", "channel": "${message.channel.id}", "user": "${message.author.id}"}`).catch(console.error);

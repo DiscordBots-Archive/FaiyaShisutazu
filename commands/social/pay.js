@@ -17,8 +17,9 @@ class Pay extends Social {
       permLevel: "User"
     });
   }
-
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     if (args.length === 0) return message.response(undefined, "B-baka, you need to mention someone to b-be able to pay them.");
     try {
       const [bot, user] = await this.verifySocialUser(message, args[0]);

@@ -14,7 +14,8 @@ class Purge extends Owner {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
     if (args[0].isNumber() == true && args[1] == null) {
       if (args[0] < 2 || args[0] > 100) return message.channel.send("Unable to purge messages, invalid integer for purge amount. Value must be between 2 and 100 messages.").then((msg) => msg.delete(5000));
       const todelete = await message.channel.messages.fetch({limit: args[0]});

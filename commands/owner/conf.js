@@ -14,8 +14,9 @@ class Conf extends Owner {
     });
   }
 
-  async run(message, [action, key, ...value], level) { // eslint-disable-line no-unused-vars
-
+  async run(message, [action, key, ...value], level, replyMessage) { // eslint-disable-line no-unused-vars
+    await replyMessage.delete();
+    
     const defaults = message.client.settings.get("default");
 
     if (action === "add") {

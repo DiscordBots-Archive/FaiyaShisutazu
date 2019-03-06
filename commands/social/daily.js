@@ -15,8 +15,9 @@ class Daily extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
+      await replyMessage.delete();
       await this.usrDay(message);
     } catch (error) {
       message.client.console.error(error);

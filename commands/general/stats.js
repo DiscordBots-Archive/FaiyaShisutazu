@@ -20,7 +20,7 @@ class Stats extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     const duration = moment.duration(message.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
     const response = await message.channel.send(`${message.content.includes("ping") ? "**Pong!**" : `**${message.client.user.tag}'s Status**`}`);
     
@@ -28,7 +28,7 @@ class Stats extends Command {
     embed
       .setTitle(`API ping: ${Math.round(message.client.ws.ping)}ms | Client ping: ${response.createdTimestamp - message.createdTimestamp}ms`)
       .setColor(message.client.config.colors.random())
-      .setFooter("FaiyaShisutazu", message.client.user.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setTimestamp()
       .addField("NodeJS version", `${process.version}`, true)
       .addField("Discord.js", `v${version}`, true)
@@ -39,7 +39,7 @@ class Stats extends Command {
       .addField("Bot's host system infomation", `${os.platform} ${os.release()}, ${os.cpus().length} cores @ ${os.cpus()[0].speed}MHz, ${Math.floor(os.totalmem / 1024 / 1024)}MB RAM`);
 
     await response.delete();
-    await message.channel.send(`Requested by **${message.author.tag}**`, embed);
+    await replyMessage.edit(embed);
   }
 }
 

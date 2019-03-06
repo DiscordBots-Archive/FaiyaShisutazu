@@ -18,7 +18,7 @@ class Coin extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
     try {
       const heads = await fsn.readFile("./assets/images/heads.png");
       const tails = await fsn.readFile("./assets/images/tails.png");
@@ -27,9 +27,10 @@ class Coin extends Social {
       if (number !== 1) result = tails;
       const attachment = new MessageAttachment(result, "coin.png");
 
+      await replyMessage.delete();
       await message.channel.send(`Requested by **${message.author.tag}**`, {files: [attachment]});
     } catch (error) {
-      await message.channel.send(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
       message.client.console.error(error);
     }
   }
