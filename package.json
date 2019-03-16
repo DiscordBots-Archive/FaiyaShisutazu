@@ -28,13 +28,13 @@
     "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
     "chalk": "^2.4.2",
     "discord.js": "github:discordjs/discord.js",
-    "enmap": "^4.7.1",
+    "enmap": "^4.8.1",
     "erlpack": "discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
-    "fs-nextra": "^0.4.3",
+    "fs-nextra": "^0.4.5",
     "idiotic-api": "^0.2.11",
     "inquirer": "^6.2.2",
-    "kitsu": "^6.5.1",
+    "kitsu": "^7.0.0",
     "klaw": "^3.0.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.2.2",
@@ -54,6 +54,6 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^5.13.0"
+    "eslint": "^5.15.2"
   }
 }
