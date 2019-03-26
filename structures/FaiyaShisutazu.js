@@ -1,16 +1,18 @@
-const { Client } = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const CommandStore = require("./CommandStore.js");
 const EventStore = require("./EventStore.js");
 const BotConsole = require("./BotConsole.js");
+const idioticAPI = require("idiotic-api");
 const Enmap = require("enmap");
 
-class Karen extends Client {
+class FaiyaShisutazu extends Client {
   constructor(options) {
     super(options);
     this.config = require("../config.js");
     this.console = new BotConsole(this);
-    this.responses = require("../assets/responses/karen.js");
-
+    this.responses = require("../assets/responses.js");
+    this.idiotAPI = new idioticAPI.Client(`${this.config.idiotAPI}`, { dev: true });
+    
     this.commands = new CommandStore(this);
     this.events = new EventStore(this);
 
@@ -19,29 +21,20 @@ class Karen extends Client {
       util: require("../util/Util.js"),
       errors: require("../util/CustomError.js")
     };
+  
+    this.settings = new Enmap({ name: "settings" });
+    this.reminders = new Enmap({ name: "reminders" });
+    this.points = new Enmap({ name: "points" });
+    this.store = new Enmap({ name: "shop" });
 
-    this.settings = new Enmap({ name: "settingsKaren" });
-
-    this.ready = false;
-    this.on("ready", this._ready.bind(this));
-    this.on("message", message => this._message(message));
-  }
-
-  _ready() {
-    this.ready = true;
-    this.emit("readyKaren");
-  }
-
-  _message(message) {
-    this.message = true;
-    this.emit("messageKaren", message);
+    this.playlists = new Collection();
   }
 
   async login(token) {
     await this.init();
     return super.login(token);
   }
-    
+
   get ping() {    
     return this.pings.reduce((prev, p) => prev + p, 0) / this.pings.length;    
   }
@@ -104,7 +97,7 @@ class Karen extends Client {
     
   async init() {
     const [commands, events] = await Promise.all([this.commands.loadFiles(), this.events.loadFiles()]);
-    this.console.log(`Karen loaded a total of ${commands} commands & ${events} events.`);
+    this.console.log(`FaiyaShisutazu loaded a total of ${commands} commands & ${events} events.`);
     
     for (let i = 0; i < this.config.permLevels.length; i++) {
       const thisLevel = this.config.permLevels[i];
@@ -113,4 +106,4 @@ class Karen extends Client {
   }
 }
 
-module.exports = Karen;
+module.exports = FaiyaShisutazu;
