@@ -57,17 +57,17 @@ module.exports = class extends Event {
       } 
 
       if (!cmd) 
-        await message.channel.send(`❎ ${message.client.responses.commandErrorMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{prefix}}", message.settings.prefix)}`);
+        await message.channel.send(`${message.client.responses.commandErrorMessages.random().replaceAll("{{user}}", message.member.displayName).replaceAll("{{prefix}}", message.settings.prefix)}`);
 
       if (level < this.client.levelCache[cmd.permLevel]) {
         if (message.settings.systemNotice !== "true") return;
-        return message.channel.send("**Karen:** B-Baka! Your level so low, why should we listen to you?");
+        return message.channel.send("<:karen:559907412425834497> B-Baka! Your level so low, why should we listen to you?");
       }
       
       const rateLimit = this.ratelimit(message, cmd);
       if (typeof rateLimit === "string") {
         this.client.console.log(`\u001b[43;30m[${userPermLevel.name}]\u001b[49;39m \u001b[44m${message.author.username} (${message.author.id})\u001b[49m got ratelimited while running command ${cmd.name}`);
-        return message.channel.send(`**Karen:** Please wait ${rateLimit.toPlural()} to run this command.`); // return stop command from executing
+        return message.channel.send(`<:karen:559907412425834497> Please wait ${rateLimit.toPlural()} to run this command.`); // return stop command from executing
       }
 
       while (args[0] && args[0][0] === "-") message.flags.push(args.shift().slice(1));
@@ -81,7 +81,7 @@ module.exports = class extends Event {
   botPerms(message, cmd) {
     const missing = message.channel.type === "text" ? message.channel.permissionsFor(this.client.user).missing(cmd.botPerms) : this.impliedPermissions.missing(cmd.botPerms);
     if (missing.length > 0) {
-      message.channel.send(`**Karen:** We do not have the following permissions \`${missing.map(key => this.friendlyPerms[key]).join(", ")}\``);
+      message.channel.send(`<:karen:559907412425834497> We do not have the following permissions \`${missing.map(key => this.friendlyPerms[key]).join(", ")}\``);
       return false;
     }
     return true;
@@ -107,8 +107,8 @@ module.exports = class extends Event {
       const hasPerm = this.botPerms(message, cmd);
       if (!hasPerm) return;
       let replyMessage;
-      if (cmd.loadingMessage) replyMessage = await message.channel.send(`**Tsukihi:** <a:loading:542815160650432532> ${cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName)}`);
-      else replyMessage = await message.channel.send(`**Tsukihi:** <a:loading:542815160650432532> ${message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      if (cmd.loadingMessage) replyMessage = await message.channel.send(cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName));
+      else replyMessage = await message.channel.send(message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName));
       if (cmd instanceof Social) {
         await cmd.cmdVerify(message, args);
         if (message.settings.socialSystem === "true") await cmd.cmdPay(message, message.author.id, cmd.cost);

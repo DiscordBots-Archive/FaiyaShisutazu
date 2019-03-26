@@ -54,6 +54,6 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^5.15.2"
+    "eslint": "^5.15.3"
   }
 }
