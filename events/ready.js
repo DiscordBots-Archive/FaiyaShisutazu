@@ -13,11 +13,13 @@ module.exports = class extends Event {
     let count = 0;
 
     setInterval(() => {
-      if (count++ === 0)
+      if (count === 0) {
         this.client.user.setActivity(activities[count].replaceAll("{{users}}", this.client.users.size));
-      else if (count++ === 1)
+        count++;
+      } else if (count === 1) {
         this.client.user.setActivity(activities[count].replaceAll("{{servers}}", this.client.guilds.size), { type: "WATCHING" });
-      else {
+        count++;
+      } else {
         this.client.user.setActivity(activities[count].replaceAll("{{ping}}", this.client.user.username), { type: "LISTENING" });
         count = 0;
       }
