@@ -106,9 +106,7 @@ module.exports = class extends Event {
     try {
       const hasPerm = this.botPerms(message, cmd);
       if (!hasPerm) return;
-      let replyMessage;
-      if (cmd.loadingMessage) replyMessage = await message.channel.send(cmd.loadingMessage.random().replaceAll("{{user}}", message.member.displayName));
-      else replyMessage = await message.channel.send(message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName));
+      const replyMessage = await message.channel.send(message.client.responses.loadingMessages.random().replaceAll("{{user}}", message.member.displayName));
       if (cmd instanceof Social) {
         await cmd.cmdVerify(message, args);
         if (message.settings.socialSystem === "true") await cmd.cmdPay(message, message.author.id, cmd.cost);

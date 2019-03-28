@@ -37,7 +37,7 @@ exports.dailySuccessMessages = [
   "<:tsukihi:559908175906734097> N-nani? {{amount}} just got {{amount}}. What will **{{user}}-san** do with {{amount}} anyway?",
   "<:karen:559907412425834497> I don't think **{{user}}-san** deserves it but here, {{amount}}.",
   "<:tsukihi:559908175906734097> I think I might regret it later that I have to give **{{user}}-san** {{amount}} now...",
-  "<:tsukihi:559908175906734097> Take these {{amount}} before I get platinum mad and give them all to Shinobu-chan **{{user}}-san**!",
+  "<:tsukihi:559908175906734097> Take these {{amount}} before I get platinum mad and eat them all *{{user}}-san**!",
   "<:tsukihi:559908175906734097> Isn't {{amount}} a lot for a baka like **{{user}}-san**, **Karen-chan**?"
 ];
 
