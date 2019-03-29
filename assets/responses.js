@@ -34,7 +34,7 @@ exports.dailySuccessMessages = [
   "<:tsukihi:559908175906734097> **{{user}}-san** got {{amount}} for today. Not like I like **{{user}}-san** or anything, I would rather deduct {{amount}}...",
   "<:karen:559907412425834497> {{amount}} are all yours **{{user}}-san**!",
   "<:tsukihi:559908175906734097> **{{user}}-san** got {{amount}}? Y-you know, getting me a new hairclip would make me platinum happy **{{user}}-san**...",
-  "<:tsukihi:559908175906734097> N-nani? {{amount}} just got {{amount}}. What will **{{user}}-san** do with {{amount}} anyway?",
+  "<:tsukihi:559908175906734097> N-nani? *{{user}}-san** just got {{amount}}. What will **{{user}}-san** do with {{amount}} anyway?",
   "<:karen:559907412425834497> I don't think **{{user}}-san** deserves it but here, {{amount}}.",
   "<:tsukihi:559908175906734097> I think I might regret it later that I have to give **{{user}}-san** {{amount}} now...",
   "<:tsukihi:559908175906734097> Take these {{amount}} before I get platinum mad and eat them all *{{user}}-san**!",
