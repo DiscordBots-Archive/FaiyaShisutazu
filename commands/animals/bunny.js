@@ -1,6 +1,6 @@
 const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
-const { get } = require("snekfetch");
+const fetch = require("node-fetch");
 
 class Bunny extends Social {
 
@@ -14,22 +14,31 @@ class Bunny extends Social {
       cost: 5,
       cooldown: 5,
       aliases: ["bunbun"],
-      botPerms: ["EMBED_LINKS"]
+      botPerms: ["EMBED_LINKS"],
+      replyMessage: [
+        "<:karen:559907412425834497> A bunny for you **{{user}}-san**!",
+        "<:tsukihi:559908175906734097> A random bunny for **{{user}}-san**!"
+      ]
     });
   }
 
   async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
-    const { body } = await get("https://api.bunnies.io/v2/loop/random/?media=gif,png");
-    
-    const embed = new MessageEmbed();
-    embed
-      .setDescription(body.media.gif)
-      .setColor(message.client.config.colors.random())
-      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
-      .setImage(body.media.gif)
-      .setTimestamp();
+    try {
+      const body = await fetch("https://api.bunnies.io/v2/loop/random/?media=gif,png")
+        .then(res => res.json());
 
-    await replyMessage.edit(embed);
+      const embed = new MessageEmbed()
+        .setDescription(body.media.gif)
+        .setColor(message.client.config.colors.random())
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setImage(body.media.gif)
+        .setTimestamp();
+
+      await replyMessage.edit(this.replyMessage.random().replaceAll("{{user}}", message.member.displayName),embed);
+    } catch (error) {
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
+    }
   }
 }
 

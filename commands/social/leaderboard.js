@@ -30,10 +30,10 @@ class Leaderboard extends Social {
         .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }));
 
       for (const data of top10) {
-        if (top10.indexOf(data) === 0) embed.addField(`🥇 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points} points`);
-        else if (top10.indexOf(data) === 1) embed.addField(`🥈 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points} points`);
-        else if (top10.indexOf(data) === 2) embed.addField(`🥉 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points} points`);
-        else embed.addField(`🏅 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points} points`);
+        if (top10.indexOf(data) === 0) embed.addField(`🥇 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points}`);
+        else if (top10.indexOf(data) === 1) embed.addField(`🥈 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points}`);
+        else if (top10.indexOf(data) === 2) embed.addField(`🥉 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points}`);
+        else embed.addField(`🏅 ${message.client.users.get(data.user).tag}`, `🍩 ${data.points}`);
       }
 
       await replyMessage.edit(embed);

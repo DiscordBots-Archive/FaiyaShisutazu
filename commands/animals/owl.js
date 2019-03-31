@@ -1,6 +1,6 @@
 const Social = require("../../structures/Social.js");
 const { MessageEmbed } = require("discord.js");
-const { get } = require("snekfetch");
+const fetch = require("node-fetch");
 
 class Owl extends Social {
 
@@ -14,22 +14,31 @@ class Owl extends Social {
       cost: 5,
       cooldown: 5,
       aliases: [],
-      botPerms: ["EMBED_LINKS"]
+      botPerms: ["EMBED_LINKS"],
+      replyMessage: [
+        "<:tsukihi:559908175906734097> I got you a owl **{{user}}-san**!",
+        "<:karen:559907412425834497> A random owl for **{{user}}-san**!"
+      ]
     });
   }
 
   async run(message, args, level, replyMessage) { // eslint-disable-line no-unused-vars
-    const owl = await get("http://pics.floofybot.moe/owl").then(r => r.body.image); // API Provided by Lewdcario
+    try {
+      const body = await fetch("http://pics.floofybot.moe/owl") // API Provided by Lewdcario
+        .then(res => res.json());
+    
+      const embed = new MessageEmbed()
+        .setDescription(body.image)
+        .setColor(message.client.config.colors.random())
+        .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+        .setImage(body.image)
+        .setTimestamp();
 
-    const embed = new MessageEmbed();
-    embed
-      .setDescription(owl)
-      .setColor(message.client.config.colors.random())
-      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
-      .setImage(owl)
-      .setTimestamp();
-
-    await replyMessage.edit(embed);
+      await replyMessage.edit(this.replyMessage.random().replaceAll("{{user}}", message.member.displayName),embed);
+    } catch (error) {
+      await replyMessage.edit(`${message.client.responses.errorMessages.random().replaceAll("{{user}}", message.member.displayName)}`);
+      message.client.console.error(error);
+    }
   }
 }
 
