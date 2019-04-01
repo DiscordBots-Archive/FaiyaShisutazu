@@ -1,0 +1,27 @@
+{
+  "name": "faiyashisutazu",
+  "version": "1.0.0",
+  "description": "A Monogatari-themed Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint .",
+    "lint": "eslint --fix .",
+    "start": "node index.js",
+    "prepare": "node setup/Setup.js"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": "git+https://github.com/schwei23/FaiyaShisutazu.git",
+  "author": "Junwei Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schwei23/FaiyaShisutazu/issues"
+  },
+  "homepage": "https://github.com/schwei23/FaiyaShisutazu",
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^3.8.0"
+  }
+}
