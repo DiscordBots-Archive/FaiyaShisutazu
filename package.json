@@ -6,8 +6,7 @@
   "scripts": {
     "test": "eslint .",
     "lint": "eslint --fix .",
-    "start": "node index.js",
-    "prepare": "node setup/Setup.js"
+    "start": "node index.js"
   },
   "engines": {
     "node": ">=8"
@@ -19,6 +18,21 @@
     "url": "https://github.com/schwei23/FaiyaShisutazu/issues"
   },
   "homepage": "https://github.com/schwei23/FaiyaShisutazu",
+  "dependencies": {
+    "@discordjs/uws": "^11.149.1",
+    "discord.js": "github:discordjs/discord.js",
+    "discord.js-commando": "discordjs/Commando",
+    "dotenv": "^7.0.0",
+    "erlpack": "discordapp/erlpack",
+    "idiotic-api": "^0.2.11",
+    "moment": "^2.24.0",
+    "moment-duration-format": "^2.2.2",
+    "node-fetch": "^2.3.0",
+    "node-opus": "^0.3.1",
+    "sodium": "^3.0.2",
+    "winston": "^3.2.1",
+    "zlib-sync": "^0.1.4"
+  },
   "devDependencies": {
     "eslint": "^5.15.3",
     "eslint-plugin-node": "^8.0.0",
