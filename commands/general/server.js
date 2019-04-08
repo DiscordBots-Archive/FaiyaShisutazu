@@ -16,15 +16,15 @@ const verificationLevels = {
     Must have a verified phone on their Discord account`
 };
 
-class ServerInfo extends Command {
+module.exports = class ServerInfo extends Command {
 	constructor(client) {
 		super(client, {
       name: 'server',
       memberName: 'server',
 			aliases: ['server-info'],
 			group: 'general',
-			description: 'Returns info about this server',
-			details: 'Returns detailed information about the server.',
+      description: 'Fetchs info about this server',
+      examples: ['server'],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
@@ -59,5 +59,3 @@ class ServerInfo extends Command {
     await message.channel.send(embed);
 	}
 };
-
-module.exports = ServerInfo;

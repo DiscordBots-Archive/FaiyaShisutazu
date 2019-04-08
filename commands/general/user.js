@@ -3,15 +3,15 @@ const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require('common-tags');
 const moment = require('moment');
 
-class UserInfo extends Command {
+module.exports = class UserInfo extends Command {
 	constructor(client) {
 		super(client, {
       name: 'user',
       memberName: 'user',
 			aliases: ['user-info'],
 			group: 'general',
-			description: 'Returns info about a user',
-			details: 'Returns detailed information about a user.',
+			description: 'Fetchs info about a user',
+			examples: ['user', 'user @mention'],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
@@ -20,7 +20,7 @@ class UserInfo extends Command {
       args: [
 				{
 					key: 'member',
-					prompt: 'Who would you want to have information on?\n',
+					prompt: 'Who do you like to have information on?\n',
 					type: 'member',
 					default: ''
 				}
@@ -38,7 +38,8 @@ class UserInfo extends Command {
       .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
       .setTimestamp()
       .addField('Member\'s details', stripIndents`
-        ${member.nickname !== null ? ` • Nickname: ${member.nickname}` : '• No nickname'}
+				${member.nickname !== null ? ` • Nickname: ${member.nickname}` : '• No nickname'}
+				• Discord tag: ${member.user.tag}
         • Highest role: ${member.roles.highest}
         • Joined at: ${moment.utc(member.joinedAt).format('dddd, MMMM Do YYYY, HH:mm:ss ZZ')}
       `)
@@ -51,5 +52,3 @@ class UserInfo extends Command {
     await message.channel.send(embed);
 	}
 };
-
-module.exports = UserInfo;
