@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const moment = require('moment');
 
@@ -17,28 +17,28 @@ const verificationLevels = {
 };
 
 module.exports = class ServerInfo extends Command {
-	constructor(client) {
-		super(client, {
+  constructor (client) {
+    super(client, {
       name: 'server',
       memberName: 'server',
-			aliases: ['server-info'],
-			group: 'general',
+      aliases: ['server-info'],
+      group: 'general',
       description: 'Fetchs info about this server',
       examples: ['server'],
-			guildOnly: true,
-			throttling: {
-				usages: 2,
-				duration: 5
-			}
-		});
-	}
+      guildOnly: true,
+      throttling: {
+        usages: 2,
+        duration: 5
+      }
+    });
+  }
 
-	async run(message) {
+  async run (message) {
     const embed = new MessageEmbed()
       .setColor(this.client.colors.random())
       .setThumbnail(message.guild.iconURL)
       .setDescription(`Information on **${message.guild.name}** (ID: ${message.guild.id})`)
-      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: "png", size: 32 }))
+      .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', size: 32 }))
       .setTimestamp()
       .addField('Channels', stripIndents`
         • ${message.guild.channels.filter(ch => ch.type === 'text').size} Text, ${message.guild.channels.filter(ch => ch.type === 'voice').size} Voice
@@ -55,7 +55,7 @@ module.exports = class ServerInfo extends Command {
         • Created at: ${moment.utc(message.guild.createdAt).format('dddd, MMMM Do YYYY, HH:mm:ss ZZ')}
         • Verification Level: ${verificationLevels[message.guild.verificationLevel]}
       `);
-    
+
     await message.channel.send(embed);
-	}
+  }
 };
