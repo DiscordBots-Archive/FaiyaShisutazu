@@ -53,7 +53,8 @@ client.on('error', client.logger.error)
   client.registry
 		.registerDefaultTypes()
 		.registerGroups([
-			['general', 'General']
+			['general', 'General'],
+			['music', 'Music']
 		])
 		.registerDefaultGroups()
 		.registerDefaultCommands({
