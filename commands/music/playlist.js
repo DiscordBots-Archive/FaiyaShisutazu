@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const { oneLine } = require('common-tags');
-const { URL } = require('url');
+const parse = require('url-parse');
 const YoutubeAPI = require('simple-youtube-api');
 const youtube = new YoutubeAPI(process.env.GOOGLE_KEY);
 
@@ -34,13 +34,13 @@ module.exports = class Playlist extends Command {
     if (playlist.search(/(www\.)?youtube\.com\/playlist\?list=/) === -1) {
       const prefix = message.guild ? message.guild.commandPrefix : this.client.commandPrefix;
       return message.channel.send(oneLine`
-          <:tsukihi:559908175906734097> This doesn't look like a YouTube playlist!
-          For individual songs, please try \`${prefix}play\` instead **${message.member.displayName}-san**!
-        `);
+        <:tsukihi:559908175906734097> This doesn't look like a YouTube playlist!
+        For individual songs, please try \`${prefix}play\` instead **${message.member.displayName}-san**!
+      `);
     }
 
     const id = (() => {
-      const parsed = URL(playlist, true);
+      const parsed = parse(playlist, true);
       if (/(www\.)?youtube\.com/.test(parsed.hostname)) {
         return parsed.query.list;
       }

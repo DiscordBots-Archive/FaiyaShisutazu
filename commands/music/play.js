@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
-const { URL } = require('url');
+const parse = require('url-parse');
 const YoutubeAPI = require('simple-youtube-api');
 const youtube = new YoutubeAPI(process.env.GOOGLE_KEY);
 
@@ -45,7 +45,7 @@ module.exports = class Play extends Command {
       }
 
       let id = (() => {
-        const parsed = URL(song, true);
+        const parsed = parse(song, true);
         if (/(www\.)?youtube\.com/.test(parsed.hostname)) {
           return parsed.query.v;
         } else if (/(www\.)?youtu\.be/.test(parsed.hostname)) {
