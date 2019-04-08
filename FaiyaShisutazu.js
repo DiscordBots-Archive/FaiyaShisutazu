@@ -51,12 +51,17 @@ client.on('error', client.logger.error)
 	);
 
   client.registry
-  .registerDefaultTypes()
-  .registerGroups([
-    ['general', 'General']
-  ])
-  .registerDefaultGroups()
-  .registerDefaultCommands()
-  .registerCommandsIn(path.join(__dirname, 'commands'));
+		.registerDefaultTypes()
+		.registerGroups([
+			['general', 'General']
+		])
+		.registerDefaultGroups()
+		.registerDefaultCommands({
+			help: false,
+			ping: false,
+			prefix: false,
+			unknownCommand: false
+		})
+		.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.login(process.env.DISCORD_KEY);
