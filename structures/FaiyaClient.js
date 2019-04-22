@@ -3,7 +3,7 @@ const { Collection, MessageEmbed } = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const { stripIndents, oneLine } = require('common-tags');
 const idioticAPI = require('idiotic-api');
-const ytdl = require('ytdl-core');
+const ytdl = require('ytdl-core-discord');
 
 module.exports = class FaiyaClient extends Client {
   constructor (options) {
@@ -34,20 +34,14 @@ module.exports = class FaiyaClient extends Client {
       else nextSong = currentPlaylist.queue[++currentPlaylist.position];
     }
 
-    const ytdlOptions = {
-      filter: 'audioonly',
-      hightWaterMark: 1 << 25
-    };
-
     const streamOptions = {
+      type: 'opus',
       volume: currentPlaylist.volume,
-      passes: 2,
-      fec: true,
       bitrate: 'auto'
     };
 
     const dispatcher = message.guild.voiceConnection
-      .play(ytdl(nextSong.url, ytdlOptions), streamOptions);
+      .play(await ytdl(nextSong.url), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
@@ -65,9 +59,7 @@ module.exports = class FaiyaClient extends Client {
       await nowPlaying.react('🔂');
       if (!currentPlaylist.loopAll) { await nowPlaying.react('🔁'); }
 
-      const filter = (reaction, user) => {
-        user.id === nextSong.requesterID && (reaction.emoji.name === '🔂' || reaction.emoji.name === '🔁'); // eslint-disable-line no-unused-expressions
-      };
+      const filter = (reaction, user) => user.id === nextSong.requesterID && (reaction.emoji.name === '🔂' || reaction.emoji.name === '🔁');
       const collector = nowPlaying
         .createReactionCollector(filter, { max: 1, time: nextSong.playTimeInSec * 1000, errors: ['time'] });
 

@@ -36,7 +36,7 @@
     "sodium": "^3.0.2",
     "url-parse": "^1.4.4",
     "winston": "^3.2.1",
-    "ytdl-core": "^0.29.1",
+    "ytdl-core-discord": "^1.0.3",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {

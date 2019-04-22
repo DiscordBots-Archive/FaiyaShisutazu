@@ -17,7 +17,14 @@ module.exports = class Play extends Command {
       throttling: {
         usages: 3,
         duration: 10
-      }
+      },
+      args: [
+        {
+          key: 'text',
+          prompt: 'you need to input a YouTube url or some search terms!\n',
+          type: 'string'
+        }
+      ]
     });
   }
 
@@ -31,12 +38,7 @@ module.exports = class Play extends Command {
       `);
       }
 
-      const song = args;
-      if (!song.length) {
-        return message.channel.send(oneLine`
-        <:tsukihi:559908175906734097> B-baka! Input something **${message.member.displayName}-san**!
-      `);
-      }
+      const song = args.text;
       if (song.search(/(www\.)?youtube\.com\/playlist\?list=/) !== -1) {
         return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> It seems like you are trying to give me a YouTube playlist.
