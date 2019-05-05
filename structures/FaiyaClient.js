@@ -3,7 +3,7 @@ const { Collection, MessageEmbed } = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const { stripIndents, oneLine } = require('common-tags');
 const idioticAPI = require('idiotic-api');
-const ytdl = require('ytdl-core-discord');
+const ytdl = require('ytdl-core');
 
 module.exports = class FaiyaClient extends Client {
   constructor (options) {
@@ -34,14 +34,18 @@ module.exports = class FaiyaClient extends Client {
       else nextSong = currentPlaylist.queue[++currentPlaylist.position];
     }
 
+    const ytdlOptions = {
+      filter: 'audioonly',
+      hightWaterMark: 1 << 25
+    };
+
     const streamOptions = {
-      type: 'opus',
       volume: currentPlaylist.volume,
       bitrate: 'auto'
     };
 
     const dispatcher = message.guild.voiceConnection
-      .play(await ytdl(nextSong.url), streamOptions);
+      .play(ytdl(nextSong.url, ytdlOptions), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
