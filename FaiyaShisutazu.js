@@ -54,6 +54,7 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
     ['general', 'General'],
+    ['canvas', 'Canvas'],
     ['music', 'Music']
   ])
   .registerDefaultGroups()
