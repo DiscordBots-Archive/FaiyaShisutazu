@@ -15,22 +15,16 @@ const client = new FaiyaClient({
 client.on('error', client.logger.error)
   .on('warn', client.logger.warn)
   .on('ready', () => {
-    const activities = [
-      'with {{users}} users',
-      'over {{servers}} servers',
-      '@{{ping}} help'
-    ];
     let count = 0;
-
     setInterval(() => {
       if (count === 0) {
-        client.user.setActivity(activities[count].replaceAll('{{users}}', client.users.size));
+        client.user.setActivity(`with ${client.users.size} users`);
         count++;
       } else if (count === 1) {
-        client.user.setActivity(activities[count].replaceAll('{{servers}}', client.guilds.size), { type: 'WATCHING' });
+        client.user.setActivity(`over ${client.guilds.size} servers`, { type: 'WATCHING' });
         count++;
       } else {
-        client.user.setActivity(activities[count].replaceAll('{{ping}}', client.user.username), { type: 'LISTENING' });
+        client.user.setActivity(`@${client.user.username} help`, { type: 'LISTENING' });
         count = 0;
       }
     }, 5000);
