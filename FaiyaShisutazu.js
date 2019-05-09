@@ -33,9 +33,11 @@ client.on('error', client.logger.error)
   })
   .on('disconnect', () => client.logger.warn('[Discord]: Disconnected!'))
   .on('reconnect', () => client.logger.warn('[Discord]: Reconnecting...'))
-  .on('message', async (message) => {
-    if (message.channel.type === 'dm') return;
-    if (message.author.bot) return; // eslint-disable-line no-useless-return
+  .on('unknownCommand', async (message) => {
+    const prefix = message.guild ? message.guild.commandPrefix : this.client.commandPrefix;
+    await message.channel.send(client.responses.unknownCommandMessages.random()
+      .replaceAll('{{user}}', message.member.displayName)
+      .replaceAll('{{prefix}}', prefix));
   })
   .on('commandRun', (command, promise, message, args) =>
     client.logger.info(oneLine`[Discord]: ${message.author.tag} (${message.author.id}) 

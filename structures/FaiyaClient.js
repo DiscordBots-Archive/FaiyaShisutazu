@@ -44,8 +44,7 @@ module.exports = class FaiyaClient extends Client {
       bitrate: 'auto'
     };
 
-    const dispatcher = message.guild.voiceConnection
-      .play(ytdl(nextSong.url, ytdlOptions), streamOptions);
+    const dispatcher = message.guild.voiceConnection.play(ytdl(nextSong.url, ytdlOptions), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
@@ -60,12 +59,12 @@ module.exports = class FaiyaClient extends Client {
 
       const nowPlaying = await message.channel.send(oneLine`▶ Now playing 
         **${nextSong.title.length > 40 ? `${nextSong.title.substring(0, 40)}...` : `${nextSong.title}`}**`, embed);
+      
       await nowPlaying.react('🔂');
-      if (!currentPlaylist.loopAll) { await nowPlaying.react('🔁'); }
+      if (!currentPlaylist.loopAll) await nowPlaying.react('🔁');
 
       const filter = (reaction, user) => user.id === nextSong.requesterID && (reaction.emoji.name === '🔂' || reaction.emoji.name === '🔁');
-      const collector = nowPlaying
-        .createReactionCollector(filter, { max: 1, time: nextSong.playTimeInSec * 1000, errors: ['time'] });
+      const collector = nowPlaying.createReactionCollector(filter, { max: 1, time: nextSong.playTimeInSec * 1000, errors: ['time'] });
 
       collector.on('end', async (collected) => {
         if (collected.first()) {

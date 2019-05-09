@@ -109,37 +109,40 @@ module.exports = class Play extends Command {
       else {
         const results = await youtube.searchVideos(song, 5);
         const choices = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '❎'];
+        if (results.length != 0) {
+          const embed = new MessageEmbed()
+            .setColor(this.client.colors.random())
+            .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', size: 32 }))
+            .setTimestamp();
 
-        const embed = new MessageEmbed()
-          .setColor(this.client.colors.random())
-          .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', size: 32 }))
-          .setTimestamp();
+          results.forEach(i => embed
+            .addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
 
-        results.forEach(i => embed
-          .addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
+          const selectionPrompt = await message.channel.send(`I found these results for **"${song}"**`, embed);
+          for (let i = 0; i < choices.length; i++) { await selectionPrompt.react(choices[i]); }
 
-        const selectionPrompt = await message.channel.send(`I found these results for **"${song}"**`, embed);
-        for (let i = 0; i < choices.length; i++) { await selectionPrompt.react(choices[i]); }
+          const filter = (reaction, user) => user.id === message.author.id && choices.includes(reaction.emoji.name);
+          const collector = selectionPrompt.createReactionCollector(filter, { max: 1, time: 10000, errors: ['time'] });
 
-        const filter = (reaction, user) => user.id === message.author.id && choices.includes(reaction.emoji.name);
-        const collector = selectionPrompt.createReactionCollector(filter, { max: 1, time: 10000, errors: ['time'] });
+          collector.on('end', async (collected) => {
+            await selectionPrompt.delete();
 
-        collector.on('end', async (collected) => {
-          await selectionPrompt.delete();
+            if (collected.first()) {
+              if (collected.first().emoji.name === '❎') {
+                return message.channel.send(this.client.responses.musicCancelMessages.random()
+                    .replaceAll('{{user}}', `${message.member.displayName}`));
+              } else { id = results[choices.indexOf(collected.first().emoji.name)].id; }
+            } else id = results[0].id;
 
-          if (collected.first()) {
-            if (collected.first().emoji.name === '❎') {
-              await message.channel
-                .send(this.client.responses.musicCancelMessages.random()
-                  .replaceAll('{{user}}', `${message.member.displayName}`));
-            } else { id = results[choices.indexOf(collected.first().emoji.name)].id; }
-          } else id = results[0].id;
-
-          await addSong();
-        });
+            await addSong();
+          });
+        } else {
+          await message.channel.send(this.client.responses.musicNotFoundMessages.random()
+            .replaceAll('{{user}}', `${message.member.displayName}`));
+        }
       }
     } catch (error) {
-      console.log(error);
+      this.client.logger.error(error);
     }
   }
 };
