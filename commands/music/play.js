@@ -130,7 +130,7 @@ module.exports = class Play extends Command {
             if (collected.first()) {
               if (collected.first().emoji.name === '❎') {
                 return message.channel.send(this.client.responses.musicCancelMessages.random()
-                    .replaceAll('{{user}}', `${message.member.displayName}`));
+                    .replaceAll('{{user}}', message.member.displayName));
               } else { id = results[choices.indexOf(collected.first().emoji.name)].id; }
             } else id = results[0].id;
 
@@ -138,7 +138,7 @@ module.exports = class Play extends Command {
           });
         } else {
           await message.channel.send(this.client.responses.musicNotFoundMessages.random()
-            .replaceAll('{{user}}', `${message.member.displayName}`));
+            .replaceAll('{{user}}', message.member.displayName));
         }
       }
     } catch (error) {

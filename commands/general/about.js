@@ -17,6 +17,7 @@ module.exports = class About extends Command {
   }
 
   async run (message) {
-    await message.channel.send(this.client.responses.aboutMessages.random().replaceAll('{{prefix}}', `${process.env.PREFIX}`));
+    await message.channel.send(this.client.responses.aboutMessages.random()
+      .replaceAll('{{prefix}}', process.env.PREFIX));
   }
 };
