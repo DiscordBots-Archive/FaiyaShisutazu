@@ -6,7 +6,8 @@
   "scripts": {
     "test": "eslint .",
     "lint": "eslint --fix .",
-    "start": "node index.js"
+    "start": "pm2 start FaiyaShisutazu.js",
+    "stop": "pm2 stop all"
   },
   "engines": {
     "node": ">=8"
