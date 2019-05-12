@@ -20,14 +20,13 @@ module.exports = class Playlist extends Command {
     });
   }
 
-  async run (message, args) { // eslint-disable-line no-unused-vars
+  async run (message, args) {
     const voiceChannel = message.member.voice
       ? message.member.voice.channel : (message.guild.voiceConnection ? message.guild.voiceConnection.channel : null);
-    if (!voiceChannel || !message.member.voice) {
+    if (!voiceChannel || !message.member.voice)
       return message.channel.send(oneLine`
-      <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
-    `);
-    }
+        <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
+      `);
 
     const playlist = args.join(' ');
     if (!playlist.length) return message.channel.send(`B-baka! Input something **${message.member.displayName}-san**!`);
@@ -62,8 +61,8 @@ module.exports = class Playlist extends Command {
     const playlistInfo = await youtube.getPlaylistByID(id)
       .catch(() => {
         return message.channel.send(oneLine`
-            <:tsukihi:559908175906734097> Aa yoisho... Either this playlist is empty or I don't have permission to see it.
-            I can only access public playlist **${message.member.displayName}-san**!
+          <:tsukihi:559908175906734097> Aa yoisho... Either this playlist is empty or I don't have permission to see it.
+          I can only access public playlist **${message.member.displayName}-san**!
         `);
       });
 

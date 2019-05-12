@@ -28,22 +28,22 @@ module.exports = class Play extends Command {
     });
   }
 
-  async run (message, args) { // eslint-disable-line no-unused-vars
+  async run (message, args) {
     try {
       const voiceChannel = message.member.voice
         ? message.member.voice.channel : (message.guild.voiceConnection ? message.guild.voiceConnection.channel : null);
       if (!voiceChannel || !message.member.voice) {
         return message.channel.send(oneLine`
-        <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
-      `);
+          <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
+        `);
       }
 
       const song = args.text;
       if (song.search(/(www\.)?youtube\.com\/playlist\?list=/) !== -1) {
         return message.channel.send(oneLine`
-        <:tsukihi:559908175906734097> It seems like you are trying to give me a YouTube playlist.
-        Please use \`${message.settings.prefix}playlist\` instead **${message.member.displayName}-san**!
-      `);
+          <:tsukihi:559908175906734097> It seems like you are trying to give me a YouTube playlist.
+          Please use \`${message.settings.prefix}playlist\` instead **${message.member.displayName}-san**!
+        `);
       }
 
       let id = (() => {

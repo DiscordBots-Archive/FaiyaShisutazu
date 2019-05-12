@@ -20,13 +20,20 @@ module.exports = class Pause extends Command {
   async run (message) {
     const voiceChannel = message.member.voice
       ? message.member.voice.channel : (message.guild.voiceConnection ? message.guild.voiceConnection.channel : null);
-    if (!voiceChannel || !message.member.voice) {
+    if (!voiceChannel || !message.member.voice)
       return message.channel.send(oneLine`
-      <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
-    `);
-    }
+        <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
+      `);
 
-    if (this.client.playlists.get(message.guild.id).dispatcher.paused) { return message.channel.send(`<:tsukihi:559908175906734097> Playback is already paused ${message.author.tag}-san!`); }
+    if (!this.client.playlists.has(message.guild.id))
+      return message.channel.send(`
+        <:tsukihi:559908175906734097> There is no active playlist on this server  ${message.member.displayName}-san!
+      `);
+  
+    if (this.client.playlists.get(message.guild.id).dispatcher.paused) 
+      return message.channel.send(`
+        <:tsukihi:559908175906734097> Playback is already paused ${message.member.displayName}-san!
+      `);
 
     await message.channel.send('⏸ Pausing music stream...');
     this.client.playlists.get(message.guild.id).dispatcher.pause();

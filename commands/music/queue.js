@@ -18,8 +18,9 @@ module.exports = class Queue extends Command {
     });
   }
 
-  async run (message) { // eslint-disable-line no-unused-vars
-    if (!this.client.playlists.has(message.guild.id)) { return message.channel.send(`<:tsukihi:559908175906734097> The queue is empty ${message.member.displayName}-san.`); }
+  async run (message) {
+    if (!this.client.playlists.has(message.guild.id)) 
+      return message.channel.send(`<:tsukihi:559908175906734097> The queue is empty ${message.member.displayName}-san.`);
 
     let playlist = this.client.playlists.get(message.guild.id);
     playlist = playlist.queue.slice(playlist.position);
