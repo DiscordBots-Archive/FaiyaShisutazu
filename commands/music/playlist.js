@@ -21,11 +21,9 @@ module.exports = class Playlist extends Command {
   }
 
   async run (message, args) {
-    const voiceChannel = message.member.voice
-      ? message.member.voice.channel : (message.guild.voiceConnection ? message.guild.voiceConnection.channel : null);
-    if (!voiceChannel || !message.member.voice)
+    if (!message.member.voice)
       return message.channel.send(oneLine`
-        <:tsukihi:559908175906734097> Please be in a voice channel first ${message.member.displayName}-san!
+        <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
 
     const playlist = args.join(' ');
@@ -56,6 +54,11 @@ module.exports = class Playlist extends Command {
         loopAll: null
       });
       await message.member.voice.channel.join();
+    } else if (message.member.voice.channel !== message.guild.me.voice.channel) {
+      return message.channel.send(oneLine`
+        B-baka! Yamete kudasai **${message.member.displayName}-san**! I'm already serving another channel can't you see? 
+        If you want to add more songs, please connect to the same channel!
+      `);
     }
 
     const playlistInfo = await youtube.getPlaylistByID(id)
