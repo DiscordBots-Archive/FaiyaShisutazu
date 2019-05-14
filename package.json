@@ -36,13 +36,13 @@
     "simple-youtube-api": "^5.1.1",
     "url-parse": "^1.4.4",
     "winston": "^3.2.1",
-    "ytdl-core": "^0.29.1",
+    "ytdl-core-discord": "^1.0.3",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "^5.15.3",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0"
   }

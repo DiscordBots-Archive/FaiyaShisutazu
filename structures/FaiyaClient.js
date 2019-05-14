@@ -3,7 +3,7 @@ const { Collection, MessageEmbed } = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const { stripIndents, oneLine } = require('common-tags');
 const idioticAPI = require('idiotic-api');
-const ytdl = require('ytdl-core');
+const ytdl = require('ytdl-core-discord');
 
 module.exports = class FaiyaClient extends Client {
   constructor (options) {
@@ -34,17 +34,13 @@ module.exports = class FaiyaClient extends Client {
       else nextSong = currentPlaylist.queue[++currentPlaylist.position];
     }
 
-    const ytdlOptions = {
-      filter: 'audioonly',
-      hightWaterMark: 1 << 25
-    };
-
     const streamOptions = {
+      type: 'opus',
       volume: currentPlaylist.volume,
       bitrate: 'auto'
     };
 
-    const dispatcher = message.guild.voiceConnection.play(ytdl(nextSong.url, ytdlOptions), streamOptions);
+    const dispatcher = message.guild.voice.connection.play(await ytdl(nextSong.url), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
@@ -72,12 +68,12 @@ module.exports = class FaiyaClient extends Client {
           if (collected.first().emoji.name === '🔂') {
             nextSong.loopOne = true;
             await message.channel.send(stripIndents`🔂 Looping **${nextSong.title}**...
-              **${message.member.displayName}-san** can end the loop by running\`${prefix}skip\`
+              **${message.member.displayName}-san** can end the loop by running \`${prefix}skip\`
             `);
           } else if (collected.first().emoji.name === '🔁') {
             currentPlaylist.loopAll = true;
             await message.channel.send(stripIndents`🔁 Looping the whole playlist...
-              **${message.member.displayName}-san** can end the loop by running\`${prefix}stop\`
+              **${message.member.displayName}-san** can end the loop by running \`${prefix}stop\`
             `);
           }
         }
@@ -93,7 +89,7 @@ module.exports = class FaiyaClient extends Client {
           await this.playNext(message);
         } else {
           message.client.playlists.delete(message.guild.id);
-          await message.guild.voiceConnection.disconnect();
+          message.guild.voice.connection.disconnect();
           await message.channel.send('End of the queue!');
         }
       }
