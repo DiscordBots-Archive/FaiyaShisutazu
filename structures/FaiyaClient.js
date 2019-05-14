@@ -39,8 +39,8 @@ module.exports = class FaiyaClient extends Client {
       volume: currentPlaylist.volume,
       bitrate: 'auto'
     };
-
-    const dispatcher = message.guild.voice.connection.play(await ytdl(nextSong.url), streamOptions);
+    
+    const dispatcher = message.client.voice.connections.get(message.guild.id).play(await ytdl(nextSong.url), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
@@ -82,14 +82,14 @@ module.exports = class FaiyaClient extends Client {
 
     dispatcher.on('end', async () => {
       if (currentPlaylist.queue.length > 0 && (nextSong.loopOne || currentPlaylist.position + 1 < currentPlaylist.queue.length)) {
-        await this.playNext(message);
+        this.playNext(message);
       } else {
         if (currentPlaylist.loopAll) {
           currentPlaylist.position = 0;
-          await this.playNext(message);
+          this.playNext(message);
         } else {
           message.client.playlists.delete(message.guild.id);
-          message.guild.voice.connection.disconnect();
+          message.client.voice.connections.get(message.guild.id).disconnect();
           await message.channel.send('End of the queue!');
         }
       }
