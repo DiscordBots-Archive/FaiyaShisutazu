@@ -29,10 +29,11 @@ module.exports = class Play extends Command {
   }
 
   async run (message, args) {
-    if (!message.member.voice)
+    if (!message.member.voice) {
       return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
+    }
 
     const song = args.text;
     if (song.search(/(www\.)?youtube\.com\/playlist\?list=/) !== -1) {
@@ -44,10 +45,11 @@ module.exports = class Play extends Command {
 
     let id = (() => {
       const parsed = parse(song, true);
-      if (/(www\.)?youtube\.com/.test(parsed.hostname))
+      if (/(www\.)?youtube\.com/.test(parsed.hostname)) {
         return parsed.query.v;
-      else if (/(www\.)?youtu\.be/.test(parsed.hostname))
+      } else if (/(www\.)?youtu\.be/.test(parsed.hostname)) {
         return parsed.pathname.slice(1);
+      }
     })();
 
     if (!this.client.playlists.has(message.guild.id)) {
@@ -61,9 +63,12 @@ module.exports = class Play extends Command {
         loopAll: null
       });
       await message.member.voice.channel.join();
-    } else if (message.member.voice.channel !== message.guild.me.voice.channel) {
+    } 
+    
+    if (message.member.voice.channel !== message.guild.me.voice.channel) {
       return message.channel.send(oneLine`
-        B-baka! Yamete kudasai **${message.member.displayName}-san**! I'm already serving another channel can't you see? 
+        B-baka! Yamete kudasai **${message.member.displayName}-san**! 
+        I'm already serving another channel can't you see? 
         If you want to add more songs, please connect to the same channel!
       `);
     }
@@ -115,11 +120,12 @@ module.exports = class Play extends Command {
           .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', size: 32 }))
           .setTimestamp();
 
-        results.forEach(i => embed
-          .addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
+        results.forEach(i => embed.addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
 
         const selectionPrompt = await message.channel.send(`I found these results for **"${song}"**`, embed);
-        for (let i = 0; i < choices.length; i++) { await selectionPrompt.react(choices[i]); }
+        for (let i = 0; i < choices.length; i++) {
+          await selectionPrompt.react(choices[i]);
+        }
 
         const filter = (reaction, user) => user.id === message.author.id && choices.includes(reaction.emoji.name);
         const collector = selectionPrompt.createReactionCollector(filter, { max: 1, time: 10000, errors: ['time'] });
@@ -127,12 +133,14 @@ module.exports = class Play extends Command {
         collector.on('end', async (collected) => {
           await selectionPrompt.delete();
 
-          if (collected.first()) {
-            if (collected.first().emoji.name === '❎') {
-              return message.channel.send(this.client.responses.musicCancelMessages.random()
-                  .replaceAll('{{user}}', message.member.displayName));
-            } else { id = results[choices.indexOf(collected.first().emoji.name)].id; }
-          } else id = results[0].id;
+          if (collected.first() && collected.first().emoji.name === '❎') {
+            return message.channel.send(this.client.responses.musicCancelMessages.random()
+              .replaceAll('{{user}}', message.member.displayName));
+          } else if (!collected.first()) {
+            id = results[0].id;
+          } else {
+            id = results[choices.indexOf(collected.first().emoji.name)].id;
+          }
 
           await addSong();
         });

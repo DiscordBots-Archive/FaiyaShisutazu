@@ -19,8 +19,9 @@ module.exports = class Queue extends Command {
   }
 
   async run (message) {
-    if (!this.client.playlists.has(message.guild.id)) 
+    if (!this.client.playlists.has(message.guild.id)) {
       return message.channel.send(`<:tsukihi:559908175906734097> The queue is empty ${message.member.displayName}-san.`);
+    }
 
     let playlist = this.client.playlists.get(message.guild.id);
     playlist = playlist.queue.slice(playlist.position);
@@ -40,8 +41,7 @@ module.exports = class Queue extends Command {
 
     for (let i = 0; i < playlist.length && i < 5; i++) {
       embed.addField(oneLine`
-        ${playlist[i].title.length > 40
-    ? `${playlist[i].title.substring(0, 40)}...` : `${playlist[i].title}`} (${playlist[i].playTime})
+        ${playlist[i].title.length > 40 ? `${playlist[i].title.substring(0, 40)}...` : `${playlist[i].title}`} (${playlist[i].playTime})
       `, `Requested by **${playlist[i].requester}**`);
     }
 

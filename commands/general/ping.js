@@ -21,10 +21,9 @@ module.exports = class Ping extends Command {
 
   async run (message) {
     const ping = await message.reply('Pinging...');
-    return ping.edit(oneLine`
+    await ping.edit(oneLine`
       🏓 Pong! The message round-trip took
-      ${(ping.editedTimestamp || ping.createdTimestamp) -
-        (message.editedTimestamp || message.createdTimestamp)}ms.
+      ${(ping.editedTimestamp || ping.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp)}ms.
       ${this.client.ws.ping ? `The heartbeat ping is ${Math.round(this.client.ws.ping)}ms.` : ''}
     `);
   }

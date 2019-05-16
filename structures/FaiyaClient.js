@@ -28,8 +28,9 @@ module.exports = class FaiyaClient extends Client {
     const currentPosition = currentPlaylist.queue[currentPlaylist.position];
 
     let nextSong;
-    if (currentPlaylist.firstSong) nextSong = currentPlaylist.queue[++currentPlaylist.position];
-    else {
+    if (currentPlaylist.firstSong) {
+      nextSong = currentPlaylist.queue[++currentPlaylist.position];
+    } else {
       if (currentPosition.loopOne) nextSong = currentPosition;
       else nextSong = currentPlaylist.queue[++currentPlaylist.position];
     }
@@ -62,20 +63,18 @@ module.exports = class FaiyaClient extends Client {
       const filter = (reaction, user) => user.id === nextSong.requesterID && (reaction.emoji.name === '🔂' || reaction.emoji.name === '🔁');
       const collector = nowPlaying.createReactionCollector(filter, { max: 1, time: nextSong.playTimeInSec * 1000, errors: ['time'] });
 
-      collector.on('end', async (collected) => {
-        if (collected.first()) {
-          const prefix = message.guild ? message.guild.commandPrefix : message.client.commandPrefix;
-          if (collected.first().emoji.name === '🔂') {
-            nextSong.loopOne = true;
-            await message.channel.send(stripIndents`🔂 Looping **${nextSong.title}**...
-              **${message.member.displayName}-san** can end the loop by running \`${prefix}skip\`
-            `);
-          } else if (collected.first().emoji.name === '🔁') {
-            currentPlaylist.loopAll = true;
-            await message.channel.send(stripIndents`🔁 Looping the whole playlist...
-              **${message.member.displayName}-san** can end the loop by running \`${prefix}stop\`
-            `);
-          }
+      collector.on('end', (collected) => {
+        const prefix = message.guild ? message.guild.commandPrefix : message.client.commandPrefix;
+        if (collected.first() && collected.first().emoji.name === '🔂') {
+          nextSong.loopOne = true;
+          await message.channel.send(stripIndents`🔂 Looping **${nextSong.title}**...
+            **${message.member.displayName}-san** can end the loop by running \`${prefix}skip\`
+          `);
+        } else if (collected.first() && collected.first().emoji.name === '🔁') {
+          currentPlaylist.loopAll = true;
+          await message.channel.send(stripIndents`🔁 Looping the whole playlist...
+            **${message.member.displayName}-san** can end the loop by running \`${prefix}stop\`
+          `);
         }
       });
     }
