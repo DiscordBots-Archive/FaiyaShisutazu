@@ -18,7 +18,7 @@ module.exports = class Volume extends Command {
   }
 
   async run (message, args) { // eslint-disable-line no-unused-vars
-    if (!message.member.voice) {
+    if (!message.member.voice.channel) {
       return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
