@@ -95,14 +95,17 @@ module.exports = class Play extends Command {
                   }
                 } else {
                   id = results[0].id;
-                  await message.channel.send(oneLine`
+                  await message.channel.send(`
                     <:tsukihi:559908175906734097> Why can't you just pick one **${message.member.displayName}-san**?\n
                     <:karen:559907412425834497> Fine I'll pick **${results[0].title}** for you **${message.member.displayName}-san**!
                   `);
                 }
 
                 await this.addSong(message, id);
-                await this.playNext(message);
+                if (this.client.playlists.get(message.guild.id).firstSong) {
+                  await this.playNext(message);
+                  this.client.playlists.get(message.guild.id).firstSong = false;
+                }
               });
             }
           } catch (error) {
