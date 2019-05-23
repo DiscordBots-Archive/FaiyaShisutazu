@@ -50,7 +50,7 @@ module.exports = class Play extends Command {
       await message.member.voice.channel.join();
     } else if (message.member.voice.channel !== message.guild.me.voice.channel) {
       return message.channel.send(oneLine`
-        B-baka! Yamete kudasai **${message.member.displayName}-san**! 
+        <:tsukihi:559908175906734097> B-baka! Yamete kudasai **${message.member.displayName}-san**! 
         I'm already serving another channel can't you see? 
         If you want to add more songs, please connect to the same channel!
       `);
@@ -74,13 +74,13 @@ module.exports = class Play extends Command {
 
               results.forEach(i => embed.addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
 
-              const selectionPrompt = await message.channel.send(`I found these results for **"${url}"**`, embed);
+              const selectionPrompt = await message.channel.send(`<:tsukihi:559908175906734097> I found these results for **"${url}"**`, embed);
               for (let i = 0; i < choices.length; i++) {
                 await selectionPrompt.react(choices[i]);
               }
 
               const filter = (reaction, user) => user.id === message.author.id && choices.includes(reaction.emoji.name);
-              const collector = selectionPrompt.createReactionCollector(filter, { max: 1, time: 10000, errors: ['time'] });
+              const collector = selectionPrompt.createReactionCollector(filter, { max: 1, time: 7500, errors: ['time'] });
 
               collector.on('end', async (collected) => {
                 await selectionPrompt.delete();
@@ -93,7 +93,13 @@ module.exports = class Play extends Command {
                   } else {
                     id = results[choices.indexOf(collected.first().emoji.name)].id;
                   }
-                } else id = results[0].id;
+                } else {
+                  id = results[0].id;
+                  await message.channel.send(oneLine`
+                    <:tsukihi:559908175906734097> Why can't you just pick one **${message.member.displayName}-san**?\n
+                    <:karen:559907412425834497> Fine I'll pick **${results[0].title}** for you **${message.member.displayName}-san**!
+                  `);
+                }
 
                 await this.addSong(message, id);
                 await this.playNext(message);
@@ -176,7 +182,7 @@ module.exports = class Play extends Command {
         } else {
           this.client.playlists.delete(message.guild.id);
           this.client.voice.connections.get(message.guild.id).disconnect();
-          await message.channel.send('End of the queue!');
+          await message.channel.send('<:tsukihi:559908175906734097> End of the queue!');
         }
       }
     });
@@ -236,7 +242,7 @@ module.exports = class Play extends Command {
       this.client.playlists.get(message.guild.id).firstSong = false;
     }
 
-    await message.channel.send(`⏏ Songs in playlist **${playlistInfo.title}** have been added to the queue.`);
+    await message.channel.send(`<:tsukihi:559908175906734097> I added songs in playlist **${playlistInfo.title}** to the queue!`);
   }
 
   async videosHandler (message, url) {
