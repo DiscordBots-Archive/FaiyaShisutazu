@@ -1,10 +1,10 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { stripIndents, oneLine } = require('common-tags');
 
 const YoutubeAPI = require('simple-youtube-api');
 const youtube = new YoutubeAPI(process.env.GOOGLE_KEY);
-const ytdl = require('ytdl-core-discord');
+const ytdl = require('ytdl-core');
 const parse = require('url-parse');
 
 module.exports = class Play extends Command {
@@ -118,13 +118,17 @@ module.exports = class Play extends Command {
       else nextSong = currentPlaylist.queue[++currentPlaylist.position];
     }
 
+    const ytdlOptions = {	
+      filter: 'audioonly',	
+      highWaterMark: 1<<25	
+    };
+
     const streamOptions = {
-      type: 'opus',
       volume: currentPlaylist.volume,
       bitrate: 'auto'
     };
     
-    const dispatcher = this.client.voice.connections.get(message.guild.id).play(await ytdl(nextSong.url), streamOptions);
+    const dispatcher = this.client.voice.connections.get(message.guild.id).play(ytdl(nextSong.url, ytdlOptions), streamOptions);
     currentPlaylist.dispatcher = dispatcher;
 
     if (!nextSong.loopOne) {
