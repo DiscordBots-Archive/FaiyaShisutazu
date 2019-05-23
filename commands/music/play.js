@@ -168,11 +168,11 @@ module.exports = class Play extends Command {
 
     dispatcher.on('end', async () => {
       if (currentPlaylist.queue.length > 0 && (nextSong.loopOne || currentPlaylist.position + 1 < currentPlaylist.queue.length)) {
-        this.playNext(message);
+        await this.playNext(message);
       } else {
         if (currentPlaylist.loopAll) {
           currentPlaylist.position = 0;
-          this.playNext(message);
+          await this.playNext(message);
         } else {
           this.client.playlists.delete(message.guild.id);
           this.client.voice.connections.get(message.guild.id).disconnect();
