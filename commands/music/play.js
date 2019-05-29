@@ -44,7 +44,7 @@ module.exports = class Play extends Command {
         queue: [],
         connection: null,
         position: -1,
-        volume: 0.2,
+        volume: 0.35,
         loopAll: null
       });
       await message.member.voice.channel.join();
@@ -62,7 +62,7 @@ module.exports = class Play extends Command {
       await this.playlistsHandler(message, url);
     } else {
       await this.videosHandler(message, url)
-        .catch(async () => {
+        .catch( async () => {
           try {
             const results = await youtube.searchVideos(url, 5);
             const choices = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '❎'];
@@ -74,7 +74,12 @@ module.exports = class Play extends Command {
 
               results.forEach(i => embed.addField(`${results.indexOf(i) + 1} ❯ ${i.title}`, `https://www.youtube.com/watch?v=${i.id}`));
 
-              const selectionPrompt = await message.channel.send(`<:tsukihi:559908175906734097> I found these results for **"${url}"**`, embed);
+              const selectionPrompt = await message.channel.send(stripIndents`
+                <:tsukihi:559908175906734097> I found these results for **"${url}"**
+
+                *Please wait until I added all reaction choices*
+              `, embed);
+
               for (let i = 0; i < choices.length; i++) {
                 await selectionPrompt.react(choices[i]);
               }
@@ -150,8 +155,9 @@ module.exports = class Play extends Command {
         .addField('Length', `${nextSong.playTime} (${nextSong.playTimeInSec}s)`, true)
         .addField('Volume', `${currentPlaylist.volume * 100}%`, true);
 
-      const nowPlaying = await message.channel.send(oneLine`▶ Now playing 
-        **${nextSong.title.length > 40 ? `${nextSong.title.substring(0, 40)}...` : `${nextSong.title}`}**`, embed);
+      const nowPlaying = await message.channel.send(oneLine`
+        ▶ Now playing **${nextSong.title.length > 40 ? `${nextSong.title.substring(0, 40)}...` : `${nextSong.title}`}**
+      `, embed);
       
       await nowPlaying.react('🔂');
       if (!currentPlaylist.loopAll) await nowPlaying.react('🔁');
@@ -163,12 +169,14 @@ module.exports = class Play extends Command {
         const prefix = message.guild ? message.guild.commandPrefix : this.client.commandPrefix;
         if (collected.first() && collected.first().emoji.name === '🔂') {
           nextSong.loopOne = true;
-          await message.channel.send(stripIndents`🔂 Looping **${nextSong.title}**...
+          await message.channel.send(stripIndents`
+            🔂 Looping **${nextSong.title}**...
             **${message.member.displayName}-san** can end the loop by running \`${prefix}skip\`
           `);
         } else if (collected.first() && collected.first().emoji.name === '🔁') {
           currentPlaylist.loopAll = true;
-          await message.channel.send(stripIndents`🔁 Looping the whole playlist...
+          await message.channel.send(stripIndents`
+            🔁 Looping the whole playlist...
             **${message.member.displayName}-san** can end the loop by running \`${prefix}stop\`
           `);
         }
@@ -183,9 +191,9 @@ module.exports = class Play extends Command {
           currentPlaylist.position = 0;
           await this.playNext(message);
         } else {
+          await message.channel.send('<:tsukihi:559908175906734097> End of the queue!');
           this.client.playlists.delete(message.guild.id);
           this.client.voice.connections.get(message.guild.id).disconnect();
-          await message.channel.send('<:tsukihi:559908175906734097> End of the queue!');
         }
       }
     });
