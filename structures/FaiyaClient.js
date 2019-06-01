@@ -1,5 +1,5 @@
 const { Client } = require('discord.js-commando');
-const { Collection, MessageEmbed } = require('discord.js');
+const { Collection } = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const idioticAPI = require('idiotic-api');
 

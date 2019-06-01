@@ -4,6 +4,8 @@ require('./util/Prototypes.js');
 const path = require('path');
 const FaiyaClient = require('./structures/FaiyaClient');
 const { oneLine } = require('common-tags');
+const Keyv = require('keyv');
+const KeyvProvider = require('commando-provider-keyv');
 
 const client = new FaiyaClient({
   owner: process.env.OWNER_ID,
@@ -11,6 +13,8 @@ const client = new FaiyaClient({
   unknownCommandResponse: false,
   disableEveryone: true
 });
+
+client.setProvider(new KeyvProvider(new Keyv(`redis://root:${process.env.REDIS_KEY}@localhost:6379`)));
 
 client.on('error', client.logger.error)
   .on('warn', client.logger.warn)
