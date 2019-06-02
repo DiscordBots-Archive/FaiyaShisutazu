@@ -18,6 +18,10 @@ module.exports = class FaiyaClient extends Client {
 
     this.idiotAPI = new idioticAPI.Client(`${process.env.IDIOT_KEY}`, { dev: true });
 
-    this.playlists = new Collection();
+    // Bot's collection of active music streams
+    this.streams = new Collection();
+
+    // Users' personal playlists
+    this.playlists = new Keyv(`redis://root:${process.env.REDIS_KEY}@localhost:6379`, { namespace: 'playlists' });
   }
 };

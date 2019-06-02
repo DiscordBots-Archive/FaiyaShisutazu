@@ -22,7 +22,7 @@ module.exports = class Stop extends Command {
       return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
-    } else if (!message.guild.me.voice || !this.client.playlists.has(message.guild.id)) {
+    } else if (!message.guild.me.voice || !this.client.streams.has(message.guild.id)) {
       return message.channel.send(`
         <:tsukihi:559908175906734097> There is no active stream on this server **${message.member.displayName}-san**!
       `);
@@ -34,7 +34,7 @@ module.exports = class Stop extends Command {
     }
 
     await message.channel.send('⏹ Stopping music stream...');
-    const currentPlaylist = this.client.playlists.get(message.guild.id);
+    const currentPlaylist = this.client.streams.get(message.guild.id);
     currentPlaylist.queue = [];
     currentPlaylist.loopAll = null;
     if (currentPlaylist.dispatcher) currentPlaylist.dispatcher.end();

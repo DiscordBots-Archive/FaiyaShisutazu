@@ -22,7 +22,7 @@ module.exports = class Volume extends Command {
       return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
-    } else if (!message.guild.me.voice || !this.client.playlists.has(message.guild.id)) {
+    } else if (!message.guild.me.voice || !this.client.streams.has(message.guild.id)) {
       return message.channel.send(`
         <:tsukihi:559908175906734097> There is no active stream on this server **${message.member.displayName}-san**!
       `);
@@ -34,7 +34,7 @@ module.exports = class Volume extends Command {
     }
 
     const vol = args;
-    const currentPlaylist = message.client.playlists.get(message.guild.id);
+    const currentPlaylist = message.client.streams.get(message.guild.id);
 
     if (!vol) {
       return message.channel.send(oneLine`
@@ -49,6 +49,6 @@ module.exports = class Volume extends Command {
 
     await message.channel.send(`The stream volume is now ${vol}%!`);
     currentPlaylist.volume = vol / 100;
-    this.client.playlists.get(message.guild.id).dispatcher.setVolume(currentPlaylist.volume);
+    this.client.streams.get(message.guild.id).dispatcher.setVolume(currentPlaylist.volume);
   }
 };

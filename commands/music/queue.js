@@ -19,11 +19,11 @@ module.exports = class Queue extends Command {
   }
 
   async run (message) {
-    if (!this.client.playlists.has(message.guild.id)) {
+    if (!this.client.streams.has(message.guild.id)) {
       return message.channel.send(`<:tsukihi:559908175906734097> The queue is empty ${message.member.displayName}-san.`);
     }
 
-    let playlist = this.client.playlists.get(message.guild.id);
+    let playlist = this.client.streams.get(message.guild.id);
     playlist = playlist.queue.slice(playlist.position);
 
     const current = playlist.shift();

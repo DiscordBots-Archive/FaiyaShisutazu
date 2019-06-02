@@ -37,8 +37,8 @@ module.exports = class Play extends Command {
       `);
     }
 
-    if (!this.client.playlists.has(message.guild.id)) {
-      this.client.playlists.set(message.guild.id, {
+    if (!this.client.streams.has(message.guild.id)) {
+      this.client.streams.set(message.guild.id, {
         firstSong: true,
         dispatcher: null,
         queue: [],
@@ -107,9 +107,9 @@ module.exports = class Play extends Command {
                 }
 
                 await this.addSong(message, id);
-                if (this.client.playlists.get(message.guild.id).firstSong) {
+                if (this.client.streams.get(message.guild.id).firstSong) {
                   await this.playNext(message);
-                  this.client.playlists.get(message.guild.id).firstSong = false;
+                  this.client.streams.get(message.guild.id).firstSong = false;
                 }
               });
             }
@@ -121,7 +121,7 @@ module.exports = class Play extends Command {
   }
   
   async playNext (message) {
-    const currentPlaylist = this.client.playlists.get(message.guild.id);
+    const currentPlaylist = this.client.streams.get(message.guild.id);
     const currentPosition = currentPlaylist.queue[currentPlaylist.position];
 
     let nextSong;
@@ -192,7 +192,7 @@ module.exports = class Play extends Command {
           await this.playNext(message);
         } else {
           await message.channel.send('<:tsukihi:559908175906734097> End of the queue!');
-          this.client.playlists.delete(message.guild.id);
+          this.client.streams.delete(message.guild.id);
           this.client.voice.connections.get(message.guild.id).disconnect();
         }
       }
@@ -214,7 +214,7 @@ module.exports = class Play extends Command {
     let seconds = time % 60;
 
     if (seconds < 10) seconds = '0' + seconds;
-    this.client.playlists.get(message.guild.id).queue.push({
+    this.client.streams.get(message.guild.id).queue.push({
       url: `https://www.youtube.com/watch?v=${info.id}`,
       id: info.id,
       channel: info.channel.title,
@@ -248,9 +248,9 @@ module.exports = class Play extends Command {
       await this.addSong(message, video.id);
     }
 
-    if (this.client.playlists.get(message.guild.id).firstSong) {
+    if (this.client.streams.get(message.guild.id).firstSong) {
       await this.playNext(message);
-      this.client.playlists.get(message.guild.id).firstSong = false;
+      this.client.streams.get(message.guild.id).firstSong = false;
     }
 
     await message.channel.send(`<:tsukihi:559908175906734097> I added songs in playlist **${playlistInfo.title}** to the queue!`);
@@ -268,9 +268,9 @@ module.exports = class Play extends Command {
 
     await this.addSong(message, id);
 
-    if (this.client.playlists.get(message.guild.id).firstSong) {
+    if (this.client.streams.get(message.guild.id).firstSong) {
       await this.playNext(message);
-      this.client.playlists.get(message.guild.id).firstSong = false;
+      this.client.streams.get(message.guild.id).firstSong = false;
     } else {
       const embed = new MessageEmbed()
         .setDescription(oneLine`

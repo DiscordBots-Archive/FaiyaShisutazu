@@ -22,7 +22,7 @@ module.exports = class Pause extends Command {
       return message.channel.send(oneLine`
         <:tsukihi:559908175906734097> Please be in a voice channel first **${message.member.displayName}-san**!
       `);
-    } else if (!message.guild.me.voice || !this.client.playlists.has(message.guild.id)) {
+    } else if (!message.guild.me.voice || !this.client.streams.has(message.guild.id)) {
       return message.channel.send(`
         <:tsukihi:559908175906734097> There is no active stream on this server **${message.member.displayName}-san**!
       `);
@@ -33,11 +33,11 @@ module.exports = class Pause extends Command {
       `);
     }
 
-    if (this.client.playlists.get(message.guild.id).dispatcher.paused) {
+    if (this.client.streams.get(message.guild.id).dispatcher.paused) {
       await message.channel.send(`<:tsukihi:559908175906734097> Playback is already paused **${message.member.displayName}-san**!`);
     } else {
       await message.channel.send('⏸ Pausing music stream...');
-      this.client.playlists.get(message.guild.id).dispatcher.pause();
+      this.client.streams.get(message.guild.id).dispatcher.pause();
     }
   }
 };
